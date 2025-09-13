@@ -2,9 +2,16 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import {BrowserRouter } from 'react-router-dom'
+
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
     <App />
-  </StrictMode>,
+    </BrowserRouter>
+  </React.StrictMode>,
 )
+//React.StrictMode is used to check and warn for descendedants which will help identify and fix common mistakes
+//BrowserRouter will enable us to create a single page application that has multiple "pages" without
+//requiring a full page reload from the server
