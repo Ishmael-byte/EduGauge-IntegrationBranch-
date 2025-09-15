@@ -10,9 +10,9 @@ function App() {
   return (
     <Router>
       <nav style={{ padding: "10px", background: "#333" }}>
-        <Link to="/" style={{ margin: "0 10px", color: "#270303ff" }}>Home</Link>
-        <Link to="/login" style={{ margin: "0 10px", color: "#4e074bff" }}>Login</Link>
-        <Link to="/dashboard" style={{ margin: "0 10px", color: "#07096bff" }}>Dashboard</Link>
+        <Link to="/" style={{ margin: "0 10px", color: "#590570ff" }}>Home</Link>
+        <Link to="/login" style={{ margin: "0 10px", color: "#320336ff" }}>Login</Link>
+        <Link to="/dashboard" style={{ margin: "0 10px", color: "#b192beff" }}>Dashboard</Link>
         <Link to="/SignUpPage" style={{ margin: "0 10px", color: "#fff" }}>SignUpPage</Link>
       </nav>
 

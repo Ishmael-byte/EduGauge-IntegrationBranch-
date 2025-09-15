@@ -15,12 +15,12 @@ function Dashboard() {
           <p>120</p>
         </div>
         <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>
-          <h3>Orders</h3>
+          <h3>Average </h3>
           <p>56</p>
         </div>
         <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>
           <h3>Revenue</h3>
-          <p>$7,540</p>
+          <p>Doing greate</p>
         </div>
       </div>
     </div>
