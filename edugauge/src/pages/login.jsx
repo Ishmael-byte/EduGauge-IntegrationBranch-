@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-//useState is used to add state to functional components to basically 
-//track information that can change over time. 
 const containerStyles = {
   backgroundColor: '#2e2e2e',
   color: 'white',
@@ -11,7 +9,10 @@ const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  // Key changes to ensure full-screen
   minHeight: '100vh',
+  width: '100vw', 
+  boxSizing: 'border-box' // Ensures padding doesn't push content out
 };
 
 const headerStyles = {
@@ -212,7 +213,7 @@ const LoginPage = () => {
               <button type="button" onClick={handleClear} style={clearButtonStyles}>clear</button>
               <div style={linkStyles}>
                 <p>Forgot Password</p>
-                <p>New to EduGauge : <Link to="/SignUp" style={{ color: '#555' }}>Sign Up</Link></p>
+                <p>New to EduGauge : <Link to="/pages/SignUpPage" style={{ color: '#555' }}>Sign Up</Link></p>
               </div>
             </div>
           </form>

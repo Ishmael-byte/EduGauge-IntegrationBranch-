@@ -1,28 +1,145 @@
-function Dashboard() {
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Dashboard</h1>
-      <p>Welcome to your dashboard 👋</p>
+import React from 'react';
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "20px",
-        marginTop: "20px"
-      }}>
-        <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>
-          <h3>Users</h3>
-          <p>120</p>
+function Dashboard() {
+  const pageContainerStyle = {
+    display: 'flex',
+    minHeight: '100vh',
+    width: '100vw',
+    fontFamily: 'Roboto, Arial, sans-serif',
+    color: '#E0E0E0',
+    backgroundColor: '#2c2c2c',
+  };
+
+  const sidebarStyle = {
+    width: '250px',
+    backgroundColor: '#202020',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const logoSectionStyle = {
+    textAlign: 'center',
+    marginBottom: '30px',
+  };
+
+  const logoTextStyle = {
+    color: '#fff',
+    margin: '5px 0',
+    fontSize: '1.2rem',
+  };
+
+  const logoSubTextStyle = {
+    color: '#fff',
+    margin: '5px 0',
+    fontSize: '0.8rem',
+  };
+
+  const sidebarNavStyle = {
+    listStyle: 'none',
+    padding: '0',
+  };
+
+  const navLinkStyle = {
+    display: 'block',
+    padding: '15px 20px',
+    marginBottom: '5px',
+    backgroundColor: '#383838',
+    color: '#fff',
+    textDecoration: 'none',
+    borderRadius: '5px',
+    transition: 'background-color 0.3s',
+  };
+
+  const mainContentStyle = {
+    flexGrow: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '20px',
+  };
+
+  const mainHeaderStyle = {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    padding: '10px 0',
+    marginBottom: '20px',
+  };
+
+  const profileSectionStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#555',
+    padding: '5px 15px',
+    borderRadius: '20px',
+  };
+
+  const profileIconStyle = {
+    fontSize: '1.5rem',
+    marginRight: '10px',
+  };
+
+  const contentBodyStyle = {
+    flexGrow: '1',
+    backgroundColor: '#383838',
+    borderRadius: '8px',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+  
+  const contentBoxStyle = {
+    backgroundColor: '#333',
+    padding: '40px',
+    borderRadius: '8px',
+    width: '50%',
+    minHeight: '150px',
+    marginBottom: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '1.5rem',
+  };
+
+  return (
+    <div style={pageContainerStyle}>
+      {/* Sidebar */}
+      <aside style={sidebarStyle}>
+        <div style={logoSectionStyle}>
+          <img src="/Eduguage-logo.jpg" alt="Edugauge Logo" style={{ maxWidth: '100px', height: 'auto' }} />
+          <h1 style={logoTextStyle}>EDUGUAGE</h1>
+          <h2 style={logoSubTextStyle}>System Enhancing LMS Readiness</h2>
         </div>
-        <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>
-          <h3>Average </h3>
-          <p>56</p>
-        </div>
-        <div style={{ padding: "20px", background: "#f5f5f5", borderRadius: "8px" }}>
-          <h3>Revenue</h3>
-          <p>Doing greate</p>
-        </div>
-      </div>
+        <nav>
+          <ul style={sidebarNavStyle}>
+            <li><a href="#" style={navLinkStyle}>Overview</a></li>
+            <li><a href="#" style={navLinkStyle}>Digital Literacy Test</a></li>
+            <li><a href="#" style={navLinkStyle}>eFundi Readiness Test</a></li>
+            <li><a href="#" style={navLinkStyle}>Helpful recourse</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      {/* Main Content Area */}
+      <main style={mainContentStyle}>
+        <header style={mainHeaderStyle}>
+          <div style={profileSectionStyle}>
+            <span style={profileIconStyle}>👤</span>
+            <span>Profile</span>
+          </div>
+        </header>
+
+        <section style={contentBodyStyle}>
+          <div style={contentBoxStyle}>
+            Welcome Text
+          </div>
+          <div style={contentBoxStyle}>
+            Tasks
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
