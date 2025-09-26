@@ -60,6 +60,13 @@ app.delete("/api/resources/:id", (req, res) => {
   res.json({ message: "Resource deleted successfully" });
 });
 
+// GET actual file (download) → Everyone
+app.get("/api/resources/file/:filename", authenticateToken, (req, res) => {
+  const filePath = path.join(uploadDir, req.params.filename);
+  if (!fs.existsSync(filePath)) return res.status(404).json({ message: "File not found" });
+  res.download(filePath);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
