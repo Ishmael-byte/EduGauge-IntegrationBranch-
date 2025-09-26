@@ -1,0 +1,179 @@
+/* Overall Page Layout */
+.page-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #e0e0e0;
+  background-color: #2c2c2c;
+  margin: 0;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  flex-shrink: 0;
+  width: 250px;
+  background-color: #202020;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+}
+
+.logo-text,
+.logo-subtext {
+  color: #fff;
+  margin: 5px 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 15px 20px;
+  margin-bottom: 5px;
+  background-color: #383838;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+  background-color: #4a4a4a;
+}
+
+/* Main Content Styling */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto; 
+}
+
+.main-header {
+  /*display: flex;
+  justify-content: space-between;
+  align-items: center;*/
+  padding: 20px 30px;
+  background-color: #333;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  background-color: #555;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+.profile-icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.content-body {
+  flex-grow: 1;
+  background-color: #383838;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.content-box {
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/** Left-align questions and options */
+.content-box h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.content-box h3,
+.content-box p,
+.content-box form {
+  text-align: left; 
+  margin-left: 0; 
+}
+
+.content-box h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f1f1f1;
+}
+
+.content-box p {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #cccccc;
+}
+
+/* Style the radio options to align neatly */
+.content-box form label {
+  display: block; 
+  margin: 8px 0; 
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.content-box form input[type="radio"] {
+  margin-right: 10px; 
+  vertical-align: middle;
+}
+
+/* === Navigation Buttons === */
+.navigation-buttons {
+  margin-top: 20px;
+}
+
+.navigation-buttons button {
+  background-color: #4a4a4a;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navigation-buttons button:hover:not(:disabled) {
+  background-color: #5c5c5c;
+}
+
+.navigation-buttons button:disabled {
+  background-color: #777;
+  cursor: not-allowed;
+}
