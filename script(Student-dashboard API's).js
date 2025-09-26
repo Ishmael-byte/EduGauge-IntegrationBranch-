@@ -108,5 +108,80 @@ ex.delete('/assessment/:id', authenticateToken, async (UserReq, DBresults) => {
 });
 
 
+//create new student or lecturer
+ex.post('/create-user', authenticateToken, async (UserReq, DBresults) => {
+    const { role, Fname, Lname, email, password } = UserReq.body;
+
+    if (!role || !Fname || !Lname || !email || !password) {
+        return DBresults.status(400).json({ message: 'All required fields must be provided' });
+    }
+
+    let query;
+    let hashedPassword;
+
+    try {
+        hashedPassword = await bcrypt.hash(password, 10);
+
+        if (role.toLowerCase() === 'student') {
+            query = 'INSERT INTO Student (stud_Fname, stud_Lname, email, password) VALUES (@Fname, @Lname, @email, @password)';
+        } else if (role.toLowerCase() === 'lecturer') {
+            query = 'INSERT INTO Lecturer (Fname, Lname, email, password) VALUES (@Fname, @Lname, @email, @password)';
+        } else {
+            return DBresults.status(400).json({ message: 'Invalid role specified. Must be either "student" or "lecturer".' });
+        }
+
+        await getDbRequest()
+            .input('Fname', sql.NVarChar(30), Fname)
+            .input('Lname', sql.NVarChar(30), Lname)
+            .input('email', sql.NVarChar(50), email)
+            .input('password', sql.NVarChar(255), hashedPassword)
+            .query(query);
+
+        DBresults.status(201).json({ message: 'User created successfully' });
+    } catch (err) {
+        console.error('Error creating user:', { role }, err);
+
+        if (err.message.includes('Violation of UNIQUE KEY constraint')) {
+            return DBresults.status(409).json({ message: 'Email already in use' });
+        }
+        DBresults.status(500).json({ message: 'Failed to create user account' });
+    }
+});
+
+//delete user
+ex.delete('/user/:id', authenticateToken, async (UserReq, DBresults) => {
+    const {role, id} = UserReq.params;
+    const table = '';
+
+    try {
+        if (role.toLowerCase() === 'student') {
+            table = 'Student';
+            const result = await getDbRequest()
+            .input('student_id', sql.Int, id)
+            .query('DELETE FROM Student WHERE stud_id = @student_id');
+        }
+        else if (role.toLowerCase() === 'lecturer') {
+            table = 'Lecturer';
+            const result = await getDbRequest()
+            .input('lecturer_id', sql.Int, id)
+            .query('DELETE FROM Lecturer WHERE lecturer_id = @lecturer_id');
+        }else{
+            return DBresults.status(400).json({ message: 'Invalid role specified. Must be either "student" or "lecturer".' });
+        }
+
+        const result = await getDbRequest().input('id', sql.Int, id).query('DELETE FROM ' + table + ' WHERE id = @id');
+
+        if (result.rowsAffected[0] === 0) {
+            return DBresults.status(404).json({ message: 'User '+ id + ' not found' });
+        }
+        DBresults.json({ message: 'User '+ id + ' deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting user:', { role, id }, err);
+        DBresults.status(500).json({ message: 'Failed to delete user' });
+    }
+});
+
+
+
 
 
