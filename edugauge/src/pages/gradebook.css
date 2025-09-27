@@ -1,0 +1,146 @@
+/* page layout */
+.gb-page {
+  display: flex;
+  min-height: 100vh;
+  background: #1f1f1f; /* dark frame like screenshot */
+  box-sizing: border-box;
+  padding: 16px;
+  gap: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* sidebar */
+.gb-sidebar {
+  width: 260px;
+  background: #f5f3f3;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 0 0 0 6px #1f1f1f inset; /* dark edge like screenshot */
+  overflow: hidden;
+}
+
+.gb-logo {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+/* nav buttons */
+.gb-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.gb-nav-item {
+  background: #e7e7e7;
+  border: 0;
+  border-top: 2px solid rgba(0, 0, 0, 0.12);
+  padding: 18px 16px;
+  text-align: left;
+  font-size: 20px;
+  cursor: pointer;
+  outline: none;
+  color:#111;
+}
+
+/* large empty block at bottom like in screenshot */
+.gb-spacer {
+  height: 180px;
+  background: #e6e6e6;
+  border-top: 2px solid rgba(0,0,0,0.08);
+}
+
+/* main area */
+.gb-main {
+  flex: 1;
+  background: #7d848d; /* bluish gray from screenshot */
+  padding: 26px;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+/* header */
+.gb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gb-small-title {
+  margin: 0;
+  color: #bdbdbd;
+  font-size: 18px;
+}
+
+/* profile */
+.gb-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2e0d5a; /* purple-ish */
+  font-weight: 500;
+}
+
+.gb-profile-icon {
+  font-size: 28px;
+}
+
+/* content area */
+.gb-content {
+  margin-top: 20px;
+  flex: 1;
+}
+
+/* Test Results title box (centered) */
+.gb-test-title {
+  width: 60%;
+  margin: 6px auto 28px;
+  background: #e7e7e7;
+  padding: 12px 18px;
+  text-align: center;
+  font-size: 24px;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+/* table */
+.gb-table {
+  width: 65%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #e7e7e7;
+}
+
+.gb-table thead th {
+  border: 1px solid #333;
+  padding: 12px;
+  background: #e7e7e7;
+  text-align: center;
+  font-weight: 600;
+}
+
+.gb-table tbody td {
+  border: 1px solid #333;
+  padding: 14px;
+  text-align: center;
+  min-height: 32px;
+  vertical-align: middle;
+}
+
+.gb-table td.left {
+  text-align: left;
+  padding-left: 18px;
+}
+
+/* resource button */
+.gb-resource-btn {
+  background: #7b2cbf;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}

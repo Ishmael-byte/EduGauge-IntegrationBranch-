@@ -4,6 +4,8 @@ import Dashboard from "./pages/dashboard.jsx";
 import SignUpPage from  "./pages/SignUpPage.jsx";
 import EFundiTest from "./pages/eFundiTest.jsx";
 import DigitalLiteracyTest from "./pages/DigitalLiteracyTest.jsx";
+import GradeBook from "./pages/Gradebook";
+import Admin from "./pages/Admin.jsx";
 import "./App.css";
 import React from "react";
 
@@ -16,7 +18,6 @@ function App() {
         <Link to="/dashboard" style={{ margin: "0 10px", color: "#fff" }}>Dashboard</Link>
         {/*<Link to="/pages/SignUpPage" style={{ margin: "0 10px", color: "#fff" }}>Sign Up</Link>*/}
         <Link to="/EFundiTest" style={{ margin: "0 10px", color: "#fff" }}>eFundi Test</Link>
-        <Link to="/DigitalLiteracyTest" style={{ margin: "0 10px", color: "#fff" }}>Digital Literacy Test</Link>
       </nav>
 
       <Routes>
@@ -25,7 +26,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pages/SignUpPage" element={<SignUpPage />} />
         <Route path="/EFundiTest" element={<EFundiTest />} />
-        <Route path="/DigitalLiteracyTest" element={<DigitalLiteracyTest />} />
       </Routes>
     </>
   );
