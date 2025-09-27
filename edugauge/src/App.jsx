@@ -18,6 +18,9 @@ function App() {
         <Link to="/dashboard" style={{ margin: "0 10px", color: "#fff" }}>Dashboard</Link>
         {/*<Link to="/pages/SignUpPage" style={{ margin: "0 10px", color: "#fff" }}>Sign Up</Link>*/}
         <Link to="/EFundiTest" style={{ margin: "0 10px", color: "#fff" }}>eFundi Test</Link>
+        <Link to="/DigitalLiteracyTest" style={{ margin: "0 10px", color: "#fff" }}>Digital Literacy Test</Link>
+        <Link to="/GradeBook" style={{ margin: "0 10px", color: "#fff" }}>Grade Book</Link>
+        <Link to="/Admin" style={{ margin: "0 10px", color: "#fff" }}>Admin</Link>
       </nav>
 
       <Routes>
@@ -26,6 +29,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pages/SignUpPage" element={<SignUpPage />} />
         <Route path="/EFundiTest" element={<EFundiTest />} />
+        <Route path="/DigitalLiteracyTest" element={<DigitalLiteracyTest />} />
+        <Route path="/GradeBook" element={<GradeBook />} />
+        <Route path="/Admin" element={<Admin />} />
       </Routes>
     </>
   );
