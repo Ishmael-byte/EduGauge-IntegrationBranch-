@@ -7,7 +7,6 @@ require('dotenv').config();         // Hide our database credentials
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
 
-
 // Database Configuration 
 
 const dbConfig = {
@@ -22,7 +21,7 @@ const dbConfig = {
     }
 };
 
-// Test & Initialize DB Connection (Your function name)
+// Test & Initialize DB Connection 
 
 let dbPool; // We'll store the pool globally 
 
@@ -61,37 +60,64 @@ function authenticateToken(UserReq, DBresults, next) {
     });
 }
 
-
+//================================================= Student API=================================================//
 // Registering a Student 
 ex.post('/register', async (UserReq, DBresults) => {
     const { Fname, Lname, email, password } = UserReq.body;
+
     if (!Fname || !Lname || !email || !password) {
         return DBresults.status(400).json({ error: 'All fields are required' });
     }
+
+   
     try {
-        // Check if student exists
-        let existing = await getDbRequest()
+        // Check if student exists (by email)
+        const existing = await getDbRequest()
             .input('email', sql.NVarChar, email)
-            .query('SELECT * FROM Student WHERE email = @email');
+            .query('SELECT email FROM Student WHERE email = @email');
         if (existing.recordset.length > 0) {
             return DBresults.status(400).json({ error: 'Student already exists' });
         }
+
+        // create student_number: 2-digit sequence and date that uses this format YYYYMMDD
+         const today = new Date();
+        const datePart = today.getFullYear() + 
+                         String(today.getMonth() + 1).padStart(2, '0') + 
+                         String(today.getDate()).padStart(2, '0'); 
+
+        // Get next sequence number count of students registered TODAY + 1
+        const countResult = await getDbRequest()
+            .query(`
+                SELECT COUNT(*) AS total 
+                FROM Student 
+                WHERE registration_date = CAST(GETDATE() AS DATE)
+            `);
+        const seq = countResult.recordset[0].total + 1;
+        const seqPart = String(seq).padStart(2, '0'); 
+
+        const student_number = seqPart + datePart; 
+
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Insert student 
+        
+        //insert with student_number as PK
         await getDbRequest()
+            .input('student_number', sql.NVarChar, student_number)
             .input('Fname', sql.NVarChar, Fname)
             .input('Lname', sql.NVarChar, Lname)
             .input('email', sql.NVarChar, email)
             .input('hashedPassword', sql.NVarChar, hashedPassword)
-            .input('admin_id', sql.Int, 1)
             .query(`
-                INSERT INTO Student (Fname, Lname, email, password, admin_id)
-                VALUES (@Fname, @Lname, @email, @hashedPassword, @admin_id)
+                INSERT INTO Student (student_number, Fname, Lname, email, password)
+                VALUES (@student_number, @Fname, @Lname, @email, @hashedPassword)
             `);
 
-        DBresults.status(201).json({ message: 'Registered successfully' });
+
+        // Return student_number and this will be the students login username 
+        DBresults.status(201).json({ 
+            message: 'Registered successfully',
+            student_number 
+        });
 
     } catch (err) {
         console.error("Error registering user: ", err);
@@ -99,8 +125,7 @@ ex.post('/register', async (UserReq, DBresults) => {
     }
 });
 
-
-//USER LOGIN but as a Student 
+//User login but as a Student 
 ex.post('/login', async (UserReq, DBresults) => {
     const { student_number, password } = UserReq.body; 
 
@@ -129,7 +154,6 @@ ex.post('/login', async (UserReq, DBresults) => {
         // This will help us identify the student in protected routes
         const token = jwt.sign(
             { 
-                stud_id: student.stud_id, 
                 student_number: student.student_number, 
                 email: student.email 
             },
@@ -152,8 +176,101 @@ ex.post('/login', async (UserReq, DBresults) => {
     }
 });
 
+// Forgot password: Student
+ex.post('/forgotPassword', async (UserReq, DBresults) => {
+    const { email, newPassword } = UserReq.body;
+    if (!email || !newPassword) {
+        return DBresults.status(400).json({ error: 'Email and new password required' });
+    }
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        let result = await getDbRequest()
+            .input('email', sql.NVarChar, email)
+            .input('hashedPassword', sql.NVarChar, hashedPassword)
+            .query('UPDATE Student SET password = @hashedPassword WHERE email = @email');
 
-//ADMIN LOGIN but they dont need to register they just login 
+        if (result.rowsAffected[0] > 0) {
+            DBresults.status(200).json({ message: 'Password updated successfully' });
+        } else {
+            DBresults.status(404).json({ error: 'Email not found' });
+        }
+    } catch (err) {
+        console.error("Error updating password: ", err);
+        DBresults.status(500).json({ error: 'Failed to update password' });
+    }
+});
+
+
+//  Get the profile of the student 
+ex.get('/profile/:student_number', async (UserReq, DBresults) => {
+    const { student_number } = UserReq.params;
+    try {
+        let result = await getDbRequest()
+            .input('student_number', sql.NVarChar, student_number)
+            .query('SELECT Fname, Lname, email, student_number FROM Student WHERE student_number = @student_number');
+
+        if (result.recordset.length === 0) {
+            return DBresults.status(404).json({ error: 'Student not found' });
+        }
+
+        DBresults.json(result.recordset[0]);
+
+    } catch (err) {
+        console.error("Error fetching profile: ", err);
+        DBresults.status(500).json({ error: 'Failed to fetch profile' });
+    }
+});
+
+
+// Update user profile 
+ex.put('/UpdateProfile/:student_number', async (UserReq, DBresults) => {
+    const { student_number } = UserReq.params;
+    const { Fname, Lname, email, newPassword } = UserReq.body;
+
+    try {
+        let request = getDbRequest()
+            .input('student_number', sql.NVarChar, student_number);
+
+        let updates = [];
+        if (Fname) {
+            updates.push('Fname = @Fname');
+            request.input('Fname', sql.NVarChar, Fname);
+        }
+        if (Lname) {
+            updates.push('Lname = @Lname');
+            request.input('Lname', sql.NVarChar, Lname);
+        }
+        if (email) {
+            updates.push('email = @email');
+            request.input('email', sql.NVarChar, email);
+        }
+        if (newPassword) {
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            updates.push('password = @hashedPassword');
+            request.input('hashedPassword', sql.NVarChar, hashedPassword);
+        }
+
+        if (updates.length === 0) {
+            return DBresults.status(400).json({ error: 'No fields to update' });
+        }
+
+        const query = `UPDATE Student SET ${updates.join(', ')} WHERE student_number = @student_number`;
+        let result = await request.query(query);
+
+        if (result.rowsAffected[0] > 0) {
+            DBresults.json({ message: 'Profile updated successfully' });
+        } else {
+            DBresults.status(404).json({ error: 'Student not found or no changes made' });
+        }
+            
+    } catch (err) {
+        console.error("Failed to update profile: ", err);
+        DBresults.status(500).json({ error: 'Failed to update profile' });
+    }
+});
+//================================================= End of student API=================================================//
+
+//Admin login but they dont need to register they just login 
 ex.post('/login/admin', async (UserReq, DBresults) => {
     const { email, password } = UserReq.body;
 
@@ -235,104 +352,6 @@ ex.post('/login/lecturer', async (UserReq, DBresults) => {
         DBresults.status(500).json({ error: 'Login failed' });
     }
 });
-
-// Forgot password - Student
-ex.post('/forgot-password', async (UserReq, DBresults) => {
-    const { email, newPassword } = UserReq.body;
-    if (!email || !newPassword) {
-        return DBresults.status(400).json({ error: 'Email and new password required' });
-    }
-
-    try {
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-        let result = await getDbRequest()
-            .input('email', sql.NVarChar, email)
-            .input('hashedPassword', sql.NVarChar, hashedPassword)
-            .query('UPDATE Student SET password = @hashedPassword WHERE email = @email');
-
-        if (result.rowsAffected[0] > 0) {
-            DBresults.status(200).json({ message: 'Password updated successfully' });
-        } else {
-            DBresults.status(404).json({ error: 'Email not found' });
-        }
-    } catch (err) {
-        console.error("Error updating password: ", err);
-        DBresults.status(500).json({ error: 'Failed to update password' });
-    }
-});
-
-
-//  Get the profile of the student 
-ex.get('/profile/:student_number', async (UserReq, DBresults) => {
-    const { student_number } = UserReq.params;
-
-    try {
-        let result = await getDbRequest()
-            .input('student_number', sql.NVarChar, student_number)
-            .query('SELECT stud_id, Fname, Lname, email, student_number FROM Student WHERE student_number = @student_number');
-
-        if (result.recordset.length === 0) {
-            return DBresults.status(404).json({ error: 'Student not found' });
-        }
-
-        DBresults.json(result.recordset[0]);
-
-    } catch (err) {
-        console.error("Error fetching profile: ", err);
-        DBresults.status(500).json({ error: 'Failed to fetch profile' });
-    }
-});
-
-
-// Update user profile 
-
-ex.put('/profile/:student_number', async (UserReq, DBresults) => {
-    const { student_number } = UserReq.params;
-    const { Fname, Lname, email, newPassword } = UserReq.body;
-
-    try {
-        let request = getDbRequest()
-            .input('student_number', sql.NVarChar, student_number);
-
-        let updates = [];
-        if (Fname) {
-            updates.push('Fname = @Fname');
-            request.input('Fname', sql.NVarChar, Fname);
-        }
-        if (Lname) {
-            updates.push('Lname = @Lname');
-            request.input('Lname', sql.NVarChar, Lname);
-        }
-        if (email) {
-            updates.push('email = @email');
-            request.input('email', sql.NVarChar, email);
-        }
-        if (newPassword) {
-            const hashedPassword = await bcrypt.hash(newPassword, 10);
-            updates.push('password = @hashedPassword');
-            request.input('hashedPassword', sql.NVarChar, hashedPassword);
-        }
-
-        if (updates.length === 0) {
-            return DBresults.status(400).json({ error: 'No fields to update' });
-        }
-
-        const query = `UPDATE Student SET ${updates.join(', ')} WHERE student_number = @student_number`;
-        let result = await request.query(query);
-
-        if (result.rowsAffected[0] > 0) {
-            DBresults.json({ message: 'Profile updated successfully' });
-        } else {
-            DBresults.status(404).json({ error: 'Student not found or no changes made' });
-        }
-
-    } catch (err) {
-        console.error("Failed to update profile: ", err);
-        DBresults.status(500).json({ error: 'Failed to update profile' });
-    }
-});
-
 
 // Home route uses authenticate middleware
 

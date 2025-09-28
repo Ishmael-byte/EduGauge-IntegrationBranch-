@@ -429,7 +429,6 @@ ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
 // Get grades for a lecturer's students (Overview)
 ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => {
     const lecturerId = UserReq.params.id;
-
     try {
         const result = await getDbRequest()
             .input('lecturer_id', sql.Int, lecturerId)
