@@ -6,10 +6,12 @@ import EFundiTest from "./pages/eFundiTest.jsx";
 import DigitalLiteracyTest from "./pages/DigitalLiteracyTest.jsx";
 import GradeBook from "./pages/Gradebook";
 import Admin from "./pages/Admin.jsx";
+import AddLecture from "./pages/AddLecture.jsx";
+import Lecturer from "./pages/Lecturer.jsx";
 import "./App.css";
 import React from "react";
 
-function App() {
+function App() { 
   return (
     <>
       <nav style={{ padding: "10px", background: "#333" }}>
@@ -21,6 +23,8 @@ function App() {
         <Link to="/DigitalLiteracyTest" style={{ margin: "0 10px", color: "#fff" }}>Digital Literacy Test</Link>
         <Link to="/GradeBook" style={{ margin: "0 10px", color: "#fff" }}>Grade Book</Link>
         <Link to="/Admin" style={{ margin: "0 10px", color: "#fff" }}>Admin</Link>
+        <Link to="/AddLecture" style={{ margin: "0 10px", color: "#fff" }}>Add Lecture</Link>
+        <Link to="/Lecturer" style={{ margin: "0 10px", color: "#fff" }}>Lecturer</Link>
       </nav>
 
       <Routes>
@@ -32,6 +36,8 @@ function App() {
         <Route path="/DigitalLiteracyTest" element={<DigitalLiteracyTest />} />
         <Route path="/GradeBook" element={<GradeBook />} />
         <Route path="/Admin" element={<Admin />} />
+        <Route path="/AddLecture" element={<AddLecture />} />
+        <Route path="/Lecturer" element={<Lecturer />} />
       </Routes>
     </>
   );
