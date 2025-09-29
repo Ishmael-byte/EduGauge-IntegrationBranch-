@@ -192,9 +192,9 @@ const ProfilePage = () => {
                 <nav>
                     <ul style={styles.sidebarNav}>
                         <li><Link to="/dashboard" style={styles.navLink}>Overview</Link></li>
-                        <li><a href="#" style={styles.navLink}>Digital Literacy Test</a></li>
-                        <li><a href="#" style={styles.navLink}>eFundi Readiness Test</a></li>
-                        <li><a href="#" style={styles.navLink}>Helpful recourse</a></li>
+                        <li><Link to="/DigitalLiteracyTest" style={styles.navLink}>Digital Literacy Test</Link></li>
+                        <li><Link to="/eFundiTest" style={styles.navLink}>eFundi Readiness Test</Link></li>
+                        <li><Link to="#" style={styles.navLink}>Helpful recourse</Link></li>
                     </ul>
                 </nav>
             </aside>
