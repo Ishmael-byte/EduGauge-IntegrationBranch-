@@ -7,7 +7,7 @@ require('dotenv').config();         // Hide our database credentials
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
 
-// Database Configuration 
+// Database Configuration
 
 const dbConfig = {
     user: process.env.DATABASE_USERNAME,
@@ -113,7 +113,7 @@ ex.post('/register', async (UserReq, DBresults) => {
             `);
 
 
-        // Return student_number and this will be the students login username 
+        // Return student_number and this will be the students login username
         DBresults.status(201).json({ 
             message: 'Registered successfully',
             student_number 
