@@ -699,9 +699,13 @@ function DigitalLiteracyTest() {
       </aside>
 
       {/* Main content */}
-      <main className="main-content">
-        <header className="main-header">
-          <h2 className="header-title">Digital Literacy Test</h2>
+      <main style={mainContentStyle}>
+        <header style={mainHeaderStyle}>
+          <h1 style={headerTitleStyle}>Digital Literacy Test</h1>
+          <div style={profileSectionStyle}>
+            <span style={profileIconStyle}>👤</span>
+            <span>Profile</span>
+          </div>
         </header>
 
         <section className="content-body">

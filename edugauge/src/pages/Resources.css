@@ -1,0 +1,214 @@
+/* === Overall Page Layout === */
+.page-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #e0e0e0;
+  background-color: #2c2c2c;
+  margin: 0;
+}
+
+/* === Sidebar Styling === */
+.sidebar {
+  flex-shrink: 0;
+  width: 250px;
+  background-color: #202020;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+}
+
+.logo-text,
+.logo-subtext {
+  color: #fff;
+  margin: 5px 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 15px 20px;
+  margin-bottom: 5px;
+  background-color: #383838;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+  background-color: #4a4a4a;
+}
+
+/* === Main Content Styling === */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.main-header {
+  padding: 20px 30px;
+  background-color: #333;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  background-color: #555;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+/* === Content Area === */
+.content-body {
+  flex-grow: 1;
+  background-color: #383838;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left;
+  display: block;
+}
+
+.content-box {
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content-box h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+/* === Resource Page Specific === */
+.resource-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Upload section */
+.upload-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.file-input {
+  padding: 5px;
+  background-color: #383838;
+  border: 1px solid #555;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.upload-btn {
+  background-color: #4a4a4a;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+  background-color: #5c5c5c;
+}
+
+/* Resource list styling */
+.resource-table-container {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.resource-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1e1e1e;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.resource-table th,
+.resource-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.resource-table th {
+  background-color: #2a2a2a;
+  font-weight: bold;
+}
+
+.resource-table tr:hover {
+  background-color: #2e2e2e;
+}
+
+.no-resources {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  color: #aaa;
+}
+
+.table-btn {
+  background: #444;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.table-btn:hover {
+  background: #666;
+}
