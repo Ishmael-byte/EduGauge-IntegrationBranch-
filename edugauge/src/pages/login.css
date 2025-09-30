@@ -1,0 +1,243 @@
+/* CSS Variables for Theme Colors */
+:root {
+    --color-dark-background: #2e2e2e;
+    --color-mid-grey: #555;
+    --color-light-grey: #ccc;
+    --color-white: white;
+    --color-accent-purple: #6a369e;
+    --color-logo-border: #606568ff;
+    --color-form-text: #555;
+}
+
+/* containerStyles */
+.container-styles {
+    background-color: var(--color-dark-background);
+    color: var(--color-white);
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw; 
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* headerStyles */
+.header-styles {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* mainContentStyles */
+.main-content-styles {
+    background-color: var(--color-mid-grey);
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* leftPanelStyles */
+.left-panel-styles {
+    /* Based on original width and min-width */
+    width: 45%; 
+    min-width: 300px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* logoContainerStyles */
+.logo-container-styles {
+    background-color: grey;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 30%;
+    height: auto;
+    box-sizing: border-box;
+    border: 2px solid var(--color-logo-border);
+}
+
+/* logoImageStyles */
+.logo-image-styles {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* advertsBoxStyles */
+.adverts-box-styles {
+    background-color: var(--color-light-grey);
+    color: var(--color-form-text);
+    padding: 20px;
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+}
+
+/* rightPanelStyles */
+.right-panel-styles {
+    /* Based on original width and min-width */
+    width: 45%; 
+    min-width: 300px;
+    margin-left: 20px;
+}
+
+/* welcomeBoxStyles */
+.welcome-box-styles {
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+    padding: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* welcomeTextStyles */
+.welcome-text-styles {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* formStyles */
+.form-styles {
+    background-color: var(--color-white);
+    padding: 20px;
+    color: var(--color-form-text);
+}
+
+/* inputGroupStyles */
+.input-group-styles {
+    margin-bottom: 15px;
+}
+
+/* inputLabelStyles */
+.input-label-styles {
+    display: block;
+    margin-bottom: 5px;
+    color: #000; /* Assuming black text for labels on white background */
+}
+
+/* inputFieldStyles */
+.input-field-styles {
+    /* Width adjustment for padding as per original inline style */
+    width: calc(100% - 10px); 
+    padding: 8px 5px;
+    border: 1px solid var(--color-light-grey);
+    border-radius: 4px;
+    box-sizing: border-box; /* Necessary due to width: calc() */
+}
+
+/* buttonRowStyles */
+.button-row-styles {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* loginButtonStyles */
+.login-button-styles {
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.2s;
+}
+
+.login-button-styles:hover {
+    background-color: #582a87;
+}
+
+/* clearButtonStyles */
+.clear-button-styles {
+    background-color: transparent;
+    color: var(--color-form-text);
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.clear-button-styles:hover {
+    color: #333;
+}
+
+/* linkStyles (container for text links) */
+.link-styles {
+    font-size: 12px;
+    color: var(--color-form-text);
+    text-decoration: none;
+    margin-left: auto; /* Pushes links to the far right */
+    text-align: right;
+}
+
+/* Link for "Sign Up" inside link-styles */
+.signup-link-styles {
+    color: var(--color-form-text);
+    text-decoration: underline;
+}
+
+/* bottomLinkStyles */
+.bottom-link-styles {
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.bottom-link-styles:hover {
+    background-color: #582a87;
+}
+
+/* Media Query for Stacking on smaller screens */
+@media (max-width: 700px) {
+    .main-content-styles {
+        flex-direction: column;
+    }
+    
+    .left-panel-styles,
+    .right-panel-styles {
+        width: 100%;
+        min-width: unset;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .logo-container-styles {
+        width: 60px; /* Smaller logo on mobile */
+    }
+    
+    .button-row-styles {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .login-button-styles {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .link-styles {
+        margin-left: 0;
+        text-align: left;
+    }
+}
