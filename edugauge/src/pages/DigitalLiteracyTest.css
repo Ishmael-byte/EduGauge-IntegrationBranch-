@@ -1,4 +1,4 @@
-/* Overall Page Layout */
+/* === Overall Page Layout === */
 .page-container {
   display: flex;
   flex-direction: row;
@@ -9,7 +9,7 @@
   margin: 0;
 }
 
-/* Sidebar Styling */
+/* === Sidebar Styling === */
 .sidebar {
   flex-shrink: 0;
   width: 250px;
@@ -56,19 +56,16 @@
   background-color: #4a4a4a;
 }
 
-/* Main Content Styling */
+/* === Main Content Styling === */
 .main-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .main-header {
-  /*display: flex;
-  justify-content: space-between;
-  align-items: center;*/
   padding: 20px 30px;
   background-color: #333;
   border-radius: 8px;
@@ -100,6 +97,7 @@
   padding: 20px;
   text-align: left;
   align-items: flex-start;
+  display: block;
 }
 
 .content-box {
@@ -108,9 +106,12 @@
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: left;
+  display: flex;
+  flex-direction: column; /* stack all questions vertically */
+  gap: 20px;
 }
 
-/** Left-align questions and options */
+/** === Section Titles === */
 .content-box h2 {
   font-size: 1.4rem;
   font-weight: bold;
@@ -121,8 +122,8 @@
 .content-box h3,
 .content-box p,
 .content-box form {
-  text-align: left; 
-  margin-left: 0; 
+  text-align: left;
+  margin-left: 0;
 }
 
 .content-box h3 {
@@ -138,18 +139,44 @@
   color: #cccccc;
 }
 
-/* Style the radio options to align neatly */
-.content-box form label {
-  display: block; 
-  margin: 8px 0; 
-  cursor: pointer;
+/* === Question Styling === */
+.question-box {
+  display: block;
+  width: 100%;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #555;
   text-align: left;
-  font-size: 0.95rem;
-  color: #e0e0e0;
 }
 
-.content-box form input[type="radio"] {
-  margin-right: 10px; 
+.question-box p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* Force options to stack vertically */
+.question-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style each option */
+.option-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  white-space: normal; /* allow wrapping */
+}
+
+.option-label input[type="radio"] {
+  margin-right: 10px;
+  flex: 0 0 auto;
   vertical-align: middle;
 }
 

@@ -646,11 +646,16 @@ function DigitalLiteracyTest() {
   const [answers, setAnswers] = useState({});
 
   function handleNext() {
-        if (currentPage < pages.length - 1) setCurrentPage(currentPage + 1);
+        if (currentPage < pages.length - 1) 
+          setCurrentPage(currentPage + 1);
+          window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
   const handlePrevious = () => {
-    if (currentPage > 0) setCurrentPage(currentPage - 1);
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const handleSave = () => {

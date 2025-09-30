@@ -77,19 +77,19 @@ function AddLecture() {
         <form onSubmit={handleSubmit} className="admin-card">
           <h1>Lecturer</h1>
 
-          {fields.map((field) => (
-            <div className="form-group" key={field.id}>
-              <label htmlFor={field.id}>{field.label}</label>
-              <input
-                id={field.id}
-                type={field.type || "text"}
-                name={field.id}
-                value={formData[field.id]}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          ))}
+{fields.map((field) => (
+  <div className="form-group" key={field.id}>
+    <label htmlFor={field.id}>{field.label}</label>
+    <input
+      id={field.id}
+      type={field.type || "text"}
+      name={field.id}
+      value={formData[field.id]}
+      onChange={handleChange}
+      required
+    />
+  </div>
+))}
 
           <div className="actions">
             <button type="submit">Sign up</button>

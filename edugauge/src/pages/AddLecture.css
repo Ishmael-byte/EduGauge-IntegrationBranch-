@@ -1,3 +1,12 @@
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 /* Overall layout */
 .admin-page {
   display: flex;
@@ -23,16 +32,16 @@
   margin-bottom: 15px;
 }
 
-.admin-sidebar h2 { 
-  font-size: 20px; 
-  font-weight: bold; 
-  margin-bottom: 5px; 
+.admin-sidebar h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.admin-sidebar p { 
-  font-size: 12px; 
-  margin-bottom: 20px; 
-  text-align: center; 
+.admin-sidebar p {
+  font-size: 12px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .admin-sidebar button {
@@ -75,23 +84,23 @@
   color: #fff;
 }
 
-/* Flex-based form rows */
+/* ----------------- FORM GROUPS ----------------- */
 .admin-card .form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 14px;
+  display: block; /* each group stacks vertically */
+  margin-bottom: 16px;
 }
 
 .admin-card .form-group label {
-  width: 160px;       /* fixed width for labels */
-  text-align: right;  /* right-align label text */
-  margin-right: 12px; /* space between label and input */
+  display: block; /* label on its own line */
+  margin-bottom: 6px;
   font-size: 16px;
   color: #fff;
+  margin-bottom: 6px; /* space between label and input */
 }
 
 .admin-card .form-group input {
-  flex: 1;            /* take remaining space */
+  display: block;
+  width: 100%; /* input stretches full width */
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ddd;
@@ -101,7 +110,7 @@
   box-sizing: border-box;
 }
 
-/* Actions row */
+/* ----------------- ACTIONS ----------------- */
 .admin-card .actions {
   display: flex;
   justify-content: center;
@@ -110,7 +119,6 @@
   margin-top: 18px;
 }
 
-/* Primary button */
 .admin-card button[type="submit"] {
   background: #6d28d9;
   color: #fff;
@@ -121,7 +129,6 @@
   font-size: 16px;
 }
 
-/* Clear button */
 .admin-card .clear-btn {
   background: none;
   border: none;
@@ -132,17 +139,13 @@
   padding: 0;
 }
 
-/* Responsive for small screens */
+/* ----------------- RESPONSIVE ----------------- */
 @media (max-width: 560px) {
-  .admin-card .form-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .admin-card .form-group label {
+  .admin-card {
     width: 100%;
-    text-align: left;
-    margin-bottom: 6px;
+    padding: 20px;
   }
+
   .admin-card .actions {
     flex-direction: column;
     gap: 10px;
