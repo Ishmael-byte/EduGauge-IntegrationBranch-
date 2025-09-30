@@ -8,6 +8,7 @@ import GradeBook from "./pages/Gradebook";
 import Admin from "./pages/Admin.jsx";
 import AddLecture from "./pages/AddLecture.jsx";
 import Lecturer from "./pages/Lecturer.jsx";
+import Profile from "./pages/profile.jsx";
 import "./App.css";
 import React from "react";
 
@@ -25,6 +26,7 @@ function App() {
         <Link to="/Admin" style={{ margin: "0 10px", color: "#fff" }}>Admin</Link>
         <Link to="/AddLecture" style={{ margin: "0 10px", color: "#fff" }}>Add Lecture</Link>
         <Link to="/Lecturer" style={{ margin: "0 10px", color: "#fff" }}>Lecturer</Link>
+        <Link to="/Profile" style={{ margin: "0 10px", color: "#fff" }}>Profile</Link>
       </nav>
 
       <Routes>
@@ -38,6 +40,7 @@ function App() {
         <Route path="/Admin" element={<Admin />} />
         <Route path="/AddLecture" element={<AddLecture />} />
         <Route path="/Lecturer" element={<Lecturer />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   );
