@@ -722,8 +722,130 @@ ex.delete('/assessment/:id', authenticateToken, async (UserReq, DBresults) => {
 });
 
 //================================================= END OF ASSESSMENT API=================================================//
+//================================================= ANSWER API =================================================//
+ex.post('/answer/:questionId', authenticateToken, async (UserReq, DBresults) => {
+    const answerDescription = UserReq.body.answerDescription;
+    const questionId = UserReq.params.questionId;
+    const studentId = UserReq.user?.studentId;
+
+    if (!studentId) {
+        return DBresults.status(403).json({ message: 'Only students can submit answers' });
+    }
+
+    if (!answerDescription) {
+        return DBresults.status(400).json({ message: 'Answer description is required' });
+    }
+
+    try {
+        await getDbRequest()
+            .input('question_id', sql.Int, questionId)
+            .input('ans_description', sql.NVarChar(1000), answerDescription)
+            .input('student_id', sql.Int, studentId)
+            .query('INSERT INTO Answer (question_id, ans_description, student_id) VALUES (@question_id, @ans_description, @student_id)');
+
+        DBresults.status(201).json({ message: 'Answer submitted successfully' });
+    } catch (err) {
+        console.error("Error submitting answer:", err);
+        DBresults.status(500).json({ message: 'Failed to submit answer' });
+    }
+});
+//================================================= END OF ANSWER API ==========================================//
 
 
+//================================================= FEEDBACK API=================================================//
+
+ex.post('/feedback', authenticateToken, async (UserReq, DBresults) => {
+    const { feedbackText, grade, assessmentId, studentId } = UserReq.body;
+    const lecturerId = UserReq.lecturerid;
+
+    if (!lecturerId) {
+        return DBresults.status(403).json({ message: 'Only lecturers can submit feedback' });
+    }
+
+    if (!feedbackText || !grade || !assessmentId || !studentId) {
+        return DBresults.status(400).json({ message: 'All fields are required' });
+    }
+
+    try {
+        await getDbRequest()
+            .input('feedback_text', sql.NVarChar(1000), feedbackText)
+            .input('grade', sql.Int, grade)
+            .input('assessment_id', sql.Int, assessmentId)
+            .input('student_id', sql.Int, studentId)
+            .input('lecturer_id', sql.Int, lecturerId)
+            .query('INSERT INTO Feedback (feedback_text, grade, assessment_id, student_id, lecturer_id) VALUES (@feedback_text, @grade, @assessment_id, @student_id, @lecturer_id)');
+
+        DBresults.status(201).json({ message: 'Feedback submitted successfully' });
+    } catch (err) {
+        console.error("Error submitting feedback:", err);
+        DBresults.status(500).json({ message: 'Failed to submit feedback' });
+    }
+});
+
+ex.get('/feedback', authenticateToken, async (UserReq, DBresults) => {
+    const studentId = UserReq.user?.studentId;
+
+    if (!studentId) {
+        return DBresults.status(403).json({ message: 'Only students can view feedback' });
+    }
+
+    try {
+        const result = await getDbRequest()
+            .input('student_id', sql.Int, studentId)
+            .query('SELECT feedback_text, grade, assessment_id FROM Feedback WHERE student_id = @student_id');
+
+        DBresults.json({ feedback: result.recordset });
+    } catch (err) {
+        console.error("Error fetching feedback:", err);
+        DBresults.status(500).json({ message: 'Failed to fetch feedback' });
+    }
+});
+
+//================================================= END OF FEEDBACK API=================================================//
+
+//================================================= QUESTION API ===============================================//
+ex.get('/question/:assessmentId', authenticateToken, async (UserReq, DBresults) => {
+    const assessmentId = UserReq.params.assessmentId;
+
+    try {
+        const result = await getDbRequest()
+            .input('assessment_id', sql.Int, assessmentId)
+            .query('SELECT question_id, description FROM Question WHERE assessment_id = @assessment_id');
+
+        DBresults.json({ questions: result.recordset });
+    } catch (err) {
+        console.error("Error fetching questions:", err);
+        DBresults.status(500).json({ message: 'Failed to fetch questions' });
+    }
+});
+
+ex.post('/question/:assessmentId', authenticateToken, async (UserReq, DBresults) => {
+    const description = UserReq.body.description;
+    const assessmentId = UserReq.params.assessmentId;
+    const lecturerId = UserReq.lecturerid;
+
+    if (!lecturerId) {
+        return DBresults.status(403).json({ message: 'Only lecturers can add questions' });
+    }
+
+    if (!description) {
+        return DBresults.status(400).json({ message: 'Question description is required' });
+    }
+
+    try {
+        await getDbRequest()
+            .input('assessment_id', sql.Int, assessmentId)
+            .input('description', sql.NVarChar(1000), description)
+            .query('INSERT INTO Question (assessment_id, description) VALUES (@assessment_id, @description)');
+
+        DBresults.status(201).json({ message: 'Question added successfully' });
+    } catch (err) {
+        console.error("Error adding question:", err);
+        DBresults.status(500).json({ message: 'Failed to add question' });
+    }
+});
+
+//================================================= END OF QUESTION API=================================================//
 // Home route uses authenticate middleware
 
 ex.get('/home', authenticateToken, (UserReq, DBresults) => {
@@ -739,3 +861,4 @@ const PORT = process.env.PORT || 5000;
 ex.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
