@@ -293,6 +293,7 @@ ex.get('student/grades', authenticateToken, async (USerReq, DBresults) => {
 });;
 //================================================= End of student API=================================================//
 
+
 //================================================= Admin API=================================================//
 
 //Admin login but they dont need to register they just login 
@@ -337,6 +338,82 @@ ex.post('/login/admin', async (UserReq, DBresults) => {
         DBresults.status(500).json({ error: 'Login failed' });
     }
 });
+
+//create new student or lecturer
+ex.post('/create-user', authenticateToken, async (UserReq, DBresults) => {
+    const { role, Fname, Lname, email, password } = UserReq.body;
+
+    if (!role || !Fname || !Lname || !email || !password) {
+        return DBresults.status(400).json({ message: 'All required fields must be provided' });
+    }
+
+    let query;
+    let hashedPassword;
+
+    try {
+        hashedPassword = await bcrypt.hash(password, 10);
+
+        if (role.toLowerCase() === 'student') {
+            query = 'INSERT INTO Student (stud_Fname, stud_Lname, email, password) VALUES (@Fname, @Lname, @email, @password)';
+        } else if (role.toLowerCase() === 'lecturer') {
+            query = 'INSERT INTO Lecturer (Fname, Lname, email, password) VALUES (@Fname, @Lname, @email, @password)';
+        } else {
+            return DBresults.status(400).json({ message: 'Invalid role specified. Must be either "student" or "lecturer".' });
+        }
+
+        await getDbRequest()
+            .input('Fname', sql.NVarChar(30), Fname)
+            .input('Lname', sql.NVarChar(30), Lname)
+            .input('email', sql.NVarChar(50), email)
+            .input('password', sql.NVarChar(255), hashedPassword)
+            .query(query);
+
+        DBresults.status(201).json({ message: 'User created successfully' });
+    } catch (err) {
+        console.error('Error creating user:', { role }, err);
+
+        if (err.message.includes('Violation of UNIQUE KEY constraint')) {
+            return DBresults.status(409).json({ message: 'Email already in use' });
+        }
+        DBresults.status(500).json({ message: 'Failed to create user account' });
+    }
+});
+
+//delete user
+ex.delete('/user/:id', authenticateToken, async (UserReq, DBresults) => {
+    const {role, id} = UserReq.params;
+    const table = '';
+
+    try {
+        if (role.toLowerCase() === 'student') {
+            table = 'Student';
+            const result = await getDbRequest()
+            .input('student_id', sql.Int, id)
+            .query('DELETE FROM Student WHERE stud_id = @student_id');
+        }
+        else if (role.toLowerCase() === 'lecturer') {
+            table = 'Lecturer';
+            const result = await getDbRequest()
+            .input('lecturer_id', sql.Int, id)
+            .query('DELETE FROM Lecturer WHERE lecturer_id = @lecturer_id');
+        }else{
+            return DBresults.status(400).json({ message: 'Invalid role specified. Must be either "student" or "lecturer".' });
+        }
+
+        const result = await getDbRequest().input('id', sql.Int, id).query('DELETE FROM ' + table + ' WHERE id = @id');
+
+        if (result.rowsAffected[0] === 0) {
+            return DBresults.status(404).json({ message: 'User '+ id + ' not found' });
+        }
+        DBresults.json({ message: 'User '+ id + ' deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting user:', { role, id }, err);
+        DBresults.status(500).json({ message: 'Failed to delete user' });
+    }
+});
+
+//================================================= End of Admin API=================================================//
+
 
 //================================================= Lecture API=================================================//
 
@@ -470,7 +547,6 @@ ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
 });
 
 
-
 // Get grades for a lecturer's students (Overview)
 ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => {
     const lecturerId = UserReq.params.id;
@@ -560,6 +636,92 @@ ex.get('/students/:id/risk-profile', authenticateToken, async (UserReq, DBresult
 //================================================= END Lecture API=================================================//
 
 
+//================================================= ASSESSMENT API=================================================//
+//add assessment
+
+ex.post('/assessment', authenticateToken, async (UserReq, DBresults) => {
+    const description = UserReq.body.description;
+    const lecturerId = UserReq.lecturerid;
+    const created_date = new Date();
+
+    if(!description){
+        return DBresults.status(400).json({ message: 'Assessment Description is required' });
+    }
+
+    try {
+        let result = await getDbRequest()
+        .input('description', sql.NVarChar(255), description)
+        .input('created_date', sql.DateTime, created_date)
+        .input('lecturer_id', sql.Int, lecturerId)
+        .query('INSERT INTO Assessment (description, created_date, lecturer_id) VALUES (@description, @created_date, @lecturer_id); SELECT SCOPE_IDENTITY() AS assessment_id;');
+
+        DBresults.status(201).json({
+            message: 'Assessment created successfully',
+            assessmentId: result.recordset.assessment_id
+        });
+    }catch(err){
+        console.error("Error creating assessment:", err);
+        DBresults.status(500).json({ message: 'Failed to create assessment' });
+    }
+
+});
+
+
+//update assessment
+ex.put('/assessment/:id', authenticateToken, async (UserReq, DBresults) => { 
+     const description = UserReq.body.description;
+    const lecturerId = UserReq.lecturerid;
+    const updated_date = new Date();
+
+    if(!description){
+        return DBresults.status(400).json({ message: 'Assessment Description is required' });
+    }
+
+    try{
+        const result = await getDbRequest()
+        .input('assessment_id', sql.Int, UserReq.params.id)
+        .input('description', sql.NVarChar(255), description)
+        .input('updated_date', sql.DateTime, updated_date)
+        .input('lecturer_id', sql.Int, lecturerId)
+        .query('UPDATE Assessment SET description = @description, updated_date = @updated_date WHERE assessment_id = @assessment_id AND lecturer_id = @lecturer_id');
+
+        if(result.rowsAffected[0] === 0){
+            return DBresults.status(404).json({ message: 'Assessment not found or you do not have permission to update it.' });
+        }
+
+        DBresults.json({ message: 'Assessment updated successfully' });
+
+    }catch(err) {
+        console.error("Error updating assessment:", err);
+        DBresults.status(500).json({ message: 'Failed to update assessment' });
+    }
+
+
+});
+
+//delete assessment
+ex.delete('/assessment/:id', authenticateToken, async (UserReq, DBresults) => {
+    const lecturerId = UserReq.lecturerid;
+
+    try{
+        const result = await getDbRequest()
+        .input('assessment_id', sql.Int, UserReq.params.id)
+        .input('lecturer_id', sql.Int, lecturerId)
+        .query('DELETE FROM Assessment WHERE assessment_id = @assessment_id AND lecturer_id = @lecturer_id');
+
+        if (result.rowsAffected[0] === 0){
+            return DBresults.status(404).json({ message: 'Assessment not found or you do not have permission to delete it.' });
+        }
+
+        DBresults.json({ message: 'Assessment deleted successfully' });
+    } catch (err) {
+        console.error("Error deleting assessment:", err);
+        DBresults.status(500).json({ message: 'Failed to delete assessment' });
+    }
+
+});
+
+//================================================= END OF ASSESSMENT API=================================================//
 
 
 // Home route uses authenticate middleware
