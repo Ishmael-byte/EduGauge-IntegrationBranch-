@@ -34,7 +34,7 @@ const GradeBook = () => {
               <tr>
                 <th>Test Item</th>
                 <th>Marks</th>
-                <th>Resources</th>
+                
               </tr>
             </thead>
 
@@ -43,7 +43,7 @@ const GradeBook = () => {
                 <td className="left">Digital Literacy Test</td>
                 <td></td>
                 <td>
-                  <button className="gb-resource-btn">Resources</button>
+                  {/*<button className="gb-resource-btn">Resources</button>*/}
                 </td>
               </tr>
 
@@ -51,7 +51,7 @@ const GradeBook = () => {
                 <td className="left">eFundi Readiness Test</td>
                 <td></td>
                 <td>
-                  <button className="gb-resource-btn">Resources</button>
+                  {/*<button className="gb-resource-btn">Resources</button>*/}
                 </td>
               </tr>
 

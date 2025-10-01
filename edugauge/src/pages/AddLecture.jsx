@@ -1,101 +1,86 @@
-import React, { useState } from "react";
+import React from "react";
 import "./AddLecture.css";
 
 function AddLecture() {
-  const [formData, setFormData] = useState({
-    lecturerNumber: "",
-    firstName: "",
-    lastName: "",
-    title: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-    confirmEmail: ""
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return; 
-    }
-    if (formData.email !== formData.confirmEmail) {
-      alert("Emails do not match!");
-      return;
-    }
-
-    console.log("Form Submitted:", formData);
-  };
-
-  const handleClear = () => {
-    setFormData({
-      lecturerNumber: "",
-      firstName: "",
-      lastName: "",
-      title: "",
-      password: "",
-      confirmPassword: "",
-      email: "",
-      confirmEmail: ""
-    });
-  };
-
-  const fields = [
-    { id: "lecturerNumber", label: "Lecturer Number:" },
-    { id: "firstName", label: "First Name:" },
-    { id: "lastName", label: "Last Name:" },
-    { id: "title", label: "Title:" },
-    { id: "password", label: "Password:", type: "password" },
-    { id: "confirmPassword", label: "Confirm Password:", type: "password" },
-    { id: "email", label: "Email:", type: "email" },
-    { id: "confirmEmail", label: "Confirm Email:", type: "email" }
-  ];
-
   return (
     <div className="admin-page">
+      {/* Sidebar */}
       <div className="admin-sidebar">
-        <img src="/logo.png" alt="EDUGAUGE" />
+        {/*<img src="/logo.png" alt="EDUGAUGE" />*/}
         <h2>EDUGAUGE</h2>
         <p>System Enhancing LMS Readiness</p>
+        <aside className="gb-sidebar">
+        {/* image must be in public/edugauge.png */}
+        <img src="/Eduguage-logo.jpg" alt="EduGauge Logo" className="gb-logo" />
 
-        <button>Overview</button>
-        <button>Digital Literacy Test</button>
-        <button>eFundi Readiness Test</button>
-        <button>Helpful Recourse</button>
-        <button>Grade Book</button>
-        <button>At-risk List</button>
-        <button>Stats</button>
-        <button>Add Lecturer</button>
+        <nav className="gb-nav">
+          
+          <button>Overview</button>
+          <button>Digital Literacy Test</button>
+          <button>eFundi Readiness Test</button>
+          <button>Helpful Recourse</button>
+          <button>Grade Book</button>
+          <button>At-risk List</button>
+          <button>Stats</button>
+          <button>Add Lecturer</button>
+        </nav>
+      </aside>
+
+        
       </div>
 
+      {/* Main Form */}
       <div className="admin-main">
-        <form onSubmit={handleSubmit} className="admin-card">
+        <form className="admin-card">
           <h1>Lecturer</h1>
 
-{fields.map((field) => (
-  <div className="form-group" key={field.id}>
-    <label htmlFor={field.id}>{field.label}</label>
-    <input
-      id={field.id}
-      type={field.type || "text"}
-      name={field.id}
-      value={formData[field.id]}
-      onChange={handleChange}
-      required
-    />
-  </div>
-))}
+          {/* Fields */}
+          <div className="form-fields">
+            <div className="form-group">
+              <label htmlFor="lecturerNumber">Lecturer Number:</label>
+              <input type="text" id="lecturerNumber" name="lecturerNumber" />
+            </div>
 
+            <div className="form-group">
+              <label htmlFor="firstName">First Name:</label>
+              <input type="text" id="firstName" name="firstName" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="lastName">Last Name:</label>
+              <input type="text" id="lastName" name="lastName" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="title">Title:</label>
+              <input type="text" id="title" name="title" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input type="password" id="password" name="password" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password:</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input type="email" id="email" name="email" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmEmail">Confirm Email:</label>
+              <input type="email" id="confirmEmail" name="confirmEmail" />
+            </div>
+          </div>
+
+          {/* Actions */}
           <div className="actions">
             <button type="submit">Sign up</button>
-            <button type="button" className="clear-btn" onClick={handleClear}>
-              Clear
-            </button>
+            <button type="button" className="clear-btn">Clear</button>
           </div>
         </form>
       </div>

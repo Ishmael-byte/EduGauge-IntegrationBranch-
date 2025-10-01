@@ -1,41 +1,25 @@
-/* Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Overall layout */
+/* --------- LAYOUT CONTAINER --------- */
 .admin-page {
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background: #1f1f1f;
-  color: #fff;
-  font-family: Arial, sans-serif;
+  background: #f0f0f0; /* light gray for contrast */
 }
 
-/* Sidebar */
+/* --------- SIDEBAR --------- */
 .admin-sidebar {
-  width: 260px;
-  background: #2a2a2a;
-  padding: 20px;
+  width: 250px;
+  background: #1f1f1f;
+  color: #080808;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.admin-sidebar img {
-  width: 120px;
-  margin-bottom: 15px;
+  padding: 20px;
 }
 
 .admin-sidebar h2 {
+  margin: 10px 0;
   font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 5px;
 }
 
 .admin-sidebar p {
@@ -46,34 +30,36 @@
 
 .admin-sidebar button {
   width: 100%;
-  background: #3b3b3b;
-  border: none;
-  color: #fff;
   padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 6px;
+  margin: 5px 0;
+  background: #333;
+  border: none;
+  color: white;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .admin-sidebar button:hover {
-  background: #4b4b4b;
+  background: #555;
 }
 
-/* Main content */
+/* --------- MAIN CONTENT --------- */
 .admin-main {
   flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
   padding: 40px;
+  overflow-y: auto;
 }
 
-/* Form card */
+/* --------- FORM CARD --------- */
 .admin-card {
   background: #4a4a4a;
   padding: 30px;
   border-radius: 10px;
-  width: 520px;
+  max-width: 700px;
+  width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
 }
 
@@ -84,52 +70,57 @@
   color: #fff;
 }
 
-/* ----------------- FORM GROUPS ----------------- */
-.admin-card .form-group {
-  display: block; /* each group stacks vertically */
-  margin-bottom: 16px;
+/* --------- FORM FIELDS --------- */
+.form-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns on desktop */
+  gap: 16px 24px; /* row + column spacing */
 }
 
-.admin-card .form-group label {
-  display: block; /* label on its own line */
-  margin-bottom: 6px;
-  font-size: 16px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 15px;
   color: #fff;
-  margin-bottom: 6px; /* space between label and input */
+  margin-bottom: 5px;
 }
 
-.admin-card .form-group input {
-  display: block;
-  width: 100%; /* input stretches full width */
+.form-group input {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 14px;
   color: #000;
   background: #fff;
-  box-sizing: border-box;
+  width: 100%;
 }
 
-/* ----------------- ACTIONS ----------------- */
-.admin-card .actions {
+/* --------- ACTIONS --------- */
+.actions {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
   margin-top: 18px;
 }
 
-.admin-card button[type="submit"] {
+button[type="submit"] {
   background: #6d28d9;
   color: #fff;
-  padding: 10px 22px;
+  padding: 10px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-.admin-card .clear-btn {
+button[type="submit"]:hover {
+  background: #5b21b6;
+}
+
+.clear-btn {
   background: none;
   border: none;
   color: #ddd;
@@ -139,14 +130,13 @@
   padding: 0;
 }
 
-/* ----------------- RESPONSIVE ----------------- */
-@media (max-width: 560px) {
-  .admin-card {
-    width: 100%;
-    padding: 20px;
+/* --------- RESPONSIVE --------- */
+@media (max-width: 768px) {
+  .form-fields {
+    grid-template-columns: 1fr; /* stack vertically on small screens */
   }
 
-  .admin-card .actions {
+  .actions {
     flex-direction: column;
     gap: 10px;
   }
