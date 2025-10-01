@@ -22,13 +22,17 @@ const ProfilePage = () => {
                     <h1 className="logo-text">EDUGUAGE</h1>
                     <h2 className="logo-subtext">System Enhancing LMS Readiness</h2>
                 </div>
-                <nav>
-                    <ul className="sidebar-nav">
-                        <li><Link to="/dashboard" className="nav-link">Overview</Link></li>
-                        <li><Link to="/DigitalLiteracyTest" className="nav-link">Digital Literacy Test</Link></li>
-                        <li><Link to="/eFundiTest" className="nav-link">eFundi Readiness Test</Link></li>
-                        <li><Link to="/Resources" className="nav-link">Helpful recourse</Link></li>
-                    </ul>
+                <nav className="gb-nav">
+                    <button className="gb-nav-item">Overview</button>
+                    <button className="gb-nav-item">Helpful recourse</button>
+                    <button className="gb-nav-item">Digital Literacy Test</button>
+                    <button className="gb-nav-item">eFundi Readiness Test</button>
+                    <button className="gb-nav-item">Helpful Recourse</button>
+                    <button className="gb-nav-item">At-risk List</button>
+                    <button className="gb-nav-item">Stats</button>
+                    <button className="gb-nav-item">Dashboard</button>
+                    <button className="gb-nav-item">Add Lecture</button>
+                <div className="gb-spacer" />
                 </nav>
             </aside>
 

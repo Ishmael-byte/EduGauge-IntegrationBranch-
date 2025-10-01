@@ -1,5 +1,5 @@
 import React from 'react';
-import './Lexturer.css';
+import './Lecturer.css';
 
 function Lecturer() {
   return (
