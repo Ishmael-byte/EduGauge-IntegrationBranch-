@@ -14,15 +14,15 @@ function AddLecture() {
         <img src="/Eduguage-logo.jpg" alt="EduGauge Logo" className="gb-logo" />
 
         <nav className="gb-nav">
-          
-          <button>Overview</button>
-          <button>Digital Literacy Test</button>
-          <button>eFundi Readiness Test</button>
-          <button>Helpful Recourse</button>
-          <button>Grade Book</button>
-          <button>At-risk List</button>
-          <button>Stats</button>
-          <button>Add Lecturer</button>
+          <button className="gb-nav-item">Overview</button>
+          <button className="gb-nav-item">Helpful recourse</button>
+          <button className="gb-nav-item">Digital Literacy Test</button>
+          <button className="gb-nav-item">eFundi Readiness Test</button>
+          <button className="gb-nav-item">Helpful Recourse</button>
+          <button className="gb-nav-item">At-risk List</button>
+          <button className="gb-nav-item">Stats</button>
+          <button className="gb-nav-item">Dashboard</button>
+          <div className="gb-spacer" />
         </nav>
       </aside>
 

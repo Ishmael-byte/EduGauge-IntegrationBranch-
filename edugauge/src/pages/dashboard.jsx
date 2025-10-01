@@ -112,22 +112,16 @@ function Dashboard() {
           <h1 style={logoTextStyle}>EDUGUAGE</h1>
           <h2 style={logoSubTextStyle}>System Enhancing LMS Readiness</h2>
         </div>
-        <nav>
-          
-          <ul style={sidebarNavStyle}>
-            {/*<li><a href="#" style={navLinkStyle}>Overview</a></li>*/}
-            {/*<li><a href="#" style={navLinkStyle}>Digital Literacy Test</a></li>*/}
-            {/*<li><a href="#" style={navLinkStyle}>eFundi Readiness Test</a></li>*/}
-            {/*<li><a href="#" style={navLinkStyle}>Helpful recourse</a></li>*/}
-            <button>Overview</button>
-            <button>Digital Literacy Test</button>
-            <button>eFundi Readiness Test</button>
-            <button>Helpful Recourse</button>
-            <button>Grade Book</button>
-            <button>At-risk List</button>
-            <button>Stats</button>
-            <button>Add Lecturer</button>
-          </ul>
+          <nav className="gb-nav">
+          <button className="gb-nav-item">Overview</button>
+          <button className="gb-nav-item">Helpful recourse</button>
+          <button className="gb-nav-item">Digital Literacy Test</button>
+          <button className="gb-nav-item">eFundi Readiness Test</button>
+          <button className="gb-nav-item">Helpful Recourse</button>
+          <button className="gb-nav-item">At-risk List</button>
+          <button className="gb-nav-item">Stats</button>
+          <button className="gb-nav-item">Add Lecturer</button>
+          <div className="gb-spacer" />
         </nav>
       </aside>
 

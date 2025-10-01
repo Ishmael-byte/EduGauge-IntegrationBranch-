@@ -35,13 +35,17 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
         </div>
 
         <nav className="sidebar-nav">
-          <ul>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#resources" className="active">Helpful Resource</a></li>
-            <li><a href="#test">Digital Literacy Test</a></li>
-            <li><a href="#efundi">eFundi Readiness Test</a></li>
-            <li><a href="#gradebook">Gradebook</a></li>
-          </ul>
+         <nav className="gb-nav">
+          <button className="gb-nav-item">Overview</button>
+          <button className="gb-nav-item">Helpful recourse</button>
+          <button className="gb-nav-item">Digital Literacy Test</button>
+          <button className="gb-nav-item">eFundi Readiness Test</button>
+          <button className="gb-nav-item">Add lecture</button>
+          <button className="gb-nav-item">At-risk List</button>
+          <button className="gb-nav-item">Stats</button>
+          <button className="gb-nav-item">Dashboard</button>
+          <div className="gb-spacer" />
+        </nav>
         </nav>
       </aside>
 
