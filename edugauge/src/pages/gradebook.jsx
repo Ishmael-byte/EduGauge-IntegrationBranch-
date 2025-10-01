@@ -10,59 +10,45 @@ const GradeBook = () => {
         <img src="/Eduguage-logo.jpg" alt="EduGauge Logo" className="gb-logo" />
 
         <nav className="gb-nav">
+         <NavLink 
+                                        to="/digitalLiteracyTest" 
+                                           className={({ isActive }) => isActive ? "active-link" : ""}
+                                           >
+                                           Digital Literacy Test
+                                           </NavLink>
+                   
+                                           <NavLink 
+                                           to="/efundiTest" 
+                                           className={({ isActive }) => isActive ? "active-link" : ""}
+                                           >
+                                           eFundi Readiness Test
+                                           </NavLink>
+                   
+                                           <NavLink 
+                                           to="/resources" 
+                                           className={({ isActive }) => isActive ? "active-link" : ""}
+                                           >
+                                           Helpful Resource
+                                           </NavLink>
+                   
+                                           <NavLink 
+                                           to="/addLecture" 
+                                           className={({ isActive }) => isActive ? "active-link" : ""}
+                                           >
+                                           Add lecture
+                                           </NavLink>
+                   
+                                           
+                   
+                                         
+                                           <NavLink 
+                                           to="/dashboard" 
+                                          className={({ isActive }) => isActive ? "active-link" : ""}
+                                           >
+                                           Dashboard
+                                           </NavLink>           
                     
-                    
           
-          <NavLink 
-                                  to="/digital-literacy" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  Digital Literacy Test
-                                  </NavLink>
-          
-                                  <NavLink 
-                                  to="/efundi-readiness" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  eFundi Readiness Test
-                                  </NavLink>
-          
-                                  <NavLink 
-                                  to="/helpful-resource" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  Helpful Resource
-                                  </NavLink>
-          
-                      
-          
-                                  <NavLink 
-                                  to="/at-risk-list" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  At-risk List
-                                  </NavLink>
-          
-                                  <NavLink 
-                                  to="/stats" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  Stats
-                                  </NavLink>
-          
-                                  <NavLink 
-                                  to="/add-lecturer" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  Add Lecturer
-                                  </NavLink>
-          
-                                  <NavLink 
-                                  to="/add-lecturer" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  Dashboard
-                                  </NavLink>
           
         </nav>
       </aside>

@@ -18,49 +18,38 @@ function AddLecture() {
                    
           
           <NavLink 
-                               to="/digital-literacy" 
+                               to="/digitalLiteracyTest" 
                                   className={({ isActive }) => isActive ? "active-link" : ""}
                                   >
                                   Digital Literacy Test
                                   </NavLink>
           
                                   <NavLink 
-                                  to="/efundi-readiness" 
+                                  to="/efundiTest" 
                                   className={({ isActive }) => isActive ? "active-link" : ""}
                                   >
                                   eFundi Readiness Test
                                   </NavLink>
           
                                   <NavLink 
-                                  to="/helpful-resource" 
+                                  to="/resources" 
                                   className={({ isActive }) => isActive ? "active-link" : ""}
                                   >
                                   Helpful Resource
                                   </NavLink>
           
                                   <NavLink 
-                                  to="/grade-book" 
+                                  to="/gradebook" 
                                   className={({ isActive }) => isActive ? "active-link" : ""}
                                   >
                                   Grade Book
                                   </NavLink>
           
-                                  <NavLink 
-                                  to="/at-risk-list" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  At-risk List
-                                  </NavLink>
+                                  
           
+                                
                                   <NavLink 
-                                  to="/stats" 
-                                  className={({ isActive }) => isActive ? "active-link" : ""}
-                                  >
-                                  Stats
-                                  </NavLink>
-          
-                                  <NavLink 
-                                  to="/add-lecturer" 
+                                  to="/dashboard" 
                                  className={({ isActive }) => isActive ? "active-link" : ""}
                                   >
                                   Dashboard

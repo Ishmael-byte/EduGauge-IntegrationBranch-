@@ -115,57 +115,47 @@ function Dashboard() {
           <h2 style={logoSubTextStyle}>System Enhancing LMS Readiness</h2>
         </div>
         <nav className="gb-nav">
+          <NavLink 
+                                         to="/digitalLiteracyTest" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Digital Literacy Test
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/efundiTest" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            eFundi Readiness Test
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/resources" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Helpful Resource
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/gradebook" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Grade Book
+                                            </NavLink>
+                    
+                                            
+                    
+                                          
+                                            <NavLink 
+                                            to="/addLecturer" 
+                                           className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            AddLecturer
+                                            </NavLink>
+                    
 
           
-                       <NavLink 
-                        to="/digital-literacy" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        Digital Literacy Test
-                        </NavLink>
-
-                        <NavLink 
-                        to="/efundi-readiness" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        eFundi Readiness Test
-                        </NavLink>
-
-                        <NavLink 
-                        to="/helpful-resource" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        Helpful Resource
-                        </NavLink>
-
-                        <NavLink 
-                        to="/grade-book" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        Grade Book
-                        </NavLink>
-
-                        <NavLink 
-                        to="/at-risk-list" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        At-risk List
-                        </NavLink>
-
-                        <NavLink 
-                        to="/stats" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        Stats
-                        </NavLink>
-
-                        <NavLink 
-                        to="/add-lecturer" 
-                        className={({ isActive }) => isActive ? "active-link" : ""}
-                        >
-                        Add Lecture
-                        </NavLink>
-
+                       
                         
 
         </nav>

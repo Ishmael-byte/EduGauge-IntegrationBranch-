@@ -35,15 +35,15 @@ function App() {
         <Route path="/" element={<h1>Home Page</h1>} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/SignUpPage" element={<SignUpPage />} />
-        <Route path="/EFundiTest" element={<EFundiTest />} />
-        <Route path="/DigitalLiteracyTest" element={<DigitalLiteracyTest />} />
-        <Route path="/gradeBook" element={<GradeBook />} />
-        <Route path="/Admin" element={<Admin />} />
-        <Route path="/AddLecture" element={<AddLecture />} />
-        <Route path="/Lecturer" element={<Lecturer />} />
+        <Route path="/signUpPage" element={<SignUpPage />} />
+        <Route path="/eFundiTest" element={<EFundiTest />} />
+        <Route path="/digitalLiteracyTest" element={<DigitalLiteracyTest />} />
+        <Route path="/gradebook" element={<GradeBook />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/addLecture" element={<AddLecture />} />
+        <Route path="/lecturer" element={<Lecturer />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/Resources" element={<Resources />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </>
   );
