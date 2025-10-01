@@ -1,119 +1,176 @@
-/* --------- LAYOUT CONTAINER --------- */
-.admin-page {
+/* === Use layout from your first page === */
+.page-container {
   display: flex;
+  flex-direction: row;
   min-height: 100vh;
-  width: 100%;
-  background: #f0f0f0; /* light gray for contrast */
+  font-family: Arial, sans-serif;
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  margin: 0;
 }
 
-/* --------- SIDEBAR --------- */
-.admin-sidebar {
+/* === Sidebar === */
+.sidebar {
+  flex-shrink: 0;
   width: 250px;
-  background: #1f1f1f;
-  color: #ebe8e8;
+  background-color: #202020;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
 }
 
-.admin-sidebar h2 {
-  margin: 10px 0;
-  font-size: 20px;
-}
-
-.admin-sidebar p {
-  font-size: 12px;
-  margin-bottom: 20px;
+.logo-section {
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.admin-sidebar button {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  background: #333;
-  border: none;
-  color: white;
-  cursor: pointer;
+.logo {
+  max-width: 80px;
+  height: auto;
+}
+
+.logo-text {
+  color: #fff;
+  font-size: 1.2rem;
+  margin: 8px 0 0 0;
+}
+
+.logo-subtext {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 12px 20px;
+  margin-bottom: 5px;
+  background-color: #383838;
+  color: #fff;
+  text-decoration: none;
   border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
-.admin-sidebar button:hover {
-  background: #555;
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+  background-color: #4a4a4a;
 }
 
-/* --------- MAIN CONTENT --------- */
-.admin-main {
-  flex: 1;
+/* === Main Content === */
+.main-content {
+  flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px;
+  flex-direction: column;
+  padding: 20px;
   overflow-y: auto;
 }
 
-/* --------- FORM CARD --------- */
-.admin-card {
-  background: #4a4a4a;
-  padding: 80px; /* increased from 30px */
-  border-radius: 12px; /* slightly rounder */
-  max-width: 1100px; /* was 700px */
-  width: 100%;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5); /* deeper shadow */
-}
-
-.admin-card h1 {
-  text-align: center;
-  font-size: 22px;
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  border-radius: 8px;
+  padding: 15px 20px;
   margin-bottom: 20px;
-  color: #fff;
 }
 
-/* --------- FORM FIELDS --------- */
-.form-fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns on desktop */
-  gap: 16px 24px; /* row + column spacing */
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.form-group {
+.profile-section {
+  display: flex;
+  align-items: center;
+  background-color: #555;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+.profile-icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+/* === Content Body & Card === */
+.content-body {
+  flex-grow: 1;
+  background-color: #383838;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.content-box {
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.admin-card {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+/* === Form Fields === */
+.form-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
 }
 
 .form-group label {
-  font-size: 15px;
-  color: #fff;
   margin-bottom: 5px;
+  font-size: 14px;
+  color: #fff;
 }
 
 .form-group input {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ddd;
-  font-size: 14px;
-  color: #000;
-  background: #fff;
   width: 100%;
+  font-size: 14px;
 }
 
-/* --------- ACTIONS --------- */
+/* === Lecturer Photo === */
+.photo-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+
+.lecturer-photo {
+  width: 120px;   /* smaller size */
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: none;
+}
+
+/* === Actions === */
 .actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 18px;
+  gap: 15px;
+  margin-top: 10px;
 }
 
 button[type="submit"] {
   background: #6d28d9;
   color: #fff;
   padding: 10px 20px;
-  border: none;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
-  font-size: 15px;
 }
 
 button[type="submit"]:hover {
@@ -125,19 +182,5 @@ button[type="submit"]:hover {
   border: none;
   color: #ddd;
   text-decoration: underline;
-  font-size: 14px;
   cursor: pointer;
-  padding: 0;
-}
-
-/* --------- RESPONSIVE --------- */
-@media (max-width: 768px) {
-  .form-fields {
-    grid-template-columns: 1fr; /* stack vertically on small screens */
-  }
-
-  .actions {
-    flex-direction: column;
-    gap: 10px;
-  }
 }

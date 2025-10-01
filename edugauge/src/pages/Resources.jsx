@@ -37,13 +37,13 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
         <nav className="sidebar-nav">
          <nav className="gb-nav">
           <button className="gb-nav-item">Overview</button>
-          <button className="gb-nav-item">Helpful recourse</button>
           <button className="gb-nav-item">Digital Literacy Test</button>
           <button className="gb-nav-item">eFundi Readiness Test</button>
-          <button className="gb-nav-item">Add lecture</button>
+          <button className="gb-nav-item">Helpful Recourse</button>
+          <button className="gb-nav-item">Gradebook</button>
           <button className="gb-nav-item">At-risk List</button>
           <button className="gb-nav-item">Stats</button>
-          <button className="gb-nav-item">Dashboard</button>
+          <button className="gb-nav-item">Add Lecturer</button>
           <div className="gb-spacer" />
         </nav>
         </nav>

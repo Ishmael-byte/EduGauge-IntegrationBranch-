@@ -10,6 +10,8 @@ import AddLecture from "./pages/AddLecture.jsx";
 import Lecturer from "./pages/Lecturer.jsx";
 import Profile from "./pages/profile.jsx";
 import Resources from "./pages/Resources.jsx";
+import AtRiskList from "./pages/AtRiskList.jsx";
+import Stats from "./pages/Stats.jsx";
 import "./App.css";
 import React from "react";
 
@@ -29,6 +31,8 @@ function App() {
         <Link to="/Lecturer" style={{ margin: "0 10px", color: "#fff" }}>Lecturer</Link>
         <Link to="/Profile" style={{ margin: "0 10px", color: "#fff" }}>Profile</Link>
         <Link to="/Resources" style={{ margin: "0 10px", color: "#fff" }}>Resources</Link>
+        <Link to="/AtRiskList" style={{ margin: "0 10px", color: "#fff" }}>At-Risk List</Link>
+        <Link to="/Stats" style={{ margin: "0 10px", color: "#fff" }}>Stats</Link>
       </nav>
 
       <Routes>
@@ -44,6 +48,8 @@ function App() {
         <Route path="/Lecturer" element={<Lecturer />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/Resources" element={<Resources />} />
+        <Route path="/AtRiskList" element={<AtRiskList />} />
+        <Route path="/Stats" element={<Stats />} />
       </Routes>
     </>
   );
