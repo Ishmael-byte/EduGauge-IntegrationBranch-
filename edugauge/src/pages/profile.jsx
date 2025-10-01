@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import './profile.css';
 
 // PlaceHolder Data
@@ -23,16 +24,64 @@ const ProfilePage = () => {
                     <h2 className="logo-subtext">System Enhancing LMS Readiness</h2>
                 </div>
                 <nav className="gb-nav">
-                    <button className="gb-nav-item">Overview</button>
-                    <button className="gb-nav-item">Helpful recourse</button>
-                    <button className="gb-nav-item">Digital Literacy Test</button>
-                    <button className="gb-nav-item">eFundi Readiness Test</button>
-                    <button className="gb-nav-item">Helpful Recourse</button>
-                    <button className="gb-nav-item">At-risk List</button>
-                    <button className="gb-nav-item">Stats</button>
-                    <button className="gb-nav-item">Dashboard</button>
-                    <button className="gb-nav-item">Add Lecture</button>
-                <div className="gb-spacer" />
+                              
+
+                    <NavLink 
+                        to="/digital-literacy" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Digital Literacy Test
+                        </NavLink>
+
+                        <NavLink 
+                        to="/efundi-readiness" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        eFundi Readiness Test
+                        </NavLink>
+
+                        <NavLink 
+                        to="/helpful-resource" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Helpful Resource
+                        </NavLink>
+
+                        <NavLink 
+                        to="/grade-book" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Grade Book
+                        </NavLink>
+
+                        <NavLink 
+                        to="/at-risk-list" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        At-risk List
+                        </NavLink>
+
+                        <NavLink 
+                        to="/stats" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Stats
+                        </NavLink>
+
+                        <NavLink 
+                        to="/add-lecturer" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Add Lecturer
+                        </NavLink>
+
+                        <NavLink 
+                        to="/add-lecturer" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Dashboard
+                        </NavLink>
+
                 </nav>
             </aside>
 

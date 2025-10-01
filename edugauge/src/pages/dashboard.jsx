@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { NavLink } from "react-router-dom";
 function Dashboard() {
   const pageContainerStyle = {
     display: 'flex',
@@ -9,6 +9,7 @@ function Dashboard() {
     color: '#E0E0E0',
     backgroundColor: '#2c2c2c',
   };
+  
 
   const sidebarStyle = {
     width: '250px',
@@ -90,6 +91,7 @@ function Dashboard() {
     alignItems: 'center',
   };
   
+  
   const contentBoxStyle = {
     backgroundColor: '#333',
     padding: '40px',
@@ -112,16 +114,60 @@ function Dashboard() {
           <h1 style={logoTextStyle}>EDUGUAGE</h1>
           <h2 style={logoSubTextStyle}>System Enhancing LMS Readiness</h2>
         </div>
-          <nav className="gb-nav">
-          <button className="gb-nav-item">Overview</button>
-          <button className="gb-nav-item">Helpful recourse</button>
-          <button className="gb-nav-item">Digital Literacy Test</button>
-          <button className="gb-nav-item">eFundi Readiness Test</button>
-          <button className="gb-nav-item">Helpful Recourse</button>
-          <button className="gb-nav-item">At-risk List</button>
-          <button className="gb-nav-item">Stats</button>
-          <button className="gb-nav-item">Add Lecturer</button>
-          <div className="gb-spacer" />
+        <nav className="gb-nav">
+
+          
+                       <NavLink 
+                        to="/digital-literacy" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Digital Literacy Test
+                        </NavLink>
+
+                        <NavLink 
+                        to="/efundi-readiness" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        eFundi Readiness Test
+                        </NavLink>
+
+                        <NavLink 
+                        to="/helpful-resource" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Helpful Resource
+                        </NavLink>
+
+                        <NavLink 
+                        to="/grade-book" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Grade Book
+                        </NavLink>
+
+                        <NavLink 
+                        to="/at-risk-list" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        At-risk List
+                        </NavLink>
+
+                        <NavLink 
+                        to="/stats" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Stats
+                        </NavLink>
+
+                        <NavLink 
+                        to="/add-lecturer" 
+                        className={({ isActive }) => isActive ? "active-link" : ""}
+                        >
+                        Add Lecture
+                        </NavLink>
+
+                        
+
         </nav>
       </aside>
 

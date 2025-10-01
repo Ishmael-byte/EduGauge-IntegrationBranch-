@@ -4,7 +4,7 @@ import Dashboard from "./pages/dashboard.jsx";
 import SignUpPage from  "./pages/SignUpPage.jsx";
 import EFundiTest from "./pages/eFundiTest.jsx";
 import DigitalLiteracyTest from "./pages/DigitalLiteracyTest.jsx";
-import GradeBook from "./pages/Gradebook";
+import GradeBook from "./pages/gradebook.jsx";
 import Admin from "./pages/Admin.jsx";
 import AddLecture from "./pages/AddLecture.jsx";
 import Lecturer from "./pages/Lecturer.jsx";

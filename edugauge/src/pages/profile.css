@@ -12,6 +12,13 @@
     --color-light-grey: #aaa;
     --color-mid-grey: #666;
 }
+.active-link {
+  color: #00bcd4;  /* highlight color */
+  font-weight: bold;
+  border-left: 4px solid #00bcd4;
+  padding-left: 8px;
+}
+
 
 /* Overall layout styles (pageContainer) */
 .page-container {
