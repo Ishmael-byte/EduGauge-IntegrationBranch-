@@ -155,10 +155,14 @@ function EFundiTest() {
         </div>
         <nav>
           <ul style={sidebarNavStyle}>
-            <li><a href="#" style={navLinkStyle}>Overview</a></li>
-            <li><a href="#" style={navLinkStyle}>Helpful Recourse</a></li>
-            <li><a href="#" style={navLinkStyle}>Digital Literacy Test</a></li>
-            <li><a href="#" style={navLinkStyle}>eFundi Readiness Test</a></li>
+            
+            <button>Overview</button>
+            <button>Digital Literacy Test</button>
+            <button>Helpful Recourse</button>
+            <button>Grade Book</button>
+            <button>At-risk List</button>
+            <button>Stats</button>
+            <button>Add Lecturer</button>
           </ul>
         </nav>
       </aside>
