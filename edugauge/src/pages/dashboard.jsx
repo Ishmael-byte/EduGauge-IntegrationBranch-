@@ -114,10 +114,18 @@ function Dashboard() {
         </div>
         <nav>
           <ul style={sidebarNavStyle}>
-            <li><a href="#" style={navLinkStyle}>Overview</a></li>
-            <li><a href="#" style={navLinkStyle}>Digital Literacy Test</a></li>
-            <li><a href="#" style={navLinkStyle}>eFundi Readiness Test</a></li>
-            <li><a href="#" style={navLinkStyle}>Helpful recourse</a></li>
+            {/*<li><a href="#" style={navLinkStyle}>Overview</a></li>*/}
+            {/*<li><a href="#" style={navLinkStyle}>Digital Literacy Test</a></li>*/}
+            {/*<li><a href="#" style={navLinkStyle}>eFundi Readiness Test</a></li>*/}
+            {/*<li><a href="#" style={navLinkStyle}>Helpful recourse</a></li>*/}
+            <button>Overview</button>
+            <button>Digital Literacy Test</button>
+            <button>eFundi Readiness Test</button>
+            <button>Helpful Recourse</button>
+            <button>Grade Book</button>
+            <button>At-risk List</button>
+            <button>Stats</button>
+            <button>Add Lecturer</button>
           </ul>
         </nav>
       </aside>
