@@ -7,7 +7,7 @@ function AddLecture() {
       {/* Sidebar */}
       <div className="admin-sidebar">
         {/*<img src="/logo.png" alt="EDUGAUGE" />*/}
-        <h2>EDUGAUGE</h2>
+        {/*<h2>EDUGAUGE</h2>*/}
         {/*<p>System Enhancing LMS Readiness</p>*/}
         <aside className="gb-sidebar">
         {/* image must be in public/edugauge.png */}
