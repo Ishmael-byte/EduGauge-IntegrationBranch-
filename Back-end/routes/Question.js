@@ -1,12 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const questionRouter = express.Router();
 const { getQuestions, addQuestion } = require('../controllers/QuestionController');
 const { authenticateToken } = require('../middleware/auth');
 
-// Shared view
-router.get('/:assessment_id', authenticateToken, getQuestions);
+// Get questions for an assessment (shared view)
+questionRouter.get('/:assessmentId', authenticateToken, getQuestions);
 
-// Lecturer-only
-router.post('/:assessment_id', authenticateToken, addQuestion);
+// Add a question to an assessment (lecturer-only)
+questionRouter.post('/:assessmentId', authenticateToken, addQuestion);
 
-module.exports = router;
+module.exports = questionRouter;

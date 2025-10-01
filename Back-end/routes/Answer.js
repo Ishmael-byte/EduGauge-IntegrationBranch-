@@ -1,9 +1,9 @@
 const express = require('express');
-const router = express.Router();
+const answerRouter = express.Router();
 const { submitAnswer } = require('../controllers/AnswerController');
 const { authenticateToken } = require('../middleware/auth');
 
-// Student-only
-router.post('/:question_id', authenticateToken, submitAnswer);
+// Submit an answer to a question (Student only)
+answerRouter.post('/:questionId', authenticateToken, submitAnswer);
 
-module.exports = router;
+module.exports = answerRouter;
