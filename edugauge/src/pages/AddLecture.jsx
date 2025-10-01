@@ -1,5 +1,6 @@
 import React from "react";
 import "./AddLecture.css";
+import { NavLink } from "react-router-dom";
 
 function AddLecture() {
   return (
@@ -12,17 +13,59 @@ function AddLecture() {
           <h2 className="logo-subtext">System Enhancing LMS Readiness</h2>
         </div>
 
-        <nav className="sidebar-nav">
-          <ul>
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Digital Literacy Test</a></li>
-            <li><a href="#">eFundi Readiness Test</a></li>
-            <li><a href="#">Helpful Recourse</a></li>
-            <li><a href="#">Gradebook</a></li>
-            <li><a href="#">At-risk List</a></li>
-            <li><a href="#">Stats</a></li>
-            <li><a href="#" className="active">Add Lecturer</a></li>
-          </ul>
+        <nav className="gb-nav">
+                   
+          
+          <NavLink 
+                               to="/digital-literacy" 
+                                  className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  Digital Literacy Test
+                                  </NavLink>
+          
+                                  <NavLink 
+                                  to="/efundi-readiness" 
+                                  className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  eFundi Readiness Test
+                                  </NavLink>
+          
+                                  <NavLink 
+                                  to="/helpful-resource" 
+                                  className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  Helpful Resource
+                                  </NavLink>
+          
+                                  <NavLink 
+                                  to="/grade-book" 
+                                  className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  Grade Book
+                                  </NavLink>
+          
+                                  <NavLink 
+                                  to="/at-risk-list" 
+                                  className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  At-risk List
+                                  </NavLink>
+          
+                                  <NavLink 
+                                  to="/stats" 
+                                  className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  Stats
+                                  </NavLink>
+          
+                                  <NavLink 
+                                  to="/add-lecturer" 
+                                 className={({ isActive }) => isActive ? "active-link" : ""}
+                                  >
+                                  Dashboard
+                                  </NavLink>
+          
+          
         </nav>
       </aside>
 

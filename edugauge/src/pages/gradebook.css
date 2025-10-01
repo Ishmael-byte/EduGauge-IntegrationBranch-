@@ -138,3 +138,10 @@
   cursor: pointer;
   font-weight: 600;
 }
+.active-link {
+  color: #00bcd4;  /* highlight color */
+  font-weight: bold;
+  border-left: 4px solid #00bcd4;
+  padding-left: 8px;
+}
+

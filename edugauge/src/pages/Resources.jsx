@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import "./Resources.css";
 
 const ResourcePage = ({ worldBasedOnly = false }) => {
@@ -36,14 +37,52 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
 
         <nav className="sidebar-nav">
          <nav className="gb-nav">
-          <button className="gb-nav-item">Overview</button>
-          <button className="gb-nav-item">Digital Literacy Test</button>
-          <button className="gb-nav-item">eFundi Readiness Test</button>
-          <button className="gb-nav-item">Helpful Recourse</button>
-          <button className="gb-nav-item">Gradebook</button>
-          <button className="gb-nav-item">At-risk List</button>
-          <button className="gb-nav-item">Stats</button>
-          <button className="gb-nav-item">Add Lecturer</button>
+                    
+          
+                                          <NavLink 
+                                         to="/digital-literacy" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Digital Literacy Test
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/efundi-readiness" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            eFundi Readiness Test
+                                            </NavLink>
+                    
+                                            
+                    
+                                            <NavLink 
+                                            to="/grade-book" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Grade Book
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/at-risk-list" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            At-risk List
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/stats" 
+                                            className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Stats
+                                            </NavLink>
+                    
+                                            <NavLink 
+                                            to="/add-lecturer" 
+                                           className={({ isActive }) => isActive ? "active-link" : ""}
+                                            >
+                                            Dashboard
+                                            </NavLink>
+                    
           <div className="gb-spacer" />
         </nav>
         </nav>
