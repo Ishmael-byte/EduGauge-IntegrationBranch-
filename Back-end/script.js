@@ -268,7 +268,32 @@ ex.put('/UpdateProfile/:student_number', async (UserReq, DBresults) => {
         DBresults.status(500).json({ error: 'Failed to update profile' });
     }
 });
+
+//get student grades
+ex.get('student/grades', authenticateToken, async (USerReq, DBresults) => {
+    const studentId = USerReq.studentid;
+
+    try {
+        let result = await getDbRequest()
+        .input('stud_id', sql.Int, sql.Int, studentId)
+        .query('SELECT g.marks, g.feedback, a.description AS assessment_title, a.created_date FROM Grading g JOIN Assessment a ON g.assessment_id = a.assessment_id WHERE g.student_id = @stud_id ORDER BY a.created_date DESC');
+    
+        if (result.recordset.length === 0) {
+            return DBresults.status(404).json({ message: 'No grades found for this student.'});
+        }
+
+         DBresults.json({
+        message: 'Grades retrieved successfully',
+        grades: result.recordset
+    });
+    }catch (err){
+    console.error("Error fetching studdent grades:", err);
+    DBresults.status(500).json({ message: 'Failed to retrieve grades' });
+}
+});;
 //================================================= End of student API=================================================//
+
+//================================================= Admin API=================================================//
 
 //Admin login but they dont need to register they just login 
 ex.post('/login/admin', async (UserReq, DBresults) => {
@@ -313,6 +338,7 @@ ex.post('/login/admin', async (UserReq, DBresults) => {
     }
 });
 
+//================================================= Lecture API=================================================//
 
 // Lecture login same with admin no need to register
 ex.post('/login/lecturer', async (UserReq, DBresults) => {
@@ -352,6 +378,189 @@ ex.post('/login/lecturer', async (UserReq, DBresults) => {
         DBresults.status(500).json({ error: 'Login failed' });
     }
 });
+
+// Lectuer-dashboard (get lecturer profile)
+ex.get('/lecturer/:id', authenticateToken, async (UserReq, DBresults) => {
+    const lecturerId = UserReq.params.id; //input for lecturer id
+
+    try {
+        let result = await getDbRequest() //wait for db request and store in result
+            .input('lecturer_id', sql.Int, lecturerId)
+            .query('SELECT lecturer_id, Fname, email FROM Lecturer WHERE lecturer_id = @lecturer_id');
+
+        if (result.recordset.length === 0) {
+            return DBresults.status(404).json({ error: 'Lecturer not found' });
+        }
+
+        DBresults.json({
+            message: 'Lecturer profile retrieved',
+            lecturer: result.recordset[0]
+        });
+
+    } catch (err) {
+        console.error(`Error fetching lecturer profile:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve lecturer profile' });
+    }
+});
+
+
+// Get all resources (for lectuer dashboard)
+ex.get('/resources', authenticateToken, async (UserReq, DBresults) => {
+    try {
+        let result = await getDbRequest()
+            .query('SELECT resource_id, resource_name, description, url, date FROM Resource');
+
+        DBresults.json({
+            message: 'Resources retrieved successfully',
+            resources: result.recordset
+        });
+
+    } catch (err) {
+        console.error(`Error fetching resources:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve resources' });
+    }
+});
+
+
+// Upload a new resource (for lecturer)
+ex.post('/resources', authenticateToken, async (UserReq, DBresults) => {
+    const { resource_name, description, url } = UserReq.body;
+
+    if (!resource_name || !url) {
+        return DBresults.status(400).json({ error: 'Resource name and URL are required' });
+    }
+
+    try {
+        await getDbRequest()
+            .input('resource_name', sql.NVarChar, resource_name)
+            .input('description', sql.NVarChar, description || '')
+            .input('url', sql.NVarChar, url)
+            .query(`
+                INSERT INTO Resource (resource_name, description, url)
+                VALUES (@resource_name, @description, @url)
+            `);
+
+        DBresults.status(201).json({ message: 'Resource uploaded successfully' });
+
+    } catch (err) {
+        console.error(` Error uploading resource:`, err);
+        DBresults.status(500).json({ error: 'Failed to upload resource' });
+    }
+});
+
+// Delete a resource (for lecturer)
+ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
+    const resourceId = UserReq.params.id;
+
+    try {
+        let result = await getDbRequest()
+            .input('resource_id', sql.Int, resourceId)
+            .query('DELETE FROM Resource WHERE resource_id = @resource_id');
+
+        if (result.rowsAffected[0] === 0) {
+            return DBresults.status(404).json({ error: 'Resource not found or already deleted' });
+        }
+
+        DBresults.json({ message: `Resource with ID ${resourceId} deleted successfully` });
+
+    } catch (err) {
+        console.error(` Error deleting resource:`, err);
+        DBresults.status(500).json({ error: 'Failed to delete resource' });
+    }
+});
+
+
+
+// Get grades for a lecturer's students (Overview)
+ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => {
+    const lecturerId = UserReq.params.id;
+    try {
+        const result = await getDbRequest()
+            .input('lecturer_id', sql.Int, lecturerId)
+            .query(`
+                SELECT g.grade_id, s.Fname + ' ' + s.Lname AS student_name,
+                       a.description AS assessment_title, g.marks, g.feedback
+                FROM Grading g
+                JOIN Student s ON g.stud_id = s.stud_id
+                JOIN Assessment a ON g.assessment_id = a.assessment_id
+                WHERE g.lecturer_id = @lecturer_id
+                ORDER BY g.grade_id DESC
+            `);
+
+        DBresults.json({
+            message: 'Grades retrieved successfully',
+            grades: result.recordset
+        });
+
+    } catch (err) {
+        console.error(` Error fetching grades:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve grades' });
+    }
+});
+
+
+// Get at-risk students (average marks below 50)
+ex.get('/at-risk', authenticateToken, async (UserReq, DBresults) => {
+    try {
+        let result = await getDbRequest()
+            .query(`
+                SELECT s.stud_id, s.Fname, s.Lname, AVG(g.marks) AS avg_marks
+                FROM Student s
+                JOIN Grading g ON s.stud_id = g.stud_id
+                GROUP BY s.stud_id, s.Fname, s.Lname
+                HAVING AVG(g.marks) < 50
+            `);
+
+        DBresults.json({
+            message: 'At-risk students retrieved',
+            atRiskStudents: result.recordset
+        });
+
+    } catch (err) {
+        console.error(`Error fetching at-risk students:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve at-risk data' });
+    }
+});
+
+
+// Get student risk profile (detailed)
+ex.get('/students/:id/risk-profile', authenticateToken, async (UserReq, DBresults) => {
+    const studentId = UserReq.params.id;
+
+    try {
+        let result = await getDbRequest()
+            .input('stud_id', sql.Int, studentId)
+            .query(`
+                SELECT s.stud_id, s.Fname, s.Lname, s.email,
+                       AVG(g.marks) AS avg_marks,
+                       COUNT(g.grade_id) AS total_assessments,
+                       MAX(g.feedback) AS latest_feedback
+                FROM Student s
+                LEFT JOIN Grading g ON s.stud_id = g.stud_id
+                WHERE s.stud_id = @stud_id
+                GROUP BY s.stud_id, s.Fname, s.Lname, s.email
+            `);
+
+        if (result.recordset.length === 0) {
+            return DBresults.status(404).json({ error: 'Student not found or no grading data' });
+        }
+
+        DBresults.json({
+            message: 'Risk profile retrieved',
+            profile: result.recordset[0]
+        });
+
+    } catch (err) {
+        console.error(`Error fetching risk profile:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve risk profile' });
+    }
+});
+
+
+//================================================= END Lecture API=================================================//
+
+
+
 
 // Home route uses authenticate middleware
 
