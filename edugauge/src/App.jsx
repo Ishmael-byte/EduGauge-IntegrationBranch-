@@ -21,13 +21,13 @@ function App() {
         <Link to="/login" style={{ margin: "0 10px", color: "#fff" }}>Login</Link>
         <Link to="/dashboard" style={{ margin: "0 10px", color: "#fff" }}>Dashboard</Link>
         {/*<Link to="/pages/SignUpPage" style={{ margin: "0 10px", color: "#fff" }}>Sign Up</Link>*/}
-        <Link to="/EFundiTest" style={{ margin: "0 10px", color: "#fff" }}>eFundi Test</Link>
+        <Link to="/EfundiTest" style={{ margin: "0 10px", color: "#fff" }}>eFundi Test</Link>
         <Link to="/DigitalLiteracyTest" style={{ margin: "0 10px", color: "#fff" }}>Digital Literacy Test</Link>
-        <Link to="/GradeBook" style={{ margin: "0 10px", color: "#fff" }}>Grade Book</Link>
+        <Link to="/gradeBook" style={{ margin: "0 10px", color: "#fff" }}>Grade Book</Link>
         <Link to="/Admin" style={{ margin: "0 10px", color: "#fff" }}>Admin</Link>
         <Link to="/AddLecture" style={{ margin: "0 10px", color: "#fff" }}>Add Lecture</Link>
         <Link to="/Lecturer" style={{ margin: "0 10px", color: "#fff" }}>Lecturer</Link>
-        <Link to="/Profile" style={{ margin: "0 10px", color: "#fff" }}>Profile</Link>
+        <Link to="/profile" style={{ margin: "0 10px", color: "#fff" }}>Profile</Link>
         <Link to="/Resources" style={{ margin: "0 10px", color: "#fff" }}>Resources</Link>
       </nav>
 
@@ -35,10 +35,10 @@ function App() {
         <Route path="/" element={<h1>Home Page</h1>} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/pages/SignUpPage" element={<SignUpPage />} />
+        <Route path="/SignUpPage" element={<SignUpPage />} />
         <Route path="/EFundiTest" element={<EFundiTest />} />
         <Route path="/DigitalLiteracyTest" element={<DigitalLiteracyTest />} />
-        <Route path="/GradeBook" element={<GradeBook />} />
+        <Route path="/gradeBook" element={<GradeBook />} />
         <Route path="/Admin" element={<Admin />} />
         <Route path="/AddLecture" element={<AddLecture />} />
         <Route path="/Lecturer" element={<Lecturer />} />
