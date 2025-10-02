@@ -1,130 +1,212 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddLecture.css";
 import { NavLink } from "react-router-dom";
 
-function AddLecture() {
+function AddLecture({ initialLecturers = [], onSubmit, onDelete }) {
+  const [lecturers, setLecturers] = useState(initialLecturers);
+  const [formData, setFormData] = useState({
+    lecturerNumber: "",
+    name: "",
+    title: "",
+    email: "",
+    password: "",
+  });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editId, setEditId] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.lecturerNumber) return;
+
+    if (editId) {
+      // Update lecturer
+      const updatedLecturers = lecturers.map((lec) =>
+        lec.id === editId
+          ? {
+              ...lec,
+              ...formData,
+              password: formData.password ? formData.password : lec.password,
+            }
+          : lec
+      );
+      setLecturers(updatedLecturers);
+      if (onSubmit) onSubmit(updatedLecturers);
+      setEditId(null);
+    } else {
+      // Add new lecturer
+      const newLecturer = {
+        id: Date.now(),
+        ...formData,
+      };
+      const updatedLecturers = [...lecturers, newLecturer];
+      setLecturers(updatedLecturers);
+      if (onSubmit) onSubmit(updatedLecturers);
+    }
+
+    setFormData({ lecturerNumber: "", name: "", title: "", email: "", password: "" });
+  };
+
+  const handleRowClick = (lec) => {
+    setFormData({
+      lecturerNumber: lec.lecturerNumber || lec.number || "",
+      name: lec.name || "",
+      title: lec.title || "",
+      email: lec.email || "",
+      password: "",
+    });
+    setEditId(lec.id);
+  };
+
+  const handleCancelEdit = () => {
+    setFormData({ lecturerNumber: "", name: "", title: "", email: "", password: "" });
+    setEditId(null);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this lecturer?")) {
+      const updatedLecturers = lecturers.filter((lec) => lec.id !== id);
+      setLecturers(updatedLecturers);
+      if (onDelete) onDelete(id);
+      if (editId === id) handleCancelEdit();
+    }
+  };
+
+  const filteredLecturers = lecturers.filter(
+    (lec) =>
+      (lec.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lec.number || lec.lecturerNumber || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lec.email || "").toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="page-container">
-      {/* Sidebar */}
       <aside className="gb-sidebar">
-        {/* logo */}
         <img src="/Eduguage-logo.jpg" alt="EduGauge Logo" className="gb-logo" />
-
         <nav className="gb-nav">
-          <NavLink 
-            to="/digital-literacy" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Digital Literacy Test
-          </NavLink>
-
-          <NavLink 
-            to="/efundi-test" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            eFundi Readiness Test
-          </NavLink>
-
-          <NavLink 
-            to="/resources" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Helpful Resource
-          </NavLink>
-
-          <NavLink 
-            to="/grade-book" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Grade Book
-          </NavLink>
-
-          <NavLink 
-            to="/dashboard" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Dashboard
-          </NavLink>
+          <NavLink to="/digital-literacy">Digital Literacy Test</NavLink>
+          <NavLink to="/efundi-test">eFundi Readiness Test</NavLink>
+          <NavLink to="/resources">Helpful Resource</NavLink>
+          <NavLink to="/grade-book">Grade Book</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
         </nav>
       </aside>
 
-      {/* Main Content */}
       <main className="main-content">
         <header className="main-header">
-          <h1 className="header-title">Add Lecturer</h1>
-          <div className="profile-section">
-            <span className="profile-icon">👤</span>
-            <span>Profile</span>
-          </div>
+          <h1 className="header-title">{editId ? "Edit Lecturer" : "Add Lecturer"}</h1>
         </header>
 
         <div className="content-body">
           <div className="content-box">
-            <form className="admin-card">
-              <h2>Lecturer Details</h2>
-
-              {/* Photo */}
-              <div className="form-group photo-group">
-                <label>Profile Photo:</label>
-                <input type="file" accept="image/*" />
-                <img
-                  src="/default-profile.png"
-                  alt="Lecturer"
-                  className="lecturer-photo"
-                />
-              </div>
-
-              {/* Fields */}
+            <form className="admin-card" onSubmit={handleSubmit}>
               <div className="form-fields">
                 <div className="form-group">
                   <label htmlFor="lecturerNumber">Lecturer Number:</label>
-                  <input type="text" id="lecturerNumber" name="lecturerNumber" />
+                  <input
+                    type="text"
+                    id="lecturerNumber"
+                    name="lecturerNumber"
+                    value={formData.lecturerNumber}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="firstName">First Name:</label>
-                  <input type="text" id="firstName" name="firstName" />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="lastName">Last Name:</label>
-                  <input type="text" id="lastName" name="lastName" />
+                  <label htmlFor="name">Full Name:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="title">Title:</label>
-                  <input type="text" id="title" name="title" />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Password:</label>
-                  <input type="password" id="password" name="password" />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">Confirm Password:</label>
-                  <input type="password" id="confirmPassword" name="confirmPassword" />
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="email">Email:</label>
-                  <input type="email" id="email" name="email" />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="confirmEmail">Confirm Email:</label>
-                  <input type="email" id="confirmEmail" name="confirmEmail" />
+                  <label htmlFor="password">
+                    {editId ? "New Password (leave blank to keep current)" : "Password:"}
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required={!editId}
+                  />
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="actions">
-                <button type="submit">Sign up</button>
-                <button type="button" className="clear-btn">
-                  Clear
-                </button>
+                <button type="submit">{editId ? "Update" : "Add"}</button>
+                {editId && (
+                  <button type="button" className="cancel-btn" onClick={handleCancelEdit}>
+                    Cancel Edit
+                  </button>
+                )}
               </div>
             </form>
+          </div>
+
+          <div className="lecturer-list">
+            <h2>Existing Lecturers</h2>
+            <input
+              type="text"
+              placeholder="Search lecturers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-bar"
+            />
+            <ul>
+              {filteredLecturers.map((lec) => (
+                <li
+                  key={lec.id}
+                  className={`lecturer-item ${editId === lec.id ? "editing" : ""}`}
+                  onClick={() => handleRowClick(lec)}
+                >
+                  <span>
+                    {lec.title} {lec.name} ({lec.lecturerNumber || lec.number}) - {lec.email}
+                  </span>
+                  <button
+                    className="delete-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(lec.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </main>
