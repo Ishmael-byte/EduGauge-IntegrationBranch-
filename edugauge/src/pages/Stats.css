@@ -67,6 +67,9 @@
   background-color: #333;
   border-radius: 8px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-title {
@@ -80,7 +83,6 @@
   background-color: #555;
   padding: 5px 15px;
   border-radius: 20px;
-  margin-top: 10px;
 }
 
 .profile-icon {
@@ -88,31 +90,62 @@
   margin-right: 10px;
 }
 
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background-color: #444;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Dashboard grid */
 .content-body {
-  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  padding: 20px;
   background-color: #383838;
   border-radius: 8px;
-  padding: 20px;
-  text-align: left;
-  display: block;
 }
 
-.content-box {
+.stat-card {
   background-color: #2c2c2c;
+  border: 1px solid #444;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
 }
 
-.content-box h2 {
-  font-size: 1.4rem;
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-card h2 {
+  font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 15px;
   color: #ffffff;
+}
+
+.stat-card.wide {
+  grid-column: span 2;
 }
 
 .stats-table {
