@@ -3,14 +3,50 @@ import { Link } from 'react-router-dom';
 import './login.css'; // Import the CSS file
 
 const LoginPage = () => {
+    //DOUBLE CHECK!! login using your backend logic (email and password)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        console.log('Logging in with:', { username, password });
-        // dont forget to add my login logic here
-    };
+const handleLogin = async (e) => {
+  e.preventDefault();
+  const email = username;
+
+  try {
+    const res = await fetch('http://localhost:5000/login/lecturer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const contentType = res.headers.get('content-type');
+    let data;
+
+    if (contentType && contentType.includes('application/json')) {
+      data = await res.json();
+    } else {
+      const text = await res.text();
+      console.warn('Unexpected response format:', text);
+      throw new Error('Unexpected response format');
+    }
+
+    console.log('Response status:', res.status);
+    console.log('Response data:', data);
+
+    if (res.ok) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('lecturer_id', data.lecturer.lecturer_id);
+      window.location.href = '/lecturer';
+      
+    } else {
+      alert(data.error || 'Login failed');
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+    alert(`Something went wrong: ${err.message}`);
+  }
+};
+
+
 
     const handleClear = () => {
         setUsername('');
@@ -18,6 +54,8 @@ const LoginPage = () => {
     };
 
     return (
+
+
         <div className="container-styles">
             <h1 className="header-styles">Login</h1>
             <div className="main-content-styles">
@@ -75,6 +113,6 @@ const LoginPage = () => {
             <a href="#" className="bottom-link-styles">&gt; Learn More</a>
         </div>
     );
-};
 
+};
 export default LoginPage;

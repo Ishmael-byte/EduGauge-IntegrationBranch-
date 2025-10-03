@@ -1,4 +1,4 @@
-/* Overall layout */
+/* Layout */
 .page-container {
   display: flex;
   min-height: 100vh;
@@ -34,8 +34,7 @@
 }
 
 .logo-subtext {
-  color: #fff;
-  margin: 5px 0;
+  color: #bbb;
   font-size: 0.8rem;
 }
 
@@ -79,35 +78,104 @@
   display: flex;
   align-items: center;
   background-color: #555;
-  padding: 5px 15px;
+  padding: 8px 20px;
   border-radius: 20px;
+  font-size: 1rem;
+  gap: 10px;
 }
 
 .profile-icon {
   font-size: 1.5rem;
-  margin-right: 10px;
 }
 
+/* Content body */
 .content-body {
   flex-grow: 1;
   background-color: #383838;
   border-radius: 8px;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 30px;
 }
 
 .content-box {
   background-color: #333;
-  padding: 40px;
+  padding: 30px;
   border-radius: 8px;
-  width: 50%;
-  min-height: 150px;
-  margin-bottom: 20px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  font-size: 1.5rem;
+}
+
+.content-box h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+/* Chart styling */
+.content-box canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .content-box {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Resource form styling */
+.resource-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.resource-form input,
+.resource-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #444;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.resource-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.resource-form button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.resource-form button:hover {
+  background-color: #45a049;
 }

@@ -2,11 +2,17 @@ const express = require('express');  // Express framework for APIs
 const sql = require('mssql');       // Connecting to the SQL Server client
 const bcrypt = require('bcryptjs'); // For password hashing
 const jwt = require('jsonwebtoken'); // For JWT tokens
+const cors = require('cors');      // To handle Cross-Origin Resource Sharing for backend-frontend
 require('dotenv').config();         // Hide our database credentials
 
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
+ex.use(cors()); // Enable CORS for all routes
 
+ex.use((req, res, next) => {
+  console.log('Incoming request:', req.method, req.url);
+  next();
+});
 // Database Configuration
 
 const dbConfig = {
@@ -59,10 +65,13 @@ function authenticateToken(UserReq, DBresults, next) {
         next();
     });
 }
+    
 
 //================================================= Student API=================================================//
 // Registering a Student 
 ex.post('/register', async (UserReq, DBresults) => {
+    console.log('Register route hit');
+
     const { Fname, Lname, email, password } = UserReq.body;
 
     if (!Fname || !Lname || !email || !password) {
@@ -415,35 +424,72 @@ ex.delete('/user/:id', authenticateToken, async (UserReq, DBresults) => {
 //================================================= End of Admin API=================================================//
 
 
+
+
+
+
 //================================================= Lecture API=================================================//
 
+
+
+
+//hashed password : $2b$10$rfgdTvBbq92E.tEbJrHen.O0HfWP0Ux5ugXO9eWJGw4UxdsQeAtde
 // Lecture login same with admin no need to register
+
+
+// Temporary setup function to generate a hash
+async function run() {
+    const plainPassword = 'Lecturer@123';
+    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+    console.log('Hashed password:', hashedPassword);
+}
+
+// Call this once to generate the hash
+//run(); // ← Uncomment when needed
+
+
+
 ex.post('/login/lecturer', async (UserReq, DBresults) => {
+    console.log("Incoming request: POST /login/lecturer");
+
     const { email, password } = UserReq.body;
+    console.log("Request body:", { email, password });
+
     if (!email || !password) {
+        console.log("Missing email or password");
         return DBresults.status(400).json({ error: 'Email and password required' });
     }
+
     try {
         let result = await getDbRequest()
             .input('email', sql.NVarChar, email)
             .query('SELECT * FROM Lecturer WHERE email = @email');
 
         const lecturer = result.recordset[0];
+        console.log("Lecturer from DB:", lecturer);
+
         if (!lecturer) {
+            console.log("No lecturer found for email:", email);
             return DBresults.status(401).json({ error: 'Invalid credentials' });
         }
+
         const isMatch = await bcrypt.compare(password, lecturer.password);
+        console.log("Password match:", isMatch);
+
         if (!isMatch) {
+            console.log("Password mismatch for email:", email);
             return DBresults.status(401).json({ error: 'Invalid credentials' });
         }
+
         const token = jwt.sign(
             { lecturer_id: lecturer.lecturer_id, email: lecturer.email },
             process.env.JWT_SECRET,
-            { expiresIn: '1h' } //Token duration
+            { expiresIn: '1h' }
         );
 
         const { password: _, ...lecturerInfo } = lecturer;
 
+        console.log("Login successful for:", email);
         DBresults.json({
             message: 'Lecturer login successful',
             token,
@@ -451,10 +497,12 @@ ex.post('/login/lecturer', async (UserReq, DBresults) => {
         });
 
     } catch (err) {
-        console.error("Error during lecturer login: ", err);
+        console.error("Error during lecturer login:", err);
         DBresults.status(500).json({ error: 'Login failed' });
     }
 });
+
+
 
 // Lectuer-dashboard (get lecturer profile)
 ex.get('/lecturer/:id', authenticateToken, async (UserReq, DBresults) => {
@@ -482,7 +530,7 @@ ex.get('/lecturer/:id', authenticateToken, async (UserReq, DBresults) => {
 
 
 // Get all resources (for lectuer dashboard)
-ex.get('/resources', authenticateToken, async (UserReq, DBresults) => {
+ex.get('/resources', /*authenticateToken,*/ async (UserReq, DBresults) => {
     try {
         let result = await getDbRequest()
             .query('SELECT resource_id, resource_name, description, url, date FROM Resource');
@@ -500,7 +548,7 @@ ex.get('/resources', authenticateToken, async (UserReq, DBresults) => {
 
 
 // Upload a new resource (for lecturer)
-ex.post('/resources', authenticateToken, async (UserReq, DBresults) => {
+ex.post('/resources', /*authenticateToken,*/ async (UserReq, DBresults) => {
     const { resource_name, description, url } = UserReq.body;
 
     if (!resource_name || !url) {
@@ -525,8 +573,13 @@ ex.post('/resources', authenticateToken, async (UserReq, DBresults) => {
     }
 });
 
+
+
+
 // Delete a resource (for lecturer)
-ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
+ex.delete('/resources/:id', /*authenticateToken,*/ async (UserReq, DBresults) => {
+
+    console.log('Register route hit');
     const resourceId = UserReq.params.id;
 
     try {
@@ -547,90 +600,94 @@ ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
 });
 
 
-// Get grades for a lecturer's students (Overview)
-ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => {
-    const lecturerId = UserReq.params.id;
+// Get grades for a lecturer (Overview)
+ex.get('/lecturer/:lecturer_id/grades/summary', async (UserReq, DBresults) => {
+    const lecturerId = UserReq.params.lecturer_id;
+
     try {
-        const result = await getDbRequest()
+        const gradeSummary = await getDbRequest()
             .input('lecturer_id', sql.Int, lecturerId)
             .query(`
-                SELECT g.grade_id, s.Fname + ' ' + s.Lname AS student_name,
-                       a.description AS assessment_title, g.marks, g.feedback
-                FROM Grading g
-                JOIN Student s ON g.stud_id = s.stud_id
-                JOIN Assessment a ON g.assessment_id = a.assessment_id
-                WHERE g.lecturer_id = @lecturer_id
-                ORDER BY g.grade_id DESC
+                SELECT 
+                    AVG(marks) AS average_grade,
+                    MAX(marks) AS highest_grade,
+                    MIN(marks) AS lowest_grade,
+                    COUNT(*) AS total_students
+                FROM grading
+                WHERE lecturer_id = @lecturer_id
             `);
 
-        DBresults.json({
-            message: 'Grades retrieved successfully',
-            grades: result.recordset
+        const gradeDistribution = await getDbRequest()
+            .input('lecturer_id', sql.Int, lecturerId)
+            .query(`
+                SELECT 
+                    CASE 
+                        WHEN marks >= 80 THEN 'A'
+                        WHEN marks >= 70 THEN 'B'
+                        WHEN marks >= 60 THEN 'C'
+                        WHEN marks >= 50 THEN 'D'
+                        ELSE 'F'
+                    END AS grade_band,
+                    COUNT(*) AS count
+                FROM grading
+                WHERE lecturer_id = @lecturer_id
+                GROUP BY 
+                    CASE 
+                        WHEN marks >= 80 THEN 'A'
+                        WHEN marks >= 70 THEN 'B'
+                        WHEN marks >= 60 THEN 'C'
+                        WHEN marks >= 50 THEN 'D'
+                        ELSE 'F'
+                    END
+            `);
+
+        DBresults.status(200).json({
+            lecturer_id: lecturerId,
+            average_grade: gradeSummary.recordset[0].average_grade,
+            highest_grade: gradeSummary.recordset[0].highest_grade,
+            lowest_grade: gradeSummary.recordset[0].lowest_grade,
+            total_students: gradeSummary.recordset[0].total_students,
+            grade_distribution: gradeDistribution.recordset
         });
 
     } catch (err) {
-        console.error(` Error fetching grades:`, err);
-        DBresults.status(500).json({ error: 'Failed to retrieve grades' });
+        console.error(`Error fetching grade summary:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve grade summary' });
     }
 });
+
+
 
 
 // Get at-risk students (average marks below 50)
-ex.get('/at-risk', authenticateToken, async (UserReq, DBresults) => {
-    try {
-        let result = await getDbRequest()
-            .query(`
-                SELECT s.stud_id, s.Fname, s.Lname, AVG(g.marks) AS avg_marks
-                FROM Student s
-                JOIN Grading g ON s.stud_id = g.stud_id
-                GROUP BY s.stud_id, s.Fname, s.Lname
-                HAVING AVG(g.marks) < 50
-            `);
+ex.get('/lecturer/:id/at-risk', async (UserReq, DBresults) => {
+  const lecturerId = UserReq.params.id;
 
-        DBresults.json({
-            message: 'At-risk students retrieved',
-            atRiskStudents: result.recordset
-        });
 
-    } catch (err) {
-        console.error(`Error fetching at-risk students:`, err);
-        DBresults.status(500).json({ error: 'Failed to retrieve at-risk data' });
-    }
+  try {
+    const result = await getDbRequest()
+      .input('lecturerId', sql.Int, lecturerId)
+      .query(`
+        SELECT 
+          Module.name AS module,
+          COUNT(*) AS count
+        FROM Grade
+        INNER JOIN Module ON Grade.module_id = Module.module_id
+        WHERE Grade.lecturer_id = @lecturerId
+          AND Grade.average_mark < 50
+        GROUP BY Module.name
+      `);
+
+    DBresults.json({
+      modules: result.recordset
+    });
+
+  } catch (err) {
+    console.error('Error fetching at-risk students:', err);
+    DBresults.status(500).json({ error: 'Failed to retrieve at-risk data' });
+  }
 });
 
-
-// Get student risk profile (detailed)
-ex.get('/students/:id/risk-profile', authenticateToken, async (UserReq, DBresults) => {
-    const studentId = UserReq.params.id;
-
-    try {
-        let result = await getDbRequest()
-            .input('stud_id', sql.Int, studentId)
-            .query(`
-                SELECT s.stud_id, s.Fname, s.Lname, s.email,
-                       AVG(g.marks) AS avg_marks,
-                       COUNT(g.grade_id) AS total_assessments,
-                       MAX(g.feedback) AS latest_feedback
-                FROM Student s
-                LEFT JOIN Grading g ON s.stud_id = g.stud_id
-                WHERE s.stud_id = @stud_id
-                GROUP BY s.stud_id, s.Fname, s.Lname, s.email
-            `);
-
-        if (result.recordset.length === 0) {
-            return DBresults.status(404).json({ error: 'Student not found or no grading data' });
-        }
-
-        DBresults.json({
-            message: 'Risk profile retrieved',
-            profile: result.recordset[0]
-        });
-
-    } catch (err) {
-        console.error(`Error fetching risk profile:`, err);
-        DBresults.status(500).json({ error: 'Failed to retrieve risk profile' });
-    }
-});
 
 
 //================================================= END Lecture API=================================================//
@@ -860,5 +917,12 @@ ex.get('/home', authenticateToken, (UserReq, DBresults) => {
 const PORT = process.env.PORT || 5000;
 ex.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+
+});
+
+
+ex.use((req, res) => {
+  console.log('Unhandled route:', req.method, req.url);
+  res.status(404).json({ error: 'Route not found' });
 });
 
