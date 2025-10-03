@@ -1,0 +1,201 @@
+/* === Overall Page Layout === */
+.page-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #ffffff; /* White background */
+  color: #000000;
+  margin: 0;
+}
+
+/* === Sidebar Styling (optional if used) === */
+.sidebar {
+  flex-shrink: 0;
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e5e5;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+}
+
+.logo-text,
+.logo-subtext {
+  color: #000;
+  margin: 5px 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 12px 18px;
+  margin-bottom: 8px;
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  transition: all 0.2s ease;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+  background-color: #f5f5f5; /* subtle grey highlight */
+  color: #000;
+  border-color: #ddd;
+}
+
+/* === Main Content Styling === */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+.main-header {
+  padding: 16px 24px;
+  background-color: #ffffff !important;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: #000;
+  background-color: #ffffff !important;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff !important;
+  padding: 6px 14px;
+  border-radius: 20px; /* rounded pill style */
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  color: #40e0d0;
+}
+
+.profile-section:hover {
+  background-color: #f5f5f5 !important;
+  color : #000;
+}
+
+.profile-icon {
+  font-size: 1.3rem;
+  margin-right: 8px;
+}
+
+/* === Content Body & Box === */
+.content-body {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff !important;
+}
+
+.content-box {
+  background-color: #ffffff !important;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1100px;
+  overflow-x: auto; /* prevent table cut-off */
+}
+
+/* === Section Titles === */
+.content-box h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #000;
+  background-color: #ffffff !important;
+}
+
+/* === Filter Input Styling === */
+.filter-input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff !important;
+  color: #000;
+  font-size: 1rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-input::placeholder {
+  color: #666;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #40e0d0;
+  box-shadow: 0 0 0 3px rgba(64,224,208,0.2);
+}
+
+/* === Student Table Styling === */
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  table-layout: auto;
+}
+
+.student-table th,
+.student-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  color: #000;
+  white-space: nowrap;
+}
+
+.student-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.student-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.student-table tr:hover {
+  background-color: #f1f1f1; /* subtle hover, matches global */
+}

@@ -678,32 +678,16 @@ function DigitalLiteracyTest() {
   const page = pages[currentPage];
 
   return (
-    <div className="page-container">
+       <div className="page-container">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="logo-section">
-          <img src="/path-to-logo.png" alt="EDUGUAGE Logo" className="logo" />
-          <h1 className="logo-text">EDUGUAGE</h1>
-          <p className="logo-subtext">System Enhancing LMS Readiness</p>
-        </div>
-
-        <nav className="sidebar-nav">
-          <ul>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#resources">Helpful Resource</a></li>
-            <li><a href="#test" className="active">Digital Literacy Test</a></li>
-            <li><a href="#efundi">eFundi Readiness Test</a></li>
-            <li><a href="#gradebook">Gradebook</a></li>
-          </ul>
-        </nav>
-      </aside>
+      
 
       {/* Main content */}
-      <main style={mainContentStyle}>
-        <header style={mainHeaderStyle}>
-          <h1 style={headerTitleStyle}>Digital Literacy Test</h1>
-          <div style={profileSectionStyle}>
-            <span style={profileIconStyle}>👤</span>
+      <main className="main-content">
+        <header className="main-header">
+          <h1 className="header-title">Digital Literacy Test</h1>
+          <div className="profile-section">
+            <span className="profile-icon">👤</span>
             <span>Profile</span>
           </div>
         </header>

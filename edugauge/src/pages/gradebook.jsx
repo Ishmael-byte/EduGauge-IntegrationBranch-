@@ -1,28 +1,23 @@
 import React from "react";
 import "./gradebook.css";
+<<<<<<< HEAD
 import '../APIservices/api'; //Fixed import path 
+=======
+import { NavLink } from "react-router-dom";
+>>>>>>> origin/FRONT-END
 
 const GradeBook = () => {
   return (
     <div className="gb-page">
-      <aside className="gb-sidebar">
-        {/* image must be in public/edugauge.png */}
-        <img src="/Eduguage-logo.jpg" alt="EduGauge Logo" className="gb-logo" />
+      {/* Sidebar */}
+      
 
-        <nav className="gb-nav">
-          <button className="gb-nav-item">Overview</button>
-          <button className="gb-nav-item">Helpful recourse</button>
-          <button className="gb-nav-item">Digital Literacy Test</button>
-          <button className="gb-nav-item">eFundi Readiness Test</button>
-          <div className="gb-spacer" />
-        </nav>
-      </aside>
-
+      {/* Main Content */}
       <main className="gb-main">
         <header className="gb-header">
           <h2 className="gb-small-title">Gradebook</h2>
           <div className="gb-profile">
-            <span style={{ fontSize: "28px", color: "#7b2cbf" }}>👤</span>
+            <span className="gb-profile-icon">👤</span>
             <span>Profile</span>
           </div>
         </header>
@@ -35,7 +30,7 @@ const GradeBook = () => {
               <tr>
                 <th>Test Item</th>
                 <th>Marks</th>
-                <th>Resources</th>
+                <th>Due Date</th>
               </tr>
             </thead>
 
@@ -44,7 +39,8 @@ const GradeBook = () => {
                 <td className="left">Digital Literacy Test</td>
                 <td></td>
                 <td>
-                  <button className="gb-resource-btn">Resources</button>
+                  {/* Example button if needed */}
+                  {/* <button className="gb-resource-btn">Resources</button> */}
                 </td>
               </tr>
 
@@ -52,7 +48,7 @@ const GradeBook = () => {
                 <td className="left">eFundi Readiness Test</td>
                 <td></td>
                 <td>
-                  <button className="gb-resource-btn">Resources</button>
+                  {/* <button className="gb-resource-btn">Resources</button> */}
                 </td>
               </tr>
 

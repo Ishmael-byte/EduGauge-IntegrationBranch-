@@ -1,147 +1,44 @@
-import React from 'react';
+import React from "react";
+import "./dashboard.css";
 
-function Dashboard() {
-  const pageContainerStyle = {
-    display: 'flex',
-    minHeight: '100vh',
-    width: '100vw',
-    fontFamily: 'Roboto, Arial, sans-serif',
-    color: '#E0E0E0',
-    backgroundColor: '#2c2c2c',
-  };
-
-  const sidebarStyle = {
-    width: '250px',
-    backgroundColor: '#202020',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-  };
-
-  const logoSectionStyle = {
-    textAlign: 'center',
-    marginBottom: '30px',
-  };
-
-  const logoTextStyle = {
-    color: '#fff',
-    margin: '5px 0',
-    fontSize: '1.2rem',
-  };
-
-  const logoSubTextStyle = {
-    color: '#fff',
-    margin: '5px 0',
-    fontSize: '0.8rem',
-  };
-
-  const sidebarNavStyle = {
-    listStyle: 'none',
-    padding: '0',
-  };
-
-  const navLinkStyle = {
-    display: 'block',
-    padding: '15px 20px',
-    marginBottom: '5px',
-    backgroundColor: '#383838',
-    color: '#fff',
-    textDecoration: 'none',
-    borderRadius: '5px',
-    transition: 'background-color 0.3s',
-  };
-
-  const mainContentStyle = {
-    flexGrow: '1',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '20px',
-  };
-
-  const mainHeaderStyle = {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    padding: '10px 0',
-    marginBottom: '20px',
-  };
-
-  const profileSectionStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: '#555',
-    padding: '5px 15px',
-    borderRadius: '20px',
-  };
-
-  const profileIconStyle = {
-    fontSize: '1.5rem',
-    marginRight: '10px',
-  };
-
-  const contentBodyStyle = {
-    flexGrow: '1',
-    backgroundColor: '#383838',
-    borderRadius: '8px',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-  
-  const contentBoxStyle = {
-    backgroundColor: '#333',
-    padding: '40px',
-    borderRadius: '8px',
-    width: '50%',
-    minHeight: '150px',
-    marginBottom: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '1.5rem',
-  };
-
+export default function Dashboard() {
   return (
-    <div style={pageContainerStyle}>
-      {/* Sidebar */}
-      <aside style={sidebarStyle}>
-        <div style={logoSectionStyle}>
-          <img src="/Eduguage-logo.jpg" alt="Edugauge Logo" style={{ maxWidth: '100px', height: 'auto' }} />
-          <h1 style={logoTextStyle}>EDUGUAGE</h1>
-          <h2 style={logoSubTextStyle}>System Enhancing LMS Readiness</h2>
+    <div className="dashboard-page">
+      <div className="dashboard-header">
+        <h1 className="dashboard-title">Dashboard</h1>
+        <div className="profile-section">
+          <span className="profile-icon">👤</span>
+          <span>Profile</span>
         </div>
-        <nav>
-          <ul style={sidebarNavStyle}>
-            <li><a href="#" style={navLinkStyle}>Overview</a></li>
-            <li><a href="#" style={navLinkStyle}>Digital Literacy Test</a></li>
-            <li><a href="#" style={navLinkStyle}>eFundi Readiness Test</a></li>
-            <li><a href="#" style={navLinkStyle}>Helpful recourse</a></li>
+      </div>
+
+      <div className="dashboard-widgets">
+        {/* Welcome Box */}
+        <div className="dashboard-box">
+          <h2 className="box-heading">Welcome to Educate</h2>
+          <p className="box-content">
+            This platform is here to help you get ready for university. Test your digital literacy—from creating files to navigating eFundi, our university’s platform—and see if you’re fully prepared to succeed. Educate will guide you, provide personalized resources, and help you strengthen the skills you need to start university with confidence.
+          </p>
+        </div>
+
+        {/* Task Message Box */}
+        <div className="dashboard-box">
+          <h2 className="box-heading">Your Task Messenger</h2>
+          <p className="box-content">
+            Your first steps in Educate:
+          </p>
+          <ul className="task-list">
+            <li>Navigate to your eFundi Readiness Test and the Digital Literacy Test.</li>
+            <li>Complete both tests.</li>
+            <li>Go to the Gradebook to view your results.</li>
+            <li>✅ If you pass: Well done! You’re ready for university.</li>
+            <li>❌ If you don’t pass: Educate will provide personalized resources to help you improve.</li>
+            <li>Retake the test after studying.</li>
+            <li>✅ If you pass the second time: Great job!</li>
+            <li>❌ If you still don’t pass: Your name will be shared with lecturers, who will contact you for a physical class to get you ready for university.</li>
           </ul>
-        </nav>
-      </aside>
-
-      {/* Main Content Area */}
-      <main style={mainContentStyle}>
-        <header style={mainHeaderStyle}>
-          <div style={profileSectionStyle}>
-            <span style={profileIconStyle}>👤</span>
-            <span>Profile</span>
-          </div>
-        </header>
-
-        <section style={contentBodyStyle}>
-          <div style={contentBoxStyle}>
-            Welcome Text
-          </div>
-          <div style={contentBoxStyle}>
-            Tasks
-          </div>
-        </section>
-      </main>
+        </div>
+      </div>
     </div>
   );
 }
-
-export default Dashboard;
