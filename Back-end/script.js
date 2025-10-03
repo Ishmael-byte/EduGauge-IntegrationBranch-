@@ -643,94 +643,98 @@ ex.get('/students/:id/risk-profile', authenticateToken, async (UserReq, DBresult
 
 
 //================================================= END Lecture API=================================================//
-
-
 //================================================= ASSESSMENT API=================================================//
-//add assessment
 
+// POST: Create assessment — Admins only
 ex.post('/assessment', authenticateToken, async (UserReq, DBresults) => {
-    const description = UserReq.body.description;
-    const lecturerId = UserReq.lecturerid;
-    const created_date = new Date();
+    if (!UserReq.user.admin_id) {
+        return DBresults.status(403).json({ message: 'Only admins can create assessments' });
+    }
 
-    if(!description){
-        return DBresults.status(400).json({ message: 'Assessment Description is required' });
+    const { description, lecturer_id } = UserReq.body;
+    if (!description || !lecturer_id) {
+        return DBresults.status(400).json({ message: 'Description and lecturer_id are required' });
     }
 
     try {
-        let result = await getDbRequest()
-        .input('description', sql.NVarChar(255), description)
-        .input('created_date', sql.DateTime, created_date)
-        .input('lecturer_id', sql.Int, lecturerId)
-        .query('INSERT INTO Assessment (description, created_date, lecturer_id) VALUES (@description, @created_date, @lecturer_id); SELECT SCOPE_IDENTITY() AS assessment_id;');
+        const result = await getDbRequest()
+            .input('description', sql.NVarChar(255), description)
+            .input('created_date', sql.DateTime, new Date())
+            .input('lecturer_id', sql.Int, lecturer_id)
+            .query(`
+                INSERT INTO Assessment (description, created_date, lecturer_id) 
+                OUTPUT INSERTED.assessment_id
+                VALUES (@description, @created_date, @lecturer_id)
+            `);
 
         DBresults.status(201).json({
             message: 'Assessment created successfully',
-            assessmentId: result.recordset.assessment_id
+            assessmentId: result.recordset[0].assessment_id
         });
-    }catch(err){
+    } catch (err) {
         console.error("Error creating assessment:", err);
         DBresults.status(500).json({ message: 'Failed to create assessment' });
     }
-
 });
 
-
-//update assessment
-ex.put('/assessment/:id', authenticateToken, async (UserReq, DBresults) => { 
-     const description = UserReq.body.description;
-    const lecturerId = UserReq.lecturerid;
-    const updated_date = new Date();
-
-    if(!description){
-        return DBresults.status(400).json({ message: 'Assessment Description is required' });
+// PUT: Update assessment — Admins only
+ex.put('/assessment/:id', authenticateToken, async (UserReq, DBresults) => {
+    if (!UserReq.user.admin_id) {
+        return DBresults.status(403).json({ message: 'Only admins can update assessments' });
     }
 
-    try{
+    const { description } = UserReq.body;
+    const { id } = UserReq.params;
+
+    if (!description) {
+        return DBresults.status(400).json({ message: 'Assessment description is required' });
+    }
+
+    try {
         const result = await getDbRequest()
-        .input('assessment_id', sql.Int, UserReq.params.id)
-        .input('description', sql.NVarChar(255), description)
-        .input('updated_date', sql.DateTime, updated_date)
-        .input('lecturer_id', sql.Int, lecturerId)
-        .query('UPDATE Assessment SET description = @description, updated_date = @updated_date WHERE assessment_id = @assessment_id AND lecturer_id = @lecturer_id');
+            .input('assessment_id', sql.Int, id)
+            .input('description', sql.NVarChar(255), description)
+            .query(`
+                UPDATE Assessment 
+                SET description = @description, updated_date = GETDATE() 
+                WHERE assessment_id = @assessment_id
+            `);
 
-        if(result.rowsAffected[0] === 0){
-            return DBresults.status(404).json({ message: 'Assessment not found or you do not have permission to update it.' });
+        if (result.rowsAffected[0] === 0) {
+            return DBresults.status(404).json({ message: 'Assessment not found' });
         }
-
         DBresults.json({ message: 'Assessment updated successfully' });
-
-    }catch(err) {
+    } catch (err) {
         console.error("Error updating assessment:", err);
         DBresults.status(500).json({ message: 'Failed to update assessment' });
     }
-
-
 });
 
-//delete assessment
+// DELETE: Delete assessment — Admins only
 ex.delete('/assessment/:id', authenticateToken, async (UserReq, DBresults) => {
-    const lecturerId = UserReq.lecturerid;
+    if (!UserReq.user.admin_id) {
+        return DBresults.status(403).json({ message: 'Only admins can delete assessments' });
+    }
 
-    try{
+    const { id } = UserReq.params;
+
+    try {
         const result = await getDbRequest()
-        .input('assessment_id', sql.Int, UserReq.params.id)
-        .input('lecturer_id', sql.Int, lecturerId)
-        .query('DELETE FROM Assessment WHERE assessment_id = @assessment_id AND lecturer_id = @lecturer_id');
+            .input('assessment_id', sql.Int, id)
+            .query('DELETE FROM Assessment WHERE assessment_id = @assessment_id');
 
-        if (result.rowsAffected[0] === 0){
-            return DBresults.status(404).json({ message: 'Assessment not found or you do not have permission to delete it.' });
+        if (result.rowsAffected[0] === 0) {
+            return DBresults.status(404).json({ message: 'Assessment not found' });
         }
-
         DBresults.json({ message: 'Assessment deleted successfully' });
     } catch (err) {
         console.error("Error deleting assessment:", err);
         DBresults.status(500).json({ message: 'Failed to delete assessment' });
     }
-
 });
 
 //================================================= END OF ASSESSMENT API=================================================//
+
 //================================================= ANSWER API =================================================//
 ex.post('/answer/:questionId', authenticateToken, async (UserReq, DBresults) => {
     const answerDescription = UserReq.body.answerDescription;
@@ -829,13 +833,13 @@ ex.get('/question/:assessmentId', authenticateToken, async (UserReq, DBresults) 
 });
 
 ex.post('/question/:assessmentId', authenticateToken, async (UserReq, DBresults) => {
-    const description = UserReq.body.description;
-    const assessmentId = UserReq.params.assessmentId;
-    const lecturerId = UserReq.lecturerid;
-
-    if (!lecturerId) {
-        return DBresults.status(403).json({ message: 'Only lecturers can add questions' });
+    // ✅ Only admins can add questions
+    if (!UserReq.user.admin_id) {
+        return DBresults.status(403).json({ message: 'Only admins can add questions' });
     }
+
+    const { description } = UserReq.body;
+    const { assessmentId } = UserReq.params;
 
     if (!description) {
         return DBresults.status(400).json({ message: 'Question description is required' });
@@ -846,7 +850,7 @@ ex.post('/question/:assessmentId', authenticateToken, async (UserReq, DBresults)
             .input('assessment_id', sql.Int, assessmentId)
             .input('description', sql.NVarChar(1000), description)
             .query('INSERT INTO Question (assessment_id, description) VALUES (@assessment_id, @description)');
-
+        
         DBresults.status(201).json({ message: 'Question added successfully' });
     } catch (err) {
         console.error("Error adding question:", err);
