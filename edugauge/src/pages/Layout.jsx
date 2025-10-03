@@ -16,9 +16,7 @@ const Layout = () => {
             <li><Link to="/efunditest">eFundi Test</Link></li>
             <li><Link to="/digitalliteracytest">Digital Literacy Test</Link></li>
             <li><Link to="/gradebook">GradeBook</Link></li>
-            <li><Link to="/admin">Admin</Link></li>
             <li><Link to="/addlecture">Add Lecture</Link></li>
-            <li><Link to="/lecturer">Lecturer</Link></li>
             <li><Link to="/profile">Profile</Link></li>
             <li><Link to="/resources">Resources</Link></li>
             <li><Link to="/atrisklist">At Risk List</Link></li>

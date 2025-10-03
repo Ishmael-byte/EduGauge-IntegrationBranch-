@@ -20,7 +20,7 @@ html, body {
   width: 240px;
   background: #4f0c61;
   color: white;
-  padding: 20px;
+  padding: 0%;
   flex-shrink: 0;
   transition: transform 0.3s ease-in-out;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
@@ -67,7 +67,7 @@ html, body {
   flex: 1;
   min-height: 100vh;
   width: 100%;
-  padding: 20px;
+  padding: 0%;
   box-sizing: border-box;
 }
 
