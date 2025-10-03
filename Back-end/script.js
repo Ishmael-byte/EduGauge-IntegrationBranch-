@@ -7,6 +7,9 @@ require('dotenv').config();         // Hide our database credentials
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
 
+const cors = require('cors');
+ex.use(cors());
+
 // Database Configuration
 
 const dbConfig = {
