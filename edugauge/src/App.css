@@ -5,7 +5,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: #1f1f1f; /* default dark background */
+  background: #f8f7f7; /* default dark background */
   color: white;
 }
 
@@ -54,16 +54,16 @@ html, body, #root {
 .content {
   flex: 1;
   padding: 20px;
-  background: #2b2b2b; /* slightly lighter dark */
+  background: #ebe8e8; /* slightly lighter dark */
   overflow-y: auto;
   min-height: 100vh;
 }
 
 /* Cards / containers inside pages */
 .card {
-  background: #333;
+  background: #ece9e9;
   padding: 1.5em;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(243, 241, 241, 0.904);
   margin-bottom: 1.5em;
 }
