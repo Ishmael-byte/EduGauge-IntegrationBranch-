@@ -4,8 +4,8 @@
   flex-direction: row;
   height: 100vh;
   font-family: Arial, sans-serif;
-  color: #000000;
-  background-color: #ffffff;
+  color: #000; /* Black text */
+  background-color: #f9f9f9; /* Light background */
   margin: 0;
 }
 
@@ -13,8 +13,7 @@
 .sidebar {
   flex-shrink: 0;
   width: 250px;
-  background-color: #ffffff;
-  border-right: 1px solid #ddd;
+  background-color: #eaeaea; /* lighter sidebar */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -32,7 +31,7 @@
 
 .logo-text,
 .logo-subtext {
-  color: #000000;
+  color: #000; /* black text */
   margin: 5px 0;
 }
 
@@ -45,8 +44,8 @@
   display: block;
   padding: 15px 20px;
   margin-bottom: 5px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #ddd;
+  color: #000; /* black text */
   text-decoration: none;
   border-radius: 6px;
   border: 1px solid #ddd;
@@ -55,8 +54,8 @@
 
 .sidebar-nav li a:hover,
 .sidebar-nav li a.active {
-  background-color: #f5f5f5;
-  border-color: #ccc;
+  background-color: #40e0d0; /* turquoise highlight */
+  color: #fff;
 }
 
 /* === Main Content Styling === */
@@ -66,13 +65,12 @@
   flex-direction: column;
   padding: 20px;
   overflow-y: auto;
-  background-color: #ffffff;
+  color: #000; /* black text */
 }
 
 .main-header {
   padding: 20px 30px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: #eee;
   border-radius: 8px;
   margin-bottom: 20px;
   display: flex;
@@ -82,26 +80,18 @@
 
 .header-title {
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #000000;
+  font-weight: bold;
+  color: #000;
 }
 
 /* Profile button */
 .profile-section {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  padding: 6px 14px;
+  background-color: #ccc;
+  padding: 5px 15px;
   border-radius: 20px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  color: #40e0d0;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.profile-section:hover {
-  background-color: #f5f5f5;
-  color: #000000;
+  color: #000;
 }
 
 .profile-icon {
@@ -109,19 +99,21 @@
   margin-right: 10px;
 }
 
-/* === Content Area === */
+/* === Content Body === */
 .content-body {
   flex-grow: 1;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 8px;
   padding: 20px;
   text-align: left;
   display: block;
   align-items: flex-start;
+  display: block;
+  color: #000;
 }
 
 .content-box {
-  background-color: #ffffff;
+  background-color: #f3f3f3;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -129,36 +121,31 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  color: #000;
 }
 
-/** === Section Titles === */
+/* === Section Titles === */
+.content-box h2,
+.content-box h3,
+.content-box p {
+  color: #000; /* black text */
+}
+
 .content-box h2 {
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 15px;
-  color: #000000;
-}
-
-.content-box h3,
-.content-box p,
-.content-box form {
-  text-align: left;
-  margin-left: 0;
 }
 
 .content-box h3 {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #000000;
 }
 
 .content-box p {
   margin-bottom: 12px;
   font-size: 1rem;
-  color: #333333;
 }
 
 /* === Question Styling === */
@@ -166,15 +153,16 @@
   display: block;
   width: 100%;
   padding-bottom: 15px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
   text-align: left;
+  color: #000;
 }
 
 .question-box p {
   margin-bottom: 10px;
   font-size: 1rem;
   font-weight: 500;
-  color: #000000;
+  color: #000;
 }
 
 .question-box form {
@@ -189,14 +177,17 @@
   display: flex;
   align-items: center;
   font-size: 0.95rem;
-  color: #000000;
+  color: #000;
   cursor: pointer;
   white-space: normal;
 }
 
-.option-label input[type="radio"] {
+/* Radio / checkbox inputs with turquoise accent */
+.option-label input[type="radio"],
+.option-label input[type="checkbox"] {
   margin-right: 10px;
   flex: 0 0 auto;
+  accent-color: #40e0d0; /* Turquoise highlight */
   vertical-align: middle;
 }
 
@@ -207,8 +198,8 @@
 }
 
 .navigation-buttons button {
-  background-color: #40e0d0;
-  color: #ffffff;
+  background-color: #40e0d0; /* turquoise buttons */
+  color: #fff;
   border: none;
   padding: 10px 15px;
   margin-right: 10px;
@@ -218,10 +209,10 @@
 }
 
 .navigation-buttons button:hover:not(:disabled) {
-  background-color: #2bb3a8;
+  background-color: #2bb9a8;
 }
 
 .navigation-buttons button:disabled {
-  background-color: #cccccc;
+  background-color: #ccc;
   cursor: not-allowed;
 }
