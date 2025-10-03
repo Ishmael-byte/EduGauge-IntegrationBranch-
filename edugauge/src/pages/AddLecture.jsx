@@ -88,10 +88,13 @@ function AddLecture({ initialLecturers = [], onSubmit, onDelete }) {
       {/* Sidebar */}
      
 
-
       <main className="main-content">
         <header className="main-header">
           <h1 className="header-title">{editId ? "Edit Lecturer" : "Add Lecturer"}</h1>
+          <div className="profile-section">
+            <span className="profile-icon">👤</span>
+            <span>Profile</span>
+          </div>
         </header>
 
         <div className="content-body">
