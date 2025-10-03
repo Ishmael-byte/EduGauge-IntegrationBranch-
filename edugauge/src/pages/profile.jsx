@@ -41,7 +41,7 @@ const ProfilePage = () => {
                         </div>
                         <div className="profile-name">{placeholderStudentData.name}</div>
                         <div className="student-number">{placeholderStudentData.studentNumber}</div>
-                        <button className="edit-button">Edit Profile</button>
+                       {/* <button className="edit-button">Edit Profile</button>*/}
                     </div>
 
                     {/* My Information */}

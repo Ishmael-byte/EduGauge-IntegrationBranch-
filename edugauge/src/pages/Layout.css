@@ -1,7 +1,18 @@
+/* Reset body & html margins */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Main layout */
 .layout {
   display: flex;
   min-height: 100vh;
   width: 100%;
+  margin: 0; /* remove extra space */
+  padding: 0;
 }
 
 /* Sidebar */
@@ -29,7 +40,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff; /* 👈 Google-white */
+  background-color: #ffffff; /* 👈 page background */
 }
 
 /* Sidebar toggle */
