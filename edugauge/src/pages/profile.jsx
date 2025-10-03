@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; //Added useState and useEffect (needed for API calls)
 import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import './profile.css';
 import api from '../APIservices/api'; //Fixed import path - removed .js extension
 
@@ -65,6 +66,7 @@ const ProfilePage = () => {
     return (
         <div className="page-container">
             {/* Sidebar */}
+<<<<<<< HEAD
             <aside className="sidebar">
                 <div className="logo-section">
                     <img src="/Eduguage-logo.jpg" alt="Eduguage Logo" className="logo-img" />
@@ -80,6 +82,11 @@ const ProfilePage = () => {
                     </ul>
                 </nav>
             </aside>
+=======
+           
+
+            {/* Main Content Area */}
+>>>>>>> origin/FRONT-END
             <main className="main-content">
                 <header className="main-header">
                     <Link to="/profile" className="profile-link">
@@ -96,9 +103,15 @@ const ProfilePage = () => {
                         <div className="profile-icon-large">
                             👤
                         </div>
+<<<<<<< HEAD
                         <div className="profile-name">{displayName}</div> {/*Display actual name instead of a placeholder*/}
                         <div className="student-number">{displayStudentNumber}</div>
                         <button className="edit-button">Edit Profile</button>
+=======
+                        <div className="profile-name">{placeholderStudentData.name}</div>
+                        <div className="student-number">{placeholderStudentData.studentNumber}</div>
+                       {/* <button className="edit-button">Edit Profile</button>*/}
+>>>>>>> origin/FRONT-END
                     </div>
                     {/* My Information */}
                     <div className="data-box info-box-1">
