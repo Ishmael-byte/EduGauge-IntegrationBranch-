@@ -9,7 +9,8 @@ const Layout = () => {
     <div className="layout">
       {/* Sidebar */}
       <aside className={`sidebar ${isSidebarOpen ? "" : "hidden"}`}>
-        <h2>EduGauge</h2>
+        <img src="/Eduguage-logo.jpg" alt="EDUGAUGE" />
+        
         <nav>
           <ul>
             <li><Link to="/dashboard">Dashboard</Link></li>
