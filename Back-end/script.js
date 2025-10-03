@@ -1090,9 +1090,7 @@ ex.get("/resources/file/:filename", authenticateToken, (UserReq, DBresults) => {
 //===============end of resourceAPI====================================================
 
 // start server 
-//  New (safe)
 const PORT = process.env.PORT || 5000;
-
 testDbConnection()
   .then(() => {
     ex.listen(PORT, () => {
@@ -1103,3 +1101,4 @@ testDbConnection()
     console.error("Server failed to start:", err.message);
     process.exit(1);
   });
+
