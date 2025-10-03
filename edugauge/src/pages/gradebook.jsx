@@ -26,7 +26,7 @@ const GradeBook = () => {
               <tr>
                 <th>Test Item</th>
                 <th>Marks</th>
-                <th>Resources</th>
+                <th>Due Date</th>
               </tr>
             </thead>
 
