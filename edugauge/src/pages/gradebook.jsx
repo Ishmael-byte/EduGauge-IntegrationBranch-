@@ -1,5 +1,6 @@
 import React from "react";
 import "./gradebook.css";
+import '../APIservices/api'; //Fixed import path 
 
 const GradeBook = () => {
   return (

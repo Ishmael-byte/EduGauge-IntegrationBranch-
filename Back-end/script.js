@@ -14,6 +14,9 @@ ex.get('/hello', (req, res) => {
     res.send('Hello! Routes are working.');
 });
 
+const cors = require('cors');
+ex.use(cors());
+
 // Database Configuration
 
 const dbConfig = {
