@@ -4,8 +4,8 @@
   flex-direction: row;
   height: 100vh;
   font-family: Arial, sans-serif;
-  color: #e0e0e0;
-  background-color: #2c2c2c;
+  color: #000000;
+  background-color: #ffffff;
   margin: 0;
 }
 
@@ -13,7 +13,8 @@
 .sidebar {
   flex-shrink: 0;
   width: 250px;
-  background-color: #202020;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -31,7 +32,7 @@
 
 .logo-text,
 .logo-subtext {
-  color: #fff;
+  color: #000000;
   margin: 5px 0;
 }
 
@@ -44,16 +45,19 @@
   display: block;
   padding: 15px 20px;
   margin-bottom: 5px;
-  background-color: #383838;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  transition: background-color 0.2s;
 }
 
 .sidebar-nav li a:hover,
 .sidebar-nav li a.active {
-  background-color: #4a4a4a;
+  background-color: #f5f5f5;
+  color: #000;
+  border-color: #ccc;
 }
 
 /* === Main Content Styling === */
@@ -63,11 +67,13 @@
   flex-direction: column;
   padding: 20px;
   overflow-y: auto;
+  background-color: #ffffff;
 }
 
 .main-header {
   padding: 20px 30px;
-  background-color: #333;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
   border-radius: 8px;
   margin-bottom: 20px;
   display: flex;
@@ -77,16 +83,26 @@
 
 .header-title {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
+  color: #000000;
 }
 
+/* Profile button */
 .profile-section {
   display: flex;
   align-items: center;
-  background-color: #555;
-  padding: 5px 15px;
+  background-color: #ffffff;
+  padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
+  border: 1px solid #ddd;
+  color: #40e0d0; /* turquoise text */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.profile-section:hover {
+  background-color: #f5f5f5;
+  color: #000000; /* black on hover */
 }
 
 .profile-icon {
@@ -97,7 +113,7 @@
 /* === Content Area === */
 .content-body {
   flex-grow: 1;
-  background-color: #383838;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 20px;
   text-align: left;
@@ -105,7 +121,7 @@
 }
 
 .content-box {
-  background-color: #2c2c2c;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -113,19 +129,21 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 
   /* Make box grow with content */
   width: 100%;
-  min-height: 300px; /* initial height */
+  min-height: 300px;
   box-sizing: border-box;
-  overflow-x: hidden; /* prevent horizontal overflow */
+  overflow-x: hidden;
 }
 
 .content-box h2 {
   font-size: 1.4rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 15px;
-  color: #ffffff;
+  color: #000000;
 }
 
 /* === Resource Page Specific === */
@@ -138,7 +156,7 @@
 /* Upload section */
 .upload-section {
   display: flex;
-  flex-wrap: wrap;        /* allow items to wrap on smaller screens */
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   margin-bottom: 20px;
@@ -148,92 +166,94 @@
 .upload-section input[type="text"],
 .upload-section input[type="url"] {
   flex: 1 1 auto;
-  min-width: 200px;       /* do not shrink too small */
+  min-width: 200px;
   padding: 8px;
-  background-color: #383838;
-  border: 1px solid #555;
-  border-radius: 5px;
-  color: #fff;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: #000000;
   box-sizing: border-box;
 }
 
 .upload-section .upload-btn {
-  flex: 0 0 auto;         /* button keeps its size */
+  flex: 0 0 auto;
   padding: 8px 16px;
-  background-color: #4a4a4a;
-  color: #fff;
+  background-color: #40e0d0;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
 }
 
 .upload-section .upload-btn:hover {
-  background-color: #5c5c5c;
+  background-color: #2bb3a8;
 }
 
 /* Resource list styling */
 .resource-table-container {
   width: 100%;
-  overflow-x: auto;        /* allow horizontal scrolling if needed */
-  max-width: 100%;         /* ensure table stays inside content box */
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .resource-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #1e1e1e;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
   font-size: 14px;
   border-radius: 8px;
   overflow: hidden;
-  table-layout: auto;      /* allow table to resize with content */
+  table-layout: auto;
+  border: 1px solid #ddd;
 }
 
 .resource-table th,
 .resource-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #333;
-  word-break: break-word;  /* wrap long words and URLs */
+  border-bottom: 1px solid #ddd;
+  word-break: break-word;
 }
 
 .resource-table th {
-  background-color: #2a2a2a;
-  font-weight: bold;
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #000000;
 }
 
 .resource-table tr:hover {
-  background-color: #2e2e2e;
+  background-color: #f1f1f1;
 }
 
 .no-resources {
   text-align: center;
   padding: 20px;
   font-style: italic;
-  color: #aaa;
+  color: #666666;
 }
 
 .table-btn {
-  background: #444;
+  background: #40e0d0;
   border: none;
   color: #fff;
   padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
   margin-right: 5px;
-  transition: background 0.3s;
+  transition: background 0.2s;
 }
 
 .table-btn:hover {
-  background: #666;
+  background: #2bb3a8;
 }
 
 .delete-btn {
-  background-color: #b33;
+  background-color: #e63946;
 }
 
 .delete-btn:hover {
-  background-color: #d55;
+  background-color: #c72c3b;
 }
