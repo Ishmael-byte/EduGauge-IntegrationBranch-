@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import "./Resources.css";
 
-
 const ResourcePage = ({ worldBasedOnly = false }) => {
-  // Separate state for each resource category
+  // State for resources
   const [efundiResources, setEfundiResources] = useState([]);
   const [digitalResources, setDigitalResources] = useState([]);
 
-  // File upload
+  // File input
   const [file, setFile] = useState(null);
   const handleFileChange = (e) => setFile(e.target.files[0]);
   const handleUpload = (setCategory) => {
@@ -27,7 +25,7 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
     setFile(null);
   };
 
-  // Link upload
+  // Link input
   const [linkName, setLinkName] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const handleLinkUpload = (setCategory) => {
@@ -78,7 +76,12 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
                       Download
                     </a>
                   ) : (
-                    <a href={res.url} target="_blank" rel="noopener noreferrer" className="table-btn">
+                    <a
+                      href={res.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="table-btn"
+                    >
                       Open Link
                     </a>
                   )}
@@ -100,12 +103,60 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
     </div>
   );
 
+  // Upload section renderer
+  const renderUploadSection = (setCategory) => (
+    <>
+      {/* File upload */}
+      <div className="upload-section">
+        <input type="file" onChange={handleFileChange} className="file-input" />
+        <button
+          onClick={() => handleUpload(setCategory)}
+          className="upload-btn"
+        >
+          Upload File
+        </button>
+        <button onClick={() => setFile(null)} className="upload-btn clear-btn">
+          Clear
+        </button>
+      </div>
+
+      {/* Link upload */}
+      <div className="upload-section">
+        <input
+          type="text"
+          placeholder="Link Title"
+          value={linkName}
+          onChange={(e) => setLinkName(e.target.value)}
+          className="file-input"
+        />
+        <input
+          type="url"
+          placeholder="https://example.com"
+          value={linkUrl}
+          onChange={(e) => setLinkUrl(e.target.value)}
+          className="file-input"
+        />
+        <button
+          onClick={() => handleLinkUpload(setCategory)}
+          className="upload-btn"
+        >
+          Add Link
+        </button>
+        <button
+          onClick={() => {
+            setLinkName("");
+            setLinkUrl("");
+          }}
+          className="upload-btn clear-btn"
+        >
+          Clear
+        </button>
+      </div>
+    </>
+  );
+
   return (
     <div className="page-container">
-      {/* Sidebar */}
-
-
-      {/* Main content */}
       <main className="main-content">
         <header className="main-header">
           <h1 className="header-title">Helpful Resources</h1>
@@ -116,79 +167,17 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
         </header>
 
         <div className="content-body">
-          {/* Efundi Section */}
+          {/* eFundi Section */}
           <div className="content-box resource-page">
             <h2>eFundi Readiness Test Resources</h2>
-
-            {!worldBasedOnly && (
-              <>
-                <div className="upload-section">
-                  <input type="file" onChange={handleFileChange} className="file-input" />
-                  <button onClick={() => handleUpload(setEfundiResources)} className="upload-btn">
-                    Upload File
-                  </button>
-                </div>
-
-                <div className="upload-section">
-                  <input
-                    type="text"
-                    placeholder="Link Title"
-                    value={linkName}
-                    onChange={(e) => setLinkName(e.target.value)}
-                    className="file-input"
-                  />
-                  <input
-                    type="url"
-                    placeholder="https://example.com"
-                    value={linkUrl}
-                    onChange={(e) => setLinkUrl(e.target.value)}
-                    className="file-input"
-                  />
-                  <button onClick={() => handleLinkUpload(setEfundiResources)} className="upload-btn">
-                    Add Link
-                  </button>
-                </div>
-              </>
-            )}
-
+            {!worldBasedOnly && renderUploadSection(setEfundiResources)}
             {renderTable(efundiResources, setEfundiResources)}
           </div>
 
           {/* Digital Literacy Section */}
           <div className="content-box resource-page">
             <h2>Digital Literacy Resources</h2>
-
-            {!worldBasedOnly && (
-              <>
-                <div className="upload-section">
-                  <input type="file" onChange={handleFileChange} className="file-input" />
-                  <button onClick={() => handleUpload(setDigitalResources)} className="upload-btn">
-                    Upload File
-                  </button>
-                </div>
-
-                <div className="upload-section">
-                  <input
-                    type="text"
-                    placeholder="Link Title"
-                    value={linkName}
-                    onChange={(e) => setLinkName(e.target.value)}
-                    className="file-input"
-                  />
-                  <input
-                    type="url"
-                    placeholder="https://example.com"
-                    value={linkUrl}
-                    onChange={(e) => setLinkUrl(e.target.value)}
-                    className="file-input"
-                  />
-                  <button onClick={() => handleLinkUpload(setDigitalResources)} className="upload-btn">
-                    Add Link
-                  </button>
-                </div>
-              </>
-            )}
-
+            {!worldBasedOnly && renderUploadSection(setDigitalResources)}
             {renderTable(digitalResources, setDigitalResources)}
           </div>
         </div>
