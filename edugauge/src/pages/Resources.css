@@ -113,6 +113,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  /* Make box grow with content */
+  width: 100%;
+  min-height: 300px; /* initial height */
+  box-sizing: border-box;
+  overflow-x: hidden; /* prevent horizontal overflow */
 }
 
 .content-box h2 {
@@ -132,37 +138,45 @@
 /* Upload section */
 .upload-section {
   display: flex;
+  flex-wrap: wrap;        /* allow items to wrap on smaller screens */
   gap: 10px;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.file-input {
-  padding: 5px;
+.upload-section input[type="file"],
+.upload-section input[type="text"],
+.upload-section input[type="url"] {
+  flex: 1 1 auto;
+  min-width: 200px;       /* do not shrink too small */
+  padding: 8px;
   background-color: #383838;
   border: 1px solid #555;
   border-radius: 5px;
   color: #fff;
+  box-sizing: border-box;
 }
 
-.upload-btn {
+.upload-section .upload-btn {
+  flex: 0 0 auto;         /* button keeps its size */
+  padding: 8px 16px;
   background-color: #4a4a4a;
   color: #fff;
   border: none;
-  padding: 8px 16px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.upload-btn:hover {
+.upload-section .upload-btn:hover {
   background-color: #5c5c5c;
 }
 
 /* Resource list styling */
 .resource-table-container {
-  margin-top: 10px;
-  overflow-x: auto;
+  width: 100%;
+  overflow-x: auto;        /* allow horizontal scrolling if needed */
+  max-width: 100%;         /* ensure table stays inside content box */
 }
 
 .resource-table {
@@ -173,6 +187,7 @@
   font-size: 14px;
   border-radius: 8px;
   overflow: hidden;
+  table-layout: auto;      /* allow table to resize with content */
 }
 
 .resource-table th,
@@ -180,6 +195,7 @@
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #333;
+  word-break: break-word;  /* wrap long words and URLs */
 }
 
 .resource-table th {
@@ -206,9 +222,18 @@
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+  margin-right: 5px;
   transition: background 0.3s;
 }
 
 .table-btn:hover {
   background: #666;
+}
+
+.delete-btn {
+  background-color: #b33;
+}
+
+.delete-btn:hover {
+  background-color: #d55;
 }
