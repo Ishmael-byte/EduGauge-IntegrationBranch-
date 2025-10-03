@@ -17,53 +17,7 @@ const ProfilePage = () => {
     return (
         <div className="page-container">
             {/* Sidebar */}
-            <aside className="sidebar">
-                <div className="logo-section">
-                    <img src="/Eduguage-logo.jpg" alt="Eduguage Logo" className="logo-img" />
-                    <h1 className="logo-text">EDUGUAGE</h1>
-                    <h2 className="logo-subtext">System Enhancing LMS Readiness</h2>
-                </div>
-                <nav className="gb-nav">
-                   <NavLink 
-                                                  to="/digitalLiteracyTest" 
-                                                     className={({ isActive }) => isActive ? "active-link" : ""}
-                                                     >
-                                                     Digital Literacy Test
-                                                     </NavLink>
-                             
-                                                     <NavLink 
-                                                     to="/efundiTest" 
-                                                     className={({ isActive }) => isActive ? "active-link" : ""}
-                                                     >
-                                                     eFundi Readiness Test
-                                                     </NavLink>
-                             
-                                                     <NavLink 
-                                                     to="/resources" 
-                                                     className={({ isActive }) => isActive ? "active-link" : ""}
-                                                     >
-                                                     Helpful Resource
-                                                     </NavLink>
-                             
-                                                     <NavLink 
-                                                     to="/gradebook" 
-                                                     className={({ isActive }) => isActive ? "active-link" : ""}
-                                                     >
-                                                     Grade Book
-                                                     </NavLink>
-                             
-                                                   
-                                                     <NavLink 
-                                                     to="/dashboard" 
-                                                    className={({ isActive }) => isActive ? "active-link" : ""}
-                                                     >
-                                                     Dashboard
-                                                     </NavLink>           
-
-                   
-
-                </nav>
-            </aside>
+           
 
             {/* Main Content Area */}
             <main className="main-content">

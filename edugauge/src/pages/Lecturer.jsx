@@ -5,21 +5,7 @@ function Lecturer() {
   return (
     <div className="page-container">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="logo-section">
-          <img src="/Eduguage-logo.jpg" alt="Edugauge Logo" className="logo-img" />
-          <h1 className="logo-text">EDUGUAGE</h1>
-          <h2 className="logo-subtext">System Enhancing LMS Readiness</h2>
-        </div>
-        <nav>
-          <ul className="sidebar-nav">
-            <li><a href="#" className="nav-link">Overview</a></li>
-            <li><a href="#" className="nav-link">Digital Literacy Test</a></li>
-            <li><a href="#" className="nav-link">eFundi Readiness Test</a></li>
-            <li><a href="#" className="nav-link">Helpful recourse</a></li>
-          </ul>
-        </nav>
-      </aside>
+      
 
       {/* Main Content Area */}
       <main className="main-content">

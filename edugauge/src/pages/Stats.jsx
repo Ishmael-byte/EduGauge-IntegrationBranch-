@@ -67,25 +67,7 @@ const Stats = ({ students = [] }) => {
   return (
     <div className="page-container">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="logo-section">
-          <img src="/Eduguage-logo.jpg" alt="Edugauge Logo" className="logo" />
-          <h1 className="logo-text">EDUGUAGE</h1>
-          <h2 className="logo-subtext">System Enhancing LMS Readiness</h2>
-        </div>
-        <nav className="sidebar-nav">
-          <ul>
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Digital Literacy Test</a></li>
-            <li><a href="#">eFundi Readiness Test</a></li>
-            <li><a href="#">Helpful Recourse</a></li>
-            <li><a href="#">Gradebook</a></li>
-            <li><a href="#">At-risk List</a></li>
-            <li><a href="#" className="active">Stats</a></li>
-            <li><a href="#">Add Lecturer</a></li>
-          </ul>
-        </nav>
-      </aside>
+
 
       {/* Main content */}
       <main className="main-content">

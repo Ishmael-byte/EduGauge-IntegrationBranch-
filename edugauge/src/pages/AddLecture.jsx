@@ -6,47 +6,7 @@ function AddLecture() {
   return (
     <div className="page-container">
       {/* Sidebar */}
-      <aside className="gb-sidebar">
-        {/* logo */}
-        <img src="/Eduguage-logo.jpg" alt="EduGauge Logo" className="gb-logo" />
-
-        <nav className="gb-nav">
-          <NavLink 
-            to="/digital-literacy" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Digital Literacy Test
-          </NavLink>
-
-          <NavLink 
-            to="/efundi-test" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            eFundi Readiness Test
-          </NavLink>
-
-          <NavLink 
-            to="/resources" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Helpful Resource
-          </NavLink>
-
-          <NavLink 
-            to="/grade-book" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Grade Book
-          </NavLink>
-
-          <NavLink 
-            to="/dashboard" 
-            className={({ isActive }) => (isActive ? "active-link" : "")}
-          >
-            Dashboard
-          </NavLink>
-        </nav>
-      </aside>
+     
 
       {/* Main Content */}
       <main className="main-content">
@@ -129,6 +89,7 @@ function AddLecture() {
         </div>
       </main>
     </div>
+    
   );
 }
 

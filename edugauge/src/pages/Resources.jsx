@@ -28,65 +28,7 @@ const ResourcePage = ({ worldBasedOnly = false }) => {
   return (
     <div className="page-container">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="logo-section">
-          <img src="/path-to-logo.png" alt="EDUGUAGE Logo" className="logo" />
-          <h1 className="logo-text">EDUGUAGE</h1>
-          <p className="logo-subtext">System Enhancing LMS Readiness</p>
-        </div>
 
-        <nav className="sidebar-nav">
-         <nav className="gb-nav">
-                    
-          
-                                          <NavLink 
-                                         to="/digital-literacy" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Digital Literacy Test
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/efundi-readiness" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            eFundi Readiness Test
-                                            </NavLink>
-                    
-                                            
-                    
-                                            <NavLink 
-                                            to="/grade-book" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Grade Book
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/at-risk-list" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            At-risk List
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/stats" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Stats
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/add-lecturer" 
-                                           className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Dashboard
-                                            </NavLink>
-                    
-          <div className="gb-spacer" />
-        </nav>
-        </nav>
-      </aside>
 
       {/* Main content */}
       <main className="main-content">

@@ -148,55 +148,7 @@ function EFundiTest() {
   return (
     <div style={pageContainerStyle}>
       {/* Sidebar */}
-      <aside style={sidebarStyle}>
-        <div style={logoSectionStyle}>
-          <img src="/Eduguage-logo.jpg" alt="Edugauge Logo" style={logoStyle} />
-          <h1 style={logoTextStyle}>EDUGUAGE</h1>
-          <h2 style={logoSubTextStyle}>System Enhancing LMS Readiness</h2>
-        </div>
       
-        <nav className="gb-nav">
-          <NavLink 
-                                         to="/digitalLiteracyTest" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Digital Literacy Test
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/dashboard" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Dashboard
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/resources" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Helpful Resource
-                                            </NavLink>
-                    
-                                            <NavLink 
-                                            to="/gradebook" 
-                                            className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Grade Book
-                                            </NavLink>
-                    
-                                            
-                    
-                                          
-                                            <NavLink 
-                                            to="/addLecturer" 
-                                           className={({ isActive }) => isActive ? "active-link" : ""}
-                                            >
-                                            Dashboard
-                                            </NavLink>
-                              
-                               
-        </nav>
-      </aside>
 
       {/* Main Content Area */}
       <main style={mainContentStyle}>

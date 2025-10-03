@@ -6,52 +6,7 @@ const GradeBook = () => {
   return (
     <div className="gb-page">
       {/* Sidebar */}
-      <aside className="gb-sidebar">
-        <img src="/Eduguage-logo.jpg" alt="Edugauge Logo" className="gb-logo" />
-        
-        <nav className="gb-nav">
-         <NavLink 
-                                        to="/digitalLiteracyTest" 
-                                           className={({ isActive }) => isActive ? "active-link" : ""}
-                                           >
-                                           Digital Literacy Test
-                                           </NavLink>
-                   
-                                           <NavLink 
-                                           to="/efundiTest" 
-                                           className={({ isActive }) => isActive ? "active-link" : ""}
-                                           >
-                                           eFundi Readiness Test
-                                           </NavLink>
-                   
-                                           <NavLink 
-                                           to="/resources" 
-                                           className={({ isActive }) => isActive ? "active-link" : ""}
-                                           >
-                                           Helpful Resource
-                                           </NavLink>
-                   
-                                           <NavLink 
-                                           to="/addLecture" 
-                                           className={({ isActive }) => isActive ? "active-link" : ""}
-                                           >
-                                           Add lecture
-                                           </NavLink>
-                   
-                                           
-                   
-                                         
-                                           <NavLink 
-                                           to="/dashboard" 
-                                          className={({ isActive }) => isActive ? "active-link" : ""}
-                                           >
-                                           Dashboard
-                                           </NavLink>           
-                    
-          
-          
-        </nav>
-      </aside>
+      
 
       {/* Main Content */}
       <main className="gb-main">
