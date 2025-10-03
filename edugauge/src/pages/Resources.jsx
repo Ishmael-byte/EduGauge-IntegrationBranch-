@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Resources.css";
-import "./index.css";
+
 
 const ResourcePage = ({ worldBasedOnly = false }) => {
   // Separate state for each resource category
