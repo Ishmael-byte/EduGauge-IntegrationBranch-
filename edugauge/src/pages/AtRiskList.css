@@ -3,17 +3,17 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  font-family: Arial, sans-serif;
-  color: #e0e0e0;
-  background-color: #2c2c2c;
+  background-color: #ffffff; /* White background */
+  color: #000000;
   margin: 0;
 }
 
-/* === Sidebar Styling === */
+/* === Sidebar Styling (optional if used) === */
 .sidebar {
   flex-shrink: 0;
   width: 250px;
-  background-color: #202020;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e5e5;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
 
 .logo-text,
 .logo-subtext {
-  color: #fff;
+  color: #000;
   margin: 5px 0;
 }
 
@@ -42,18 +42,20 @@
 
 .sidebar-nav li a {
   display: block;
-  padding: 15px 20px;
-  margin-bottom: 5px;
-  background-color: #383838;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  padding: 12px 18px;
+  margin-bottom: 8px;
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  transition: all 0.2s ease;
 }
 
 .sidebar-nav li a:hover,
 .sidebar-nav li a.active {
-  background-color: #4a4a4a;
+  background-color: #f5f5f5; /* subtle grey highlight */
+  color: #000;
+  border-color: #ddd;
 }
 
 /* === Main Content Styling === */
@@ -63,103 +65,137 @@
   flex-direction: column;
   padding: 20px;
   overflow-y: auto;
+  background-color: #ffffff;
 }
 
 .main-header {
-  padding: 20px 30px;
-  background-color: #333;
+  padding: 16px 24px;
+  background-color: #ffffff !important;
+  border: 1px solid #e5e5e5;
   border-radius: 8px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-title {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
+  margin: 0;
+  color: #000;
+  background-color: #ffffff !important;
 }
 
 .profile-section {
   display: flex;
   align-items: center;
-  background-color: #555;
-  padding: 5px 15px;
-  border-radius: 20px;
-  margin-top: 10px;
+  background-color: #ffffff !important;
+  padding: 6px 14px;
+  border-radius: 20px; /* rounded pill style */
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  color: #40e0d0;
+}
+
+.profile-section:hover {
+  background-color: #f5f5f5 !important;
+  color : #000;
 }
 
 .profile-icon {
-  font-size: 1.5rem;
-  margin-right: 10px;
+  font-size: 1.3rem;
+  margin-right: 8px;
 }
 
+/* === Content Body & Box === */
 .content-body {
   flex-grow: 1;
-  background-color: #383838;
-  border-radius: 8px;
   padding: 20px;
-  text-align: left;
-  display: block;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff !important;
 }
 
 .content-box {
-  background-color: #2c2c2c;
-  padding: 20px;
+  background-color: #ffffff !important;
+  padding: 24px;
   border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: left;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 24px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  max-width: 1100px;
+  overflow-x: auto; /* prevent table cut-off */
 }
 
 /* === Section Titles === */
 .content-box h2 {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin-bottom: 15px;
-  color: #ffffff;
+  color: #000;
+  background-color: #ffffff !important;
 }
 
 /* === Filter Input Styling === */
 .filter-input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   margin-bottom: 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #2c2c2c;
-  color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff !important;
+  color: #000;
   font-size: 1rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .filter-input::placeholder {
-  color: #aaa;
+  color: #666;
 }
 
 .filter-input:focus {
   outline: none;
-  background-color: #3a3a3a;
+  border-color: #40e0d0;
+  box-shadow: 0 0 0 3px rgba(64,224,208,0.2);
 }
 
 /* === Student Table Styling === */
 .student-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  margin-top: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  table-layout: auto;
 }
 
 .student-table th,
 .student-table td {
   padding: 12px 15px;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid #eee;
   text-align: left;
-  color: #fff;
+  color: #000;
+  white-space: nowrap;
 }
 
 .student-table th {
-  background-color: #333;
-  font-weight: bold;
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.student-table tr:nth-child(even) {
+  background-color: #fafafa;
 }
 
 .student-table tr:hover {
-  background-color: #4a4a4a;
+  background-color: #f1f1f1; /* subtle hover, matches global */
 }
