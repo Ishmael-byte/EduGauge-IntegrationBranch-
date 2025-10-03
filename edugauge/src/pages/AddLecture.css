@@ -10,7 +10,7 @@ html, body {
   height: 100%;
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   background-color: #ffffff; /* Google white */
-  color: #000000;
+  color: #000000; /* Black text */
   line-height: 1.6;
 }
 
@@ -88,6 +88,7 @@ table tr:hover {
   gap: 1rem;
 }
 
+/* 2-column layout that collapses on mobile */
 .grid-2 {
   grid-template-columns: 1fr 1fr;
 }
@@ -98,28 +99,15 @@ table tr:hover {
   }
 }
 
-/* 🌐 Layout wrapper */
-.layout {
-  display: flex;
-  height: 100vh;   /* full screen height */
-  width: 100%;     /* full width */
-  overflow: hidden;
-}
-
-/* Sidebar */
+/* Navbar / Sidebar placeholder (if needed globally) */
 .sidebar {
   width: 260px;
-  background: #4f0c61;   /* Purple */
-  color: white;
+  background: #f9f9f9;
   min-height: 100vh;
   padding: 1rem;
-  flex-shrink: 0;
 }
 
-/* Main content */
 .content {
   flex: 1;
   padding: 2rem;
-  background: #fff;  /* Google white */
-  overflow-y: auto;
 }
