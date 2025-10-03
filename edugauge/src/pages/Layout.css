@@ -20,7 +20,7 @@ html, body {
   width: 240px;
   background: #4f0c61;
   color: white;
-  padding: 0%;
+  padding: 0px;
   flex-shrink: 0;
   transition: transform 0.3s ease-in-out;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
