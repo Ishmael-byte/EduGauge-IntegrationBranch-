@@ -4,15 +4,16 @@ const bcrypt = require('bcryptjs'); // For password hashing
 const jwt = require('jsonwebtoken'); // For JWT tokens
 require('dotenv').config();         // Hide our database credentials
 
-
-
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
+ex.get('/hello', (req, res) => {
+    res.send('Hello! Routes are working.');
+});
 
 const path = require('path'); // Resource kat  
 const fs = require('fs');   
 const multer = require('multer');//Resource 
-const crypto = require('crypto'); //  Resource
+const crypto = require('crypto'); //Resource
 
 
 const cors = require('cors');
