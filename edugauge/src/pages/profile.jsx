@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react'; //Added useState and useEffe
 import { Link } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import './profile.css';
-import api from '../APIservices/api'; //Fixed import path - removed .js extension
+import api from '../APIservices/api'; 
 
 const placeholderStudentData = {
-    name: "Name + Surname",
-    studentNumber: "Student Number",
     information: "Contact: Edugauge@schoolproject.ac.za | Date Joined: 2025-02-05",
     skills: ["Digital Competency", "Platform Navigation", "Basic Troubleshooting", "Research Skills", "Time Management"],
 };
@@ -97,8 +95,8 @@ const ProfilePage = () => {
                         <div className="profile-icon-large">
                             👤
                         </div>
-                        <div className="profile-name">{placeholderStudentData.name}</div>
-                        <div className="student-number">{placeholderStudentData.studentNumber}</div>
+                        <div className="profile-name">{displayName}</div>
+                        <div className="student-number">{displayStudentNumber}</div>
                        {/* <button className="edit-button">Edit Profile</button>*/}
                     </div>
                     {/* My Information */}
