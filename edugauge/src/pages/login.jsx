@@ -171,7 +171,7 @@ const Login = () => {
               <button type="button" onClick={handleClear} className="clear-button-styles">Clear</button>
               <div className="link-styles">
                 <p>Forgot Password</p>
-                <p>New to EduGauge: <Link to="/pages/SignUpPage" className="signup-link-styles">Sign Up</Link></p>
+                <p>New to EduGauge: <Link to="/SignUpPage" className="signup-link-styles">Sign Up</Link></p>
               </div>
             </div>
           </form>
