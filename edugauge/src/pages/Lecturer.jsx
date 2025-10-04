@@ -167,7 +167,7 @@ function Lecturer() {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({ name, description, url, lecturer_id })
+            body: JSON.stringify({resource_name: name, description, url, lecturer_id })
           });
 
           const data = await res.json();
