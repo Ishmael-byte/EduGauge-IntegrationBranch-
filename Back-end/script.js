@@ -10,9 +10,12 @@ const crypto = require('crypto'); //  Resource
 
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
-ex.get('/hello', (req, res) => {
-    res.send('Hello! Routes are working.');
+
+
+ex.get('/hello', (UserReq, DBresults) => {
+    DBresult.send('Hello! Routes are working.');
 });
+
 
 const cors = require('cors');
 ex.use(cors());
@@ -553,7 +556,32 @@ ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
     }
 });
 
+// Get grades for a lecturer's students (Overview)
+ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => {
+    const lecturerId = UserReq.params.id;
+    try {
+        const result = await getDbRequest()
+            .input('lecturer_id', sql.Int, lecturerId)
+            .query(`
+                SELECT g.grade_id, s.Fname + ' ' + s.Lname AS student_name,
+                       a.description AS assessment_title, g.marks, g.feedback
+                FROM Grading g
+                JOIN Student s ON g.stud_id = s.stud_id
+                JOIN Assessment a ON g.assessment_id = a.assessment_id
+                WHERE g.lecturer_id = @lecturer_id
+                ORDER BY g.grade_id DESC
+            `);
 
+        DBresults.json({
+            message: 'Grades retrieved successfully',
+            grades: result.recordset
+        });
+
+    } catch (err) {
+        console.error(` Error fetching grades:`, err);
+        DBresults.status(500).json({ error: 'Failed to retrieve grades' });
+    }
+});
 
 
 //================================================= END Lecture API=================================================//
@@ -1011,12 +1039,25 @@ ex.get("/resources/file/:filename", authenticateToken, (UserReq, DBresults) => {
 });
 //===============end of resourceAPI====================================================
 
+
+
+
+
+ex.use((req, res) => {
+  console.log(`Unhandled route: ${req.method} ${req.url}`);
+  res.status(404).send('Big Error: Route not found');
+});
 // start server 
 const PORT = process.env.PORT || 5000;
 testDbConnection()
   .then(() => {
     ex.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
+
+      
+
+        
+
     });
   })
   .catch(err => {
