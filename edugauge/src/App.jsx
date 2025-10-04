@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/login.jsx";
 import Dashboard from "./pages/dashboard.jsx";
 import SignUpPage from  "./pages/SignUpPage.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import EFundiTest from "./pages/eFundiTest.jsx";
 import DigitalLiteracyTest from "./pages/DigitalLiteracyTest.jsx";
 import GradeBook from "./pages/gradebook.jsx";
@@ -22,6 +23,7 @@ function App() {
         {/*<Link to="/login" style={{ margin: "0 10px", color: "#fff" }}>Login</Link>*/}
         <Link to="/dashboard" style={{ margin: "0 10px", color: "#fff" }}>Dashboard</Link>
         {/*<Link to="/pages/SignUpPage" style={{ margin: "0 10px", color: "#fff" }}>Sign Up</Link>*/}
+        {/*<Link to="/forgotPassword" style={{ margin: "0 10px", color: "#fff" }}>Forgot Password</Link>*/}
         <Link to="/EfundiTest" style={{ margin: "0 10px", color: "#fff" }}>eFundi Test</Link>
         <Link to="/DigitalLiteracyTest" style={{ margin: "0 10px", color: "#fff" }}>Digital Literacy Test</Link>
         <Link to="/gradeBook" style={{ margin: "0 10px", color: "#fff" }}>Grade Book</Link>
@@ -36,9 +38,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signUpPage" element={<SignUpPage />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/signUpPage" element={<SignUpPage />} />
         <Route path="/eFundiTest" element={<EFundiTest />} />
         <Route path="/digitalLiteracyTest" element={<DigitalLiteracyTest />} />
         <Route path="/gradebook" element={<GradeBook />} />

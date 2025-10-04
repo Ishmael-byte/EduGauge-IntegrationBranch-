@@ -122,7 +122,18 @@ const Login = () => {
               />
               Admin
             </label>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="lecturer"
+                checked={formData.userType === 'lecturer'}
+                onChange={(e) => setFormData({...formData, userType: e.target.value})}
+              />
+              Lectur
+            </label>
           </div>
+          
 
           <form className="form-styles" onSubmit={handleSubmit}>
             {formData.userType === 'student' ? (
@@ -170,8 +181,21 @@ const Login = () => {
               <button type="submit" className="login-button-styles">Login</button>
               <button type="button" onClick={handleClear} className="clear-button-styles">Clear</button>
               <div className="link-styles">
-                <p>Forgot Password</p>
-                <p>New to EduGauge: <Link to="/SignUpPage" className="signup-link-styles">Sign Up</Link></p>
+                {formData.userType === 'student' && (
+           <div className="link-styles">
+              <p>
+                <Link to="/forgotPassword" className="forgot-link-styles">
+                  Forgot Password?
+                </Link>
+              </p>
+              <p>
+                New to EduGauge:
+                <Link to="/SignUpPage" className="signup-link-styles">
+                  Sign Up
+                </Link>
+              </p>
+            </div>
+          )}
               </div>
             </div>
           </form>
