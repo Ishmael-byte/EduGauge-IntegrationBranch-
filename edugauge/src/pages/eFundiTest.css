@@ -1,26 +1,153 @@
+/* Scope all styles to only apply within EFundiTest */
+.efundi-test-page {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==============================
+   Layout and Main
+============================== */
+.efundi-test-page .layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  width: 100%;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.efundi-test-page .main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+/* ==============================
+   Header
+============================== */
+.efundi-test-page .main-header {
+  padding: 1rem;
+  background-color: #2c2c2c;
+  color: white;
+  width: 100%;
+  margin: 0;
+}
+
+.efundi-test-page .header-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.efundi-test-page .profile-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ==============================
+   Content
+============================== */
+.efundi-test-page .content {
+  flex: 1;
+  padding: 1rem;
+  width: 100%;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+.efundi-test-page .content-body {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto;
+  flex-grow: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px;
+}
+
+.efundi-test-page .content-box {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.efundi-test-page .content-box h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.efundi-test-page .content-box p {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+}
+
+/* ==============================
+   Options Styling
+============================== */
+.efundi-test-page .content-box div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.efundi-test-page .content-box input[type="radio"] {
+  margin: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.efundi-test-page .content-box label {
+  font-size: 1rem;
+  margin: 0;
+}
+
 /* ==============================
    Calendar Image
 ============================== */
-.calendar-image {
-  width: 100%;
+.efundi-test-page .calendar-image {
+  width: 80%;
   height: auto;
   border-radius: 12px;
-  margin-top: 20px;
+  margin-top: -2rem;
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  background-color: #f0f0f0;
 }
 
 /* ==============================
    Button Section
 ============================== */
-.button-section {
+.efundi-test-page .button-section {
   display: flex;
   justify-content: space-between;
+  padding: 1rem;
+  background-color: #ffffff;
+  width: 100%;
   margin-top: 20px;
+  margin-bottom: 1rem;
+  padding-bottom: 100px;
+  flex-shrink: 0;
+  position: relative;
+  bottom: 0;
 }
 
-/* Buttons */
-.btn {
-  padding: 10px 30px;
-  font-size: 1rem;
+.efundi-test-page .btn {
+  padding: 12px 40px;
+  font-size: 1.1rem;
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -28,26 +155,37 @@
   transition: background-color 0.2s ease;
 }
 
-.save-btn {
+.efundi-test-page .save-btn {
+  background-color: #2bb9a8
+}
+.efundi-test-page .save-btn:hover {
+  background-color: #2bb9a8
+}
+
+.efundi-test-page .submit-btn {
+  background-color: #2bb9a8
+}
+.efundi-test-page .submit-btn:hover {
+  background-color: #2bb9a8
+}
+
+.efundi-test-page .next-btn {
+  background-color: #2bb9a8
+}
+.efundi-test-page .next-btn:hover {
+  background-color: #2bb9a8
+}
+
+.efundi-test-page .previous-btn {
   background-color: #555;
 }
-
-.save-btn:hover {
-  background-color: #444;
+.efundi-test-page .previous-btn:hover {
+  background-color: #2bb9a8
 }
 
-.submit-btn {
-  background-color: #7a42b1;
-}
-
-.submit-btn:hover {
-  background-color: #612e86;
-}
-
-.exit-btn {
-  background-color: #555;
-}
-
-.exit-btn:hover {
-  background-color: #444;
+.efundi-test-page .center-buttons {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
 }
