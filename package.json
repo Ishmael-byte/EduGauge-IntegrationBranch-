@@ -2,12 +2,8 @@
   "dependencies": {
     "axios": "^1.12.2",
     "cors": "^2.8.5",
-<<<<<<< HEAD
-    "recharts": "^3.2.1",
-    "bcrypt": "^6.0.0"
-=======
     "recharts": "^3.2.1"
->>>>>>> 3f222adfc1f6ce2b9d051f965fbc5d0cdf118bf9
   }
 }
+
 

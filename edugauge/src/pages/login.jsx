@@ -35,7 +35,7 @@ const Login = () => {
     setMessage('');
   };
 
-  // Handle login submission
+  //Handle login submission
   const handleSubmit = async (e) => { 
     e.preventDefault();
     
@@ -55,7 +55,7 @@ const Login = () => {
         setMessage('Student login successful!');
         navigate('/profile'); //Redirect to student profile
         
-      } else {
+      } else if (formData.userType === 'admin'){
         //This is where the admin login happens
         const response = await api.post('/login/admin', {
           email: formData.email,
@@ -70,6 +70,21 @@ const Login = () => {
         setMessage('Admin login successful!');
         navigate('/admin');
       }
+      else if (formData.userType === 'lecturer') {
+       //This is where the lecturer login happens
+        const response = await api.post('/login/lecturer', {
+          email: formData.email,
+          password: formData.password
+        });
+
+        // Save admin data to localStorage
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('lecturer', JSON.stringify(response.data.lecturer));
+        localStorage.setItem('userType', 'lecturer');
+
+        setMessage('Lecturer login successful!');
+        navigate('/AtRiskList');
+      }
       
     } catch (error) {
       setMessage(error.response?.data?.error || 'Login failed');
