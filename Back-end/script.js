@@ -16,7 +16,10 @@ ex.get('/hello', (UserReq, DBresults) => {
 });
 
 const cors = require('cors');
-ex.use(cors());
+ex.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 
 // Database Configuration
 const dbConfig = {
