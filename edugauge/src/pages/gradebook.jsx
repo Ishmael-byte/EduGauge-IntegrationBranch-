@@ -1,10 +1,7 @@
 import React from "react";
 import "./gradebook.css";
-<<<<<<< HEAD
 import '../APIservices/api'; //Fixed import path 
-=======
 import { NavLink } from "react-router-dom";
->>>>>>> origin/FRONT-END
 
 const GradeBook = () => {
   return (
