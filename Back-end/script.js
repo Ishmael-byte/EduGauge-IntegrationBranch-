@@ -190,25 +190,37 @@ ex.post('/login', async (UserReq, DBresults) => {
 
 // Forgot password: Student
 ex.post('/forgotPassword', async (UserReq, DBresults) => {
-    const { email, newPassword } = UserReq.body;
-    if (!email || !newPassword) {
-        return DBresults.status(400).json({ error: 'Email and new password required' });
+    const { email, studentNumber, newPassword } = UserReq.body;
+
+    if (!email || !studentNumber || !newPassword) {
+        return DBresults.status(400).json({ error: 'Email, student number, and new password are required.' });
     }
+
     try {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        let result = await getDbRequest()
+
+        const request = getDbRequest();
+        const result = await request
             .input('email', sql.NVarChar, email)
+            .input('studentNumber', sql.NVarChar, studentNumber) // or sql.Int if it's numeric
             .input('hashedPassword', sql.NVarChar, hashedPassword)
-            .query('UPDATE Student SET password = @hashedPassword WHERE email = @email');
+            .query(`
+                UPDATE Student 
+                SET password = @hashedPassword 
+                WHERE email = @email 
+                AND student_number = @studentNumber
+            `);
 
         if (result.rowsAffected[0] > 0) {
-            DBresults.status(200).json({ message: 'Password updated successfully' });
+            DBresults.status(200).json({ message: 'Password updated successfully!' });
         } else {
-            DBresults.status(404).json({ error: 'Email not found' });
+            DBresults.status(404).json({ 
+                error: 'No account found with the provided email and student number.' 
+            });
         }
     } catch (err) {
-        console.error("Error updating password: ", err);
-        DBresults.status(500).json({ error: 'Failed to update password' });
+        console.error("Error updating password:", err);
+        DBresults.status(500).json({ error: 'Failed to update password. Please try again later.' });
     }
 });
 
@@ -289,11 +301,11 @@ ex.get('student/grades', authenticateToken, async (USerReq, DBresults) => {
         let result = await getDbRequest()
         .input('stud_id', sql.Int, sql.Int, studentId)
         .query('SELECT g.marks, g.feedback, a.description AS assessment_title, a.created_date FROM Grading g JOIN Assessment a ON g.assessment_id = a.assessment_id WHERE g.student_id = @stud_id ORDER BY a.created_date DESC');
-    
+        
         if (result.recordset.length === 0) {
             return DBresults.status(404).json({ message: 'No grades found for this student.'});
         }
-
+        
          DBresults.json({
         message: 'Grades retrieved successfully',
         grades: result.recordset
