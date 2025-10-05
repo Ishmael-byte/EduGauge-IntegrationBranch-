@@ -70,19 +70,19 @@ const Login = () => {
         setMessage('Admin login successful!');
         navigate('/admin');
       }
-      else if (formData.userType === 'lecturer') {
+      else if (formData.userType === 'lecture') {
        //This is where the lecturer login happens
-        const response = await api.post('/login/lecturer', {
+        const response = await api.post('/login/lecture', {
           email: formData.email,
           password: formData.password
         });
 
         // Save admin data to localStorage
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('lecturer', JSON.stringify(response.data.lecturer));
-        localStorage.setItem('userType', 'lecturer');
+        localStorage.setItem('lecture', JSON.stringify(response.data.lecture));
+        localStorage.setItem('userType', 'lecture');
 
-        setMessage('Lecturer login successful!');
+        setMessage('Lecture login successful!');
         navigate('/AtRiskList');
       }
       
@@ -141,8 +141,8 @@ const Login = () => {
               <input
                 type="radio"
                 name="userType"
-                value="lecturer"
-                checked={formData.userType === 'lecturer'}
+                value="lecture"
+                checked={formData.userType === 'lecture'}
                 onChange={(e) => setFormData({...formData, userType: e.target.value})}
               />
               Lectur

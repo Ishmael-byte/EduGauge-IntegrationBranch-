@@ -18,22 +18,7 @@ import React from "react";
 function App() { 
   return (
     <>
-      <nav style={{ padding: "10px", background: "#333" }}>
-        <Link to="/" style={{ margin: "0 10px", color: "#fff" }}>Login</Link>
-        {/*<Link to="/login" style={{ margin: "0 10px", color: "#fff" }}>Login</Link>*/}
-        <Link to="/dashboard" style={{ margin: "0 10px", color: "#fff" }}>Dashboard</Link>
-        {/*<Link to="/pages/SignUpPage" style={{ margin: "0 10px", color: "#fff" }}>Sign Up</Link>*/}
-        {/*<Link to="/forgotPassword" style={{ margin: "0 10px", color: "#fff" }}>Forgot Password</Link>*/}
-        <Link to="/EfundiTest" style={{ margin: "0 10px", color: "#fff" }}>eFundi Test</Link>
-        <Link to="/DigitalLiteracyTest" style={{ margin: "0 10px", color: "#fff" }}>Digital Literacy Test</Link>
-        <Link to="/gradeBook" style={{ margin: "0 10px", color: "#fff" }}>Grade Book</Link>
-        <Link to="/AddLecture" style={{ margin: "0 10px", color: "#fff" }}>Add Lecture</Link>
-        <Link to="/profile" style={{ margin: "0 10px", color: "#fff" }}>Profile</Link>
-        <Link to="/Resources" style={{ margin: "0 10px", color: "#fff" }}>Resources</Link>
-        <Link to="/AtRiskList" style={{ margin: "0 10px", color: "#fff" }}>At-Risk List</Link>
-        <Link to="/Stats" style={{ margin: "0 10px", color: "#fff" }}>Stats</Link>
-        <Link to="/Layout" state={{ margin: "0 10px", color: "#fff"}}>Layout</Link>
-      </nav>
+      
 
       <Routes>
         <Route path="/" element={<Login />} />

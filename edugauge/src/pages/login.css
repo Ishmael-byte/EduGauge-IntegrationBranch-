@@ -1,228 +1,243 @@
-/* ----- Page Container ----- */
+/* CSS Variables for Theme Colors */
+:root {
+    --color-dark-background: #2e2e2e;
+    --color-mid-grey: #555;
+    --color-light-grey: #ccc;
+    --color-white: white;
+    --color-accent-purple: #6a369e;
+    --color-logo-border: #606568ff;
+    --color-form-text: #555;
+}
+
+/* containerStyles */
 .container-styles {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
-  background-color: #ffffff !important; /* page background white */
-  font-family: 'Arial', sans-serif;
-  color: #000; /* default black text */
-  padding: 20px 0;
+    background-color: var(--color-dark-background);
+    color: var(--color-white);
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw; 
+    box-sizing: border-box;
+    margin: 0;
 }
 
-/* ----- Header ----- */
+/* headerStyles */
 .header-styles {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 2rem;
-  color: #4f0c61; /* purple accent for header */
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
 }
 
-/* ----- Main content (left + right panels) ----- */
+/* mainContentStyles */
 .main-content-styles {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 30px auto;
-  max-width: 1100px;
-  width: 95%;
-  gap: 40px;
+    background-color: var(--color-mid-grey);
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* ----- Left Panel ----- */
+/* leftPanelStyles */
 .left-panel-styles {
-  flex: 1;
-  text-align: center;
+    /* Based on original width and min-width */
+    width: 45%; 
+    min-width: 300px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
+/* logoContainerStyles */
 .logo-container-styles {
-  display: inline-block;
-  border: 2px solid #000 !important; /* black border around logo */
-  border-radius: 12px;
-  padding: 5px;
-  margin-bottom: 20px;
+    background-color: grey;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 30%;
+    height: auto;
+    box-sizing: border-box;
+    border: 2px solid var(--color-logo-border);
 }
 
+/* logoImageStyles */
 .logo-image-styles {
-  max-width: 150px;
-  display: block;
-  margin: 0 auto;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-/* ----- Terms / Adverts box ----- */
+/* advertsBoxStyles */
 .adverts-box-styles {
-  background-color: #f6f3ea; /* cream color */
-  padding: 15px;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  color: #000;
-  border: 1px solid #ddd !important; /* light border */
-  text-align: center;
+    background-color: var(--color-light-grey);
+    color: var(--color-form-text);
+    padding: 20px;
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
 }
 
-/* ----- Right Panel ----- */
+/* rightPanelStyles */
 .right-panel-styles {
-  flex: 1;
-  background-color: #ffffff !important; /* white login box */
-  padding: 35px 45px;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    /* Based on original width and min-width */
+    width: 45%; 
+    min-width: 300px;
+    margin-left: 20px;
 }
 
-/* ----- Welcome Text Box ----- */
+/* welcomeBoxStyles */
 .welcome-box-styles {
-  background-color: #f6f3ea; /* cream background */
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  text-align: center;
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+    padding: 30px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
+/* welcomeTextStyles */
 .welcome-text-styles {
-  font-size: 1.5rem;
-  color: #000; /* black text */
-  margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
 }
 
-/* ----- Form ----- */
+/* formStyles */
 .form-styles {
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff !important
+    background-color: var(--color-white);
+    padding: 20px;
+    color: var(--color-form-text);
 }
 
+/* inputGroupStyles */
 .input-group-styles {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 18px;
-  background-color: #ffffff !important;
+    margin-bottom: 15px;
 }
 
+/* inputLabelStyles */
 .input-label-styles {
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
+    color: #000; /* Assuming black text for labels on white background */
 }
 
+/* inputFieldStyles */
 .input-field-styles {
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+    /* Width adjustment for padding as per original inline style */
+    width: calc(100% - 10px); 
+    padding: 8px 5px;
+    border: 1px solid var(--color-light-grey);
+    border-radius: 4px;
+    box-sizing: border-box; /* Necessary due to width: calc() */
 }
 
-.input-field-styles:focus {
-  border-color: #40e0d0; /* turquoise focus */
-  box-shadow: 0 0 6px rgba(64, 224, 208, 0.3);
-}
-
-/* ----- Buttons ----- */
+/* buttonRowStyles */
 .button-row-styles {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin-top: 15px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
 }
 
-.login-button-styles, .clear-button-styles {
-  padding: 16px 0;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 16px;
-  border: none;
-  width: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
+/* loginButtonStyles */
 .login-button-styles {
-  background-color: #40e0d0; /* turquoise */
-  color: #fff;
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.2s;
 }
 
 .login-button-styles:hover {
-  background-color: #4f0c61; /* purple hover */
-  transform: translateY(-1px);
+    background-color: #582a87;
 }
 
+/* clearButtonStyles */
 .clear-button-styles {
-  background-color: #40e0d0 !important; /* turquoise */
-  color: #fff; /* text white */
+    background-color: transparent;
+    color: var(--color-form-text);
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
 }
 
 .clear-button-styles:hover {
-  background-color: #4f0c61; /* purple hover */
+    color: #333;
 }
 
-/* ----- User Type Radio Buttons ----- */
-.user-type-selector {
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  color: #000 !important;
-}
-
-.user-type-label {
-  margin-right: 30px !important; /* more space between buttons */
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  color: #000 !important; /* black text */
-}
-
-/* Extra spacing for Lecture if needed */
-.lecture-label {
-  margin-left: 20px;
-}
-
-/* ----- Student-only Links ----- */
+/* linkStyles (container for text links) */
 .link-styles {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+    font-size: 12px;
+    color: var(--color-form-text);
+    text-decoration: none;
+    margin-left: auto; /* Pushes links to the far right */
+    text-align: right;
 }
 
-.forgot-link-styles, .signup-link-styles {
-  color: #40e0d0;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s;
+/* Link for "Sign Up" inside link-styles */
+.signup-link-styles {
+    color: var(--color-form-text);
+    text-decoration: underline;
 }
 
-.forgot-link-styles:hover, .signup-link-styles:hover {
-  color: #4f0c61; /* purple hover */
-  text-decoration: underline;
-}
-
-/* ----- Bottom link ----- */
+/* bottomLinkStyles */
 .bottom-link-styles {
-  display: block;
-  text-align: center;
-  margin: 20px 0;
-  color: #4f0c61;
-  text-decoration: none;
-  font-weight: 600;
+    background-color: var(--color-accent-purple);
+    color: var(--color-white);
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s;
 }
 
 .bottom-link-styles:hover {
-  color: #40e0d0;
-  text-decoration: underline;
+    background-color: #582a87;
 }
 
-/* ----- Responsive ----- */
-@media (max-width: 768px) {
-  .main-content-styles {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .right-panel-styles {
-    width: 90%;
-    padding: 25px;
-  }
+/* Media Query for Stacking on smaller screens */
+@media (max-width: 700px) {
+    .main-content-styles {
+        flex-direction: column;
+    }
+    
+    .left-panel-styles,
+    .right-panel-styles {
+        width: 100%;
+        min-width: unset;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .logo-container-styles {
+        width: 60px; /* Smaller logo on mobile */
+    }
+    
+    .button-row-styles {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .login-button-styles {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .link-styles {
+        margin-left: 0;
+        text-align: left;
+    }
 }
