@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./AddLecture.css";
+import { NavLink } from "react-router-dom";
 
-function AddLecture() {
+function AddLecture({ initialLecturers = [], onSubmit, onDelete }) {
+  const [lecturers, setLecturers] = useState(initialLecturers);
   const [formData, setFormData] = useState({
     lecturerNumber: "",
-    firstName: "",
-    lastName: "",
+    name: "",
     title: "",
-    password: "",
-    confirmPassword: "",
     email: "",
-    confirmEmail: ""
+    password: "",
   });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editId, setEditId] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,87 +20,195 @@ function AddLecture() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.lecturerNumber) return;
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return; 
-    }
-    if (formData.email !== formData.confirmEmail) {
-      alert("Emails do not match!");
-      return;
+    if (editId) {
+      // Update lecturer
+      const updatedLecturers = lecturers.map((lec) =>
+        lec.id === editId
+          ? {
+              ...lec,
+              ...formData,
+              password: formData.password ? formData.password : lec.password,
+            }
+          : lec
+      );
+      setLecturers(updatedLecturers);
+      if (onSubmit) onSubmit(updatedLecturers);
+      setEditId(null);
+    } else {
+      // Add new lecturer
+      const newLecturer = {
+        id: Date.now(),
+        ...formData,
+      };
+      const updatedLecturers = [...lecturers, newLecturer];
+      setLecturers(updatedLecturers);
+      if (onSubmit) onSubmit(updatedLecturers);
     }
 
-    console.log("Form Submitted:", formData);
+    setFormData({ lecturerNumber: "", name: "", title: "", email: "", password: "" });
   };
 
-  const handleClear = () => {
+  const handleRowClick = (lec) => {
     setFormData({
-      lecturerNumber: "",
-      firstName: "",
-      lastName: "",
-      title: "",
+      lecturerNumber: lec.lecturerNumber || lec.number || "",
+      name: lec.name || "",
+      title: lec.title || "",
+      email: lec.email || "",
       password: "",
-      confirmPassword: "",
-      email: "",
-      confirmEmail: ""
     });
+    setEditId(lec.id);
   };
 
-  const fields = [
-    { id: "lecturerNumber", label: "Lecturer Number:" },
-    { id: "firstName", label: "First Name:" },
-    { id: "lastName", label: "Last Name:" },
-    { id: "title", label: "Title:" },
-    { id: "password", label: "Password:", type: "password" },
-    { id: "confirmPassword", label: "Confirm Password:", type: "password" },
-    { id: "email", label: "Email:", type: "email" },
-    { id: "confirmEmail", label: "Confirm Email:", type: "email" }
-  ];
+  const handleCancelEdit = () => {
+    setFormData({ lecturerNumber: "", name: "", title: "", email: "", password: "" });
+    setEditId(null);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this lecturer?")) {
+      const updatedLecturers = lecturers.filter((lec) => lec.id !== id);
+      setLecturers(updatedLecturers);
+      if (onDelete) onDelete(id);
+      if (editId === id) handleCancelEdit();
+    }
+  };
+
+  const filteredLecturers = lecturers.filter(
+    (lec) =>
+      (lec.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lec.number || lec.lecturerNumber || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lec.email || "").toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="admin-page">
-      <div className="admin-sidebar">
-        <img src="/logo.png" alt="EDUGAUGE" />
-        <h2>EDUGAUGE</h2>
-        <p>System Enhancing LMS Readiness</p>
+    <div className="page-container">
 
-        <button>Overview</button>
-        <button>Digital Literacy Test</button>
-        <button>eFundi Readiness Test</button>
-        <button>Helpful Recourse</button>
-        <button>Grade Book</button>
-        <button>At-risk List</button>
-        <button>Stats</button>
-        <button>Add Lecturer</button>
-      </div>
+      {/* Sidebar */}
+     
 
-      <div className="admin-main">
-        <form onSubmit={handleSubmit} className="admin-card">
-          <h1>Lecturer</h1>
-
-{fields.map((field) => (
-  <div className="form-group" key={field.id}>
-    <label htmlFor={field.id}>{field.label}</label>
-    <input
-      id={field.id}
-      type={field.type || "text"}
-      name={field.id}
-      value={formData[field.id]}
-      onChange={handleChange}
-      required
-    />
-  </div>
-))}
-
-          <div className="actions">
-            <button type="submit">Sign up</button>
-            <button type="button" className="clear-btn" onClick={handleClear}>
-              Clear
-            </button>
+      <main className="main-content">
+        <header className="main-header">
+          <h1 className="header-title">{editId ? "Edit Lecturer" : "Add Lecturer"}</h1>
+          <div className="profile-section">
+            <span className="profile-icon">👤</span>
+            <span>Profile</span>
           </div>
-        </form>
-      </div>
+        </header>
+
+        <div className="content-body">
+          <div className="content-box">
+            <form className="admin-card" onSubmit={handleSubmit}>
+              <div className="form-fields">
+                <div className="form-group">
+                  <label htmlFor="lecturerNumber">Lecturer Number:</label>
+                  <input
+                    type="text"
+                    id="lecturerNumber"
+                    name="lecturerNumber"
+                    value={formData.lecturerNumber}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="name">Full Name:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="title">Title:</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password">
+                    {editId ? "New Password (leave blank to keep current)" : "Password:"}
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required={!editId}
+                  />
+                </div>
+              </div>
+
+              <div className="actions">
+                <button type="submit">{editId ? "Update" : "Add"}</button>
+                {editId && (
+                  <button type="button" className="cancel-btn" onClick={handleCancelEdit}>
+                    Cancel Edit
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
+
+          <div className="lecturer-list">
+            <h2>Existing Lecturers</h2>
+            <input
+              type="text"
+              placeholder="Search lecturers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-bar"
+            />
+            <ul>
+              {filteredLecturers.map((lec) => (
+                <li
+                  key={lec.id}
+                  className={`lecturer-item ${editId === lec.id ? "editing" : ""}`}
+                  onClick={() => handleRowClick(lec)}
+                >
+                  <span>
+                    {lec.title} {lec.name} ({lec.lecturerNumber || lec.number}) - {lec.email}
+                  </span>
+                  <button
+                    className="delete-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(lec.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </main>
     </div>
+    
   );
 }
 

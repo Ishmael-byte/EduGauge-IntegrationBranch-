@@ -4,8 +4,8 @@
   flex-direction: row;
   height: 100vh;
   font-family: Arial, sans-serif;
-  color: #e0e0e0;
-  background-color: #2c2c2c;
+  color: #000; /* Black text */
+  background-color: #f9f9f9; /* Light background */
   margin: 0;
 }
 
@@ -13,7 +13,7 @@
 .sidebar {
   flex-shrink: 0;
   width: 250px;
-  background-color: #202020;
+  background-color: #eaeaea; /* lighter sidebar */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
 
 .logo-text,
 .logo-subtext {
-  color: #fff;
+  color: #000; /* black text */
   margin: 5px 0;
 }
 
@@ -44,16 +44,18 @@
   display: block;
   padding: 15px 20px;
   margin-bottom: 5px;
-  background-color: #383838;
-  color: #fff;
+  background-color: #ddd;
+  color: #000; /* black text */
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  transition: background-color 0.2s;
 }
 
 .sidebar-nav li a:hover,
 .sidebar-nav li a.active {
-  background-color: #4a4a4a;
+  background-color: #40e0d0; /* turquoise highlight */
+  color: #fff;
 }
 
 /* === Main Content Styling === */
@@ -63,26 +65,33 @@
   flex-direction: column;
   padding: 20px;
   overflow-y: auto;
+  color: #000; /* black text */
 }
 
 .main-header {
   padding: 20px 30px;
-  background-color: #333;
+  background-color: #eee;
   border-radius: 8px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-title {
   font-size: 1.5rem;
   font-weight: bold;
+  color: #000;
 }
 
+/* Profile button */
 .profile-section {
   display: flex;
   align-items: center;
-  background-color: #555;
+  background-color: #ccc;
   padding: 5px 15px;
   border-radius: 20px;
+  color: #000;
 }
 
 .profile-icon {
@@ -90,53 +99,53 @@
   margin-right: 10px;
 }
 
+/* === Content Body === */
 .content-body {
   flex-grow: 1;
-  background-color: #383838;
+  background-color: #fff;
   border-radius: 8px;
   padding: 20px;
   text-align: left;
+  display: block;
   align-items: flex-start;
   display: block;
+  color: #000;
 }
 
 .content-box {
-  background-color: #2c2c2c;
+  background-color: #f3f3f3;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: left;
   display: flex;
-  flex-direction: column; /* stack all questions vertically */
+  flex-direction: column;
   gap: 20px;
+  color: #000;
 }
 
-/** === Section Titles === */
+/* === Section Titles === */
+.content-box h2,
+.content-box h3,
+.content-box p {
+  color: #000; /* black text */
+}
+
 .content-box h2 {
   font-size: 1.4rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 15px;
-  color: #ffffff;
-}
-
-.content-box h3,
-.content-box p,
-.content-box form {
-  text-align: left;
-  margin-left: 0;
 }
 
 .content-box h3 {
   font-size: 1.3rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
-  color: #f1f1f1;
 }
 
 .content-box p {
   margin-bottom: 12px;
   font-size: 1rem;
-  color: #cccccc;
 }
 
 /* === Question Styling === */
@@ -144,18 +153,18 @@
   display: block;
   width: 100%;
   padding-bottom: 15px;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid #ccc;
   text-align: left;
+  color: #000;
 }
 
 .question-box p {
   margin-bottom: 10px;
   font-size: 1rem;
   font-weight: 500;
-  color: #fff;
+  color: #000;
 }
 
-/* Force options to stack vertically */
 .question-box form {
   display: flex;
   flex-direction: column;
@@ -164,43 +173,46 @@
   padding: 0;
 }
 
-/* Style each option */
 .option-label {
   display: flex;
   align-items: center;
   font-size: 0.95rem;
-  color: #e0e0e0;
+  color: #000;
   cursor: pointer;
-  white-space: normal; /* allow wrapping */
+  white-space: normal;
 }
 
-.option-label input[type="radio"] {
+/* Radio / checkbox inputs with turquoise accent */
+.option-label input[type="radio"],
+.option-label input[type="checkbox"] {
   margin-right: 10px;
   flex: 0 0 auto;
+  accent-color: #40e0d0; /* Turquoise highlight */
   vertical-align: middle;
 }
 
 /* === Navigation Buttons === */
 .navigation-buttons {
   margin-top: 20px;
+   padding-bottom: 40px;
 }
 
 .navigation-buttons button {
-  background-color: #4a4a4a;
+  background-color: #40e0d0; /* turquoise buttons */
   color: #fff;
   border: none;
   padding: 10px 15px;
   margin-right: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
 }
 
 .navigation-buttons button:hover:not(:disabled) {
-  background-color: #5c5c5c;
+  background-color: #2bb9a8;
 }
 
 .navigation-buttons button:disabled {
-  background-color: #777;
+  background-color: #ccc;
   cursor: not-allowed;
 }

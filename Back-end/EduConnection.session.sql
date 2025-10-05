@@ -159,6 +159,7 @@ CREATE TABLE dbo.Grading (
     FOREIGN KEY (lecturer_id) REFERENCES Lecturer(lecturer_id),
     FOREIGN KEY (admin_id) REFERENCES Admin(admin_id)
 );
+SELECT * FROM Resource;
 
 
 UPDATE Lecturer

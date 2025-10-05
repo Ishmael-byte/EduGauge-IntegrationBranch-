@@ -1,146 +1,190 @@
+// src/pages/SignUpPage.jsx
 import React, { useState } from 'react';
-import './SignUpPage.css'; // Import the CSS file
+import './SignUpPage.css';
+import api from '../APIservices/api'; // Import API service
 
 const SignUpPage = () => {
-    const [studentNumber, setStudentNumber] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [confirmEmail, setConfirmEmail] = useState('');
-    const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [message, setMessage] = useState('');
 
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-        if (email !== confirmEmail) {
-            alert("Emails do not match!");
-            return;
-        }
-        if (!agreedToTerms) {
-            alert("Please agree to the Terms and Conditions!");
-            return;
-        }
-        console.log('Signing up with:', {
-            studentNumber,
-            username,
-            password,
-            email,
-            agreedToTerms,
-        });
-        // Add your sign-up logic here
-    };
+  const handleSignUp = async (e) => {
+    e.preventDefault();
 
-    const handleClear = () => {
-        setStudentNumber('');
-        setUsername('');
-        setPassword('');
-        setConfirmPassword('');
-        setEmail('');
-        setConfirmEmail('');
-        setAgreedToTerms(false);
-    };
+    // Validation
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match!");
+      return;
+    }
+    if (email !== confirmEmail) {
+      setMessage("Emails do not match!");
+      return;
+    }
+    if (!agreedToTerms) {
+      setMessage("Please agree to the Terms and Conditions!");
+      return;
+    }
+    if (!firstName || !lastName || !email || !password) {
+      setMessage("All fields are required!");
+      return;
+    }
 
-    return (
-        <div className="container-styles">
-            <h1 className="header-styles">Sign up</h1>
-            <div className="main-content-styles">
-                <div className="left-panel-styles">
-                    <div className="logo-container-styles">
-                        <img
-                            src="\Eduguage-logo.jpg"
-                            alt="EduGauge Logo"
-                            className="logo-image-styles"
-                        />
-                    </div>
-                    <div className="terms-box-styles">
-                        <div>Tearms and condittions</div>
-                        <div className="checkbox-container-styles">
-                            <input
-                                type="checkbox"
-                                id="agreeTerms"
-                                checked={agreedToTerms}
-                                onChange={(e) => setAgreedToTerms(e.target.checked)}
-                                className="checkbox-input"
-                            />
-                            <label htmlFor="agreeTerms">I have read the T&C</label>
-                        </div>
-                    </div>
-                </div>
-                <div className="right-panel-styles">
-                    <form className="form-styles" onSubmit={handleSignUp}>
-                        <div className="input-group-styles">
-                            <label htmlFor="studentNumber" className="input-label-styles">Student number:</label>
-                            <input
-                                id="studentNumber"
-                                type="text"
-                                value={studentNumber}
-                                onChange={(e) => setStudentNumber(e.target.value)}
-                                className="input-field-styles"
-                            />
-                        </div>
-                        <div className="input-group-styles">
-                            <label htmlFor="username" className="input-label-styles">Username :</label>
-                            <input
-                                id="username"
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                className="input-field-styles"
-                            />
-                        </div>
-                        <div className="input-group-styles">
-                            <label htmlFor="password" className="input-label-styles">Password :</label>
-                            <input
-                                id="password"
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="input-field-styles"
-                            />
-                        </div>
-                        <div className="input-group-styles">
-                            <label htmlFor="confirmPassword" className="input-label-styles">Confirm Password :</label>
-                            <input
-                                id="confirmPassword"
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="input-field-styles"
-                            />
-                        </div>
-                        <div className="input-group-styles">
-                            <label htmlFor="email" className="input-label-styles">Email :</label>
-                            <input
-                                id="email"
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="input-field-styles"
-                            />
-                        </div>
-                        <div className="input-group-styles">
-                            <label htmlFor="confirmEmail" className="input-label-styles">Confirm Email:</label>
-                            <input
-                                id="confirmEmail"
-                                type="email"
-                                value={confirmEmail}
-                                onChange={(e) => setConfirmEmail(e.target.value)}
-                                className="input-field-styles"
-                            />
-                        </div>
-                        <div className="button-row-styles">
-                            <button type="submit" className="sign-up-button-styles">Sign up</button>
-                            <button type="button" onClick={handleClear} className="clear-button-styles">clear</button>
-                        </div>
-                    </form>
-                </div>
+    try {
+      // Call your backend API
+      const response = await api.post('/register', {
+        Fname: firstName,
+        Lname: lastName,
+        email: email,
+        password: password
+      });
+
+      // Success! Show student number
+      setMessage(`Registration successful! Your student number is: ${response.data.student_number}`);
+
+      // Clear form
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setConfirmEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setAgreedToTerms(false);
+
+    } catch (error) {
+      console.error('Registration error:', error);
+      setMessage(error.response?.data?.error || 'Registration failed. Please try again.');
+    }
+  };
+
+  const handleClear = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setConfirmEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setAgreedToTerms(false);
+    setMessage('');
+  };
+
+  return (
+    <div className="container-styles">
+      <h1 className="header-styles">Sign up</h1>
+      <div className="main-content-styles">
+        <div className="left-panel-styles">
+          <div className="logo-container-styles">
+            <img
+              src="/Eduguage-logo.jpg"
+              alt="EduGauge Logo"
+              className="logo-image-styles"
+            />
+          </div>
+          <div className="terms-box-styles">
+            <div>Terms and conditions</div>
+            <div className="checkbox-container-styles">
+              <input
+                type="checkbox"
+                id="agreeTerms"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="checkbox-input"
+              />
+              <label htmlFor="agreeTerms">I have read the T&C</label>
             </div>
+          </div>
         </div>
-    );
+        <div className="right-panel-styles">
+          <form className="form-styles" onSubmit={handleSignUp}>
+            <div className="input-group-styles">
+              <label htmlFor="firstName" className="input-label-styles">First Name:</label>
+              <input
+                id="firstName"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="input-field-styles"
+                required
+              />
+            </div>
+            <div className="input-group-styles">
+              <label htmlFor="lastName" className="input-label-styles">Last Name:</label>
+              <input
+                id="lastName"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="input-field-styles"
+                required
+              />
+            </div>
+            <div className="input-group-styles">
+              <label htmlFor="email" className="input-label-styles">Email:</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-field-styles"
+                required
+              />
+            </div>
+            <div className="input-group-styles">
+              <label htmlFor="confirmEmail" className="input-label-styles">Confirm Email:</label>
+              <input
+                id="confirmEmail"
+                type="email"
+                value={confirmEmail}
+                onChange={(e) => setConfirmEmail(e.target.value)}
+                className="input-field-styles"
+                required
+              />
+            </div>
+            <div className="input-group-styles">
+              <label htmlFor="password" className="input-label-styles">Password:</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-field-styles"
+                required
+              />
+            </div>
+            <div className="input-group-styles">
+              <label htmlFor="confirmPassword" className="input-label-styles">Confirm Password:</label>
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="input-field-styles"
+                required
+              />
+            </div>
+            <div className="button-row-styles">
+              <button type="submit" className="sign-up-button-styles">Sign up</button>
+              <button type="button" onClick={handleClear} className="clear-button-styles">Clear</button>
+            </div>
+            {/* Show success/error messages */}
+            {message && (
+              <div className="message-styles" style={{ 
+                color: message.includes('successful') ? 'green' : 'red',
+                marginTop: '10px',
+                textAlign: 'center'
+              }}>
+                {message}
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SignUpPage;
