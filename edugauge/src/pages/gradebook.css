@@ -1,10 +1,11 @@
 /* page layout */
 .gb-page {
   display: flex;
-  min-height: 100vh;
-  background: #ffffff; /* white frame */
+  min-height: 90vh;
+   width: 60%;
+  background: #ffffff;
   box-sizing: border-box;
-  padding: 16px;
+  padding: 30px;
   gap: 18px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
@@ -13,58 +14,45 @@
 /* sidebar */
 .gb-sidebar {
   width: 260px;
-  background: #ffffff; /* white sidebar */
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  box-shadow: 0 0 0 1px #ddd inset; /* subtle border */
+  box-shadow: 0 0 0 1px #ddd inset;
   overflow: hidden;
 }
 
-/* logo */
-.gb-logo {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-}
-
 /* nav buttons */
-.gb-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
 .gb-nav-item {
   background: #f5f5f5;
   border: 0;
   border-top: 2px solid #ddd;
-  padding: 18px 16px;
+  padding: 14px 12px; /* smaller padding */
   text-align: left;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   outline: none;
-  color:#000;
-  border-radius: 10px;
+  color: #000;
+  border-radius: 8px;
   transition: background 0.2s, color 0.2s;
 }
 
 .gb-nav-item:hover,
 .gb-nav-item.active {
-  background: #40e0d0; /* turquoise highlight */
+  background: #40e0d0;
   color: #fff;
 }
 
 /* main area */
 .gb-main {
   flex: 1;
-  background: #ffffff; /* white main area */
-  padding: 26px;
+  background: #ffffff;
+  padding: 0%;
   color: #000;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* header */
@@ -76,7 +64,7 @@
 
 .gb-small-title {
   margin: 0;
-  color: #666; /* subtle grey */
+  color: #666;
   font-size: 18px;
 }
 
@@ -85,7 +73,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #40e0d0; /* turquoise accent */
+  color: #40e0d0;
   font-weight: 500;
   cursor: pointer;
 }
@@ -100,44 +88,43 @@
   flex: 1;
 }
 
-/* Test Results title box */
+/* title box */
 .gb-test-title {
-  width: 60%;
-  margin: 6px auto 28px;
-  background: #f5f5f5; /* light grey */
-  padding: 12px 18px;
+  width: 55%; /* slightly tighter */
+  margin: 6px auto 20px;
+  background: #f5f5f5;
+  padding: 10px 16px;
   text-align: center;
-  font-size: 24px;
-  border: 1px solid #ddd;
+  font-size: 22px;
+  border: 1px solid #000; /* black outline */
   border-radius: 10px;
 }
 
 /* table */
 .gb-table {
-  width: 65%;
+  width: 80%; /* smaller width */
+  min-height: 40vh;
   margin: 0 auto;
   border-collapse: collapse;
-  background: #ffffff; /* white table background */
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border: 2px solid #000; /* black outline */
+}
+
+.gb-table th,
+.gb-table td {
+  border: 1px solid #000; /* all black borders inside */
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  color: #000;
+  font-size: 16px;
 }
 
 .gb-table thead th {
-  border: 1px solid #ddd;
-  padding: 12px;
   background: #f5f5f5;
-  text-align: center;
   font-weight: 600;
-}
-
-.gb-table tbody td {
-  border: 1px solid #ddd;
-  padding: 14px;
-  text-align: center;
-  min-height: 32px;
-  vertical-align: middle;
-  color: #000;
 }
 
 .gb-table td.left {
@@ -147,9 +134,9 @@
 
 /* resource button */
 .gb-resource-btn {
-  background: #40e0d0; /* turquoise */
+  background: #40e0d0;
   color: #fff;
-  padding: 8px 20px;
+  padding: 8px 18px;
   border-radius: 20px;
   border: none;
   cursor: pointer;
@@ -158,12 +145,12 @@
 }
 
 .gb-resource-btn:hover {
-  background: #2bb3a8; /* darker turquoise */
+  background: #2bb3a8;
 }
 
-/* active link highlight */
+/* active link */
 .active-link {
-  color: #40e0d0;  /* turquoise highlight */
+  color: #40e0d0;
   font-weight: bold;
   border-left: 4px solid #40e0d0;
   padding-left: 8px;

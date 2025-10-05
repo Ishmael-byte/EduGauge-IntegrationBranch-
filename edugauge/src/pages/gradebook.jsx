@@ -1,14 +1,11 @@
 import React from "react";
 import "./gradebook.css";
-import '../APIservices/api'; //Fixed import path 
+import "../APIservices/api"; // Fixed import path
 import { NavLink } from "react-router-dom";
 
 const GradeBook = () => {
   return (
     <div className="gb-page">
-      {/* Sidebar */}
-      
-
       {/* Main Content */}
       <main className="gb-main">
         <header className="gb-header">
@@ -34,31 +31,14 @@ const GradeBook = () => {
             <tbody>
               <tr>
                 <td className="left">Digital Literacy Test</td>
-                <td></td>
-                <td>
-                  {/* Example button if needed */}
-                  {/* <button className="gb-resource-btn">Resources</button> */}
-                </td>
+                <td>—</td>
+                <td>—</td>
               </tr>
 
               <tr>
                 <td className="left">eFundi Readiness Test</td>
-                <td></td>
-                <td>
-                  {/* <button className="gb-resource-btn">Resources</button> */}
-                </td>
-              </tr>
-
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>—</td>
+                <td>—</td>
               </tr>
             </tbody>
           </table>
