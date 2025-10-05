@@ -1,0 +1,181 @@
+/* Layout */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: Roboto, Arial, sans-serif;
+  color: #E0E0E0;
+  background-color: #2c2c2c;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #202020;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-img {
+  max-width: 100px;
+  height: auto;
+}
+
+.logo-text {
+  color: #fff;
+  margin: 5px 0;
+  font-size: 1.2rem;
+}
+
+.logo-subtext {
+  color: #bbb;
+  font-size: 0.8rem;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-link {
+  display: block;
+  padding: 15px 20px;
+  margin-bottom: 5px;
+  background-color: #383838;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #505050;
+}
+
+/* Main content */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.main-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  background-color: #555;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  gap: 10px;
+}
+
+.profile-icon {
+  font-size: 1.5rem;
+}
+
+/* Content body */
+.content-body {
+  flex-grow: 1;
+  background-color: #383838;
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.content-box {
+  background-color: #333;
+  padding: 30px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-box h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+/* Chart styling */
+.content-box canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .content-box {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Resource form styling */
+.resource-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.resource-form input,
+.resource-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #444;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.resource-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.resource-form button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.resource-form button:hover {
+  background-color: #45a049;
+}

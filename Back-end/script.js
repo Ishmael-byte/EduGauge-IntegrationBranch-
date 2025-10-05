@@ -2,7 +2,11 @@ const express = require('express');  // Express framework for APIs
 const sql = require('mssql');       // Connecting to the SQL Server client
 const bcrypt = require('bcryptjs'); // For password hashing
 const jwt = require('jsonwebtoken'); // For JWT tokens
-require('dotenv').config();         // Hide our database credentials
+require('dotenv').config(); // Hide our database credentials
+const path = require('path'); // Resource kat  
+const fs = require('fs');   
+const multer = require('multer');//Resource 
+const crypto = require('crypto'); //  Resource
 
 const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
 ex.use(express.json()); // Allow express to read JSON data
@@ -10,10 +14,27 @@ ex.get('/hello', (req, res) => {
     res.send('Hello! Routes are working.');
 });
 
+<<<<<<< HEAD
+const ex = express(); // Initialize express application — Gents, we will be using "ex" to refer to express
+ex.use(express.json()); // Allow express to read JSON data
+
+<<<<<<< HEAD
+
+ex.get('/hello', (UserReq, DBresults) => {
+    DBresult.send('Hello! Routes are working.');
+});
+=======
+const path = require('path'); // Resource kat  
+const fs = require('fs');   
+const multer = require('multer');//Resource 
+const crypto = require('crypto'); //  Resource
+>>>>>>> e0c0dd0f63e05eb4683b1955fdffe89f132943e7
+=======
 const path = require('path'); // Resource kat  
 const fs = require('fs');   
 const multer = require('multer');//Resource 
 const crypto = require('crypto'); //Resource
+>>>>>>> 3f222adfc1f6ce2b9d051f965fbc5d0cdf118bf9
 
 
 const cors = require('cors');
@@ -59,15 +80,14 @@ function getDbRequest() {
 
 
 //Verify JWT Token (Jet Web Token)
-function authenticateToken(UserReq, DBresults, next) {
-    const authHeader = UserReq.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // "Bearer TOKEN"
-
-    if (!token) return DBresults.status(401).json({ error: 'Access token required' });
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.status(401).json({ error: 'Access token required' });
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return DBresults.status(403).json({ error: 'Invalid token' });
-        UserReq.user = user;
+        if (err) return res.status(403).json({ error: 'Invalid token' });
+        req.user = user; // ✅ Now available as req.user in ALL routes
         next();
     });
 }
@@ -436,8 +456,6 @@ ex.delete('/user/:id', authenticateToken, async (UserReq, DBresults) => {
     }
 });
 
-//================================================= End of Admin API=================================================//
-
 
 //================================================= Lecture API=================================================//
 
@@ -570,7 +588,6 @@ ex.delete('/resources/:id', authenticateToken, async (UserReq, DBresults) => {
     }
 });
 
-
 // Get grades for a lecturer's students (Overview)
 ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => {
     const lecturerId = UserReq.params.id;
@@ -599,65 +616,17 @@ ex.get('/lecturer/:id/grades', authenticateToken, async (UserReq, DBresults) => 
 });
 
 
-// Get at-risk students (average marks below 50)
-ex.get('/at-risk', authenticateToken, async (UserReq, DBresults) => {
-    try {
-        let result = await getDbRequest()
-            .query(`
-                SELECT s.stud_id, s.Fname, s.Lname, AVG(g.marks) AS avg_marks
-                FROM Student s
-                JOIN Grading g ON s.stud_id = g.stud_id
-                GROUP BY s.stud_id, s.Fname, s.Lname
-                HAVING AVG(g.marks) < 50
-            `);
-
-        DBresults.json({
-            message: 'At-risk students retrieved',
-            atRiskStudents: result.recordset
-        });
-
-    } catch (err) {
-        console.error(`Error fetching at-risk students:`, err);
-        DBresults.status(500).json({ error: 'Failed to retrieve at-risk data' });
-    }
-});
-
-
-// Get student risk profile (detailed)
-ex.get('/students/:id/risk-profile', authenticateToken, async (UserReq, DBresults) => {
-    const studentId = UserReq.params.id;
-
-    try {
-        let result = await getDbRequest()
-            .input('stud_id', sql.Int, studentId)
-            .query(`
-                SELECT s.stud_id, s.Fname, s.Lname, s.email,
-                       AVG(g.marks) AS avg_marks,
-                       COUNT(g.grade_id) AS total_assessments,
-                       MAX(g.feedback) AS latest_feedback
-                FROM Student s
-                LEFT JOIN Grading g ON s.stud_id = g.stud_id
-                WHERE s.stud_id = @stud_id
-                GROUP BY s.stud_id, s.Fname, s.Lname, s.email
-            `);
-
-        if (result.recordset.length === 0) {
-            return DBresults.status(404).json({ error: 'Student not found or no grading data' });
-        }
-
-        DBresults.json({
-            message: 'Risk profile retrieved',
-            profile: result.recordset[0]
-        });
-
-    } catch (err) {
-        console.error(`Error fetching risk profile:`, err);
-        DBresults.status(500).json({ error: 'Failed to retrieve risk profile' });
-    }
-});
-
-
 //================================================= END Lecture API=================================================//
+<<<<<<< HEAD
+
+
+
+//================================================= End of Admin API=================================================//
+
+
+
+=======
+>>>>>>> e0c0dd0f63e05eb4683b1955fdffe89f132943e7
 //================================================= ASSESSMENT API=================================================//
 
 // POST: Create assessment — Admins only
@@ -891,6 +860,229 @@ const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
+<<<<<<< HEAD
+=======
+
+// Multer storage config (uses 'req' internally — that's OK, Multer controls it)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname).toLowerCase();
+        const uniqueSuffix = Date.now() + '-' + crypto.randomBytes(8).toString('hex');
+        cb(null, `resource-${uniqueSuffix}${ext}`);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|pdf|doc|docx|txt|mp4|zip/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb(new Error('Only images, PDFs, docs, text, MP4, and ZIP files are allowed'));
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 50 * 1024 * 1024 }
+});
+
+// Public: Get all resources
+ex.get("/resources", async (UserReq, DBresults) => {
+    try {
+        const result = await getDbRequest().query('SELECT * FROM Resource');
+        DBresults.json(result.recordset);
+    } catch (err) {
+        console.error("Error fetching resources:", err);
+        DBresults.status(500).json({ error: 'Failed to fetch resources' });
+    }
+});
+
+// Public: Get resource by ID
+ex.get("/resources/:id", async (UserReq, DBresults) => {
+    const id = parseInt(UserReq.params.id);
+    if (isNaN(id)) return DBresults.status(400).json({ error: "Invalid ID" });
+
+    try {
+        const result = await getDbRequest()
+            .input('id', sql.Int, id)
+            .query('SELECT * FROM Resource WHERE resource_id = @id');
+        if (result.recordset.length === 0) {
+            return DBresults.status(404).json({ error: "Resource not found" });
+        }
+        DBresults.json(result.recordset[0]);
+    } catch (err) {
+        console.error("Error fetching resource:", err);
+        DBresults.status(500).json({ error: 'Failed to fetch resource' });
+    }
+});
+
+// Protected: Upload a file and create a resource (Admin or Lecturer)
+ex.post("/resources/upload", authenticateToken, upload.single('file'), async (UserReq, DBresults) => {
+    if (!UserReq.user.admin_id && !UserReq.user.lecturer_id) {
+        if (UserReq.file) fs.unlinkSync(UserReq.file.path);
+        return DBresults.status(403).json({ error: 'Only admins or lecturers can upload resources' });
+    }
+
+    const { resource_name, description } = UserReq.body;
+    if (!resource_name) {
+        if (UserReq.file) fs.unlinkSync(UserReq.file.path);
+        return DBresults.status(400).json({ error: 'resource_name is required' });
+    }
+
+    try {
+        const filename = UserReq.file?.filename;
+        const url = filename ? `/resources/file/${filename}` : null;
+
+        const result = await getDbRequest()
+            .input('name', sql.NVarChar, resource_name)
+            .input('desc', sql.NVarChar, description || null)
+            .input('url', sql.NVarChar, url)
+            .input('date', sql.DateTime, new Date())
+            .query(`
+                INSERT INTO Resource (resource_name, description, url, date)
+                OUTPUT INSERTED.*
+                VALUES (@name, @desc, @url, @date)
+            `);
+
+        DBresults.status(201).json({
+            ...result.recordset[0],
+            message: "Resource uploaded successfully"
+        });
+
+    } catch (err) {
+        if (UserReq.file) fs.unlinkSync(UserReq.file.path);
+        console.error("Upload error:", err);
+        DBresults.status(500).json({ error: 'Failed to save resource' });
+    }
+});
+
+// Protected: Create resource WITHOUT file
+ex.post("/resources", authenticateToken, async (UserReq, DBresults) => {
+    if (!UserReq.user.admin_id && !UserReq.user.lecturer_id) {
+        return DBresults.status(403).json({ error: 'Admin or lecturer access required' });
+    }
+
+    const { resource_name, description, url } = UserReq.body;
+    if (!resource_name) {
+        return DBresults.status(400).json({ error: 'resource_name is required' });
+    }
+
+    try {
+        const result = await getDbRequest()
+            .input('name', sql.NVarChar, resource_name)
+            .input('desc', sql.NVarChar, description || null)
+            .input('url', sql.NVarChar, url || null)
+            .input('date', sql.DateTime, new Date())
+            .query(`
+                INSERT INTO Resource (resource_name, description, url, date)
+                OUTPUT INSERTED.*
+                VALUES (@name, @desc, @url, @date)
+            `);
+        DBresults.status(201).json({ ...result.recordset[0], message: "Resource created successfully" });
+    } catch (err) {
+        console.error("Error creating resource:", err);
+        DBresults.status(500).json({ error: 'Failed to create resource' });
+    }
+});
+
+// Protected: Update resource
+ex.put("/resources/:id", authenticateToken, async (UserReq, DBresults) => {
+    if (!UserReq.user.admin_id && !UserReq.user.lecturer_id) {
+        return DBresults.status(403).json({ error: 'Admin or lecturer access required' });
+    }
+
+    const id = parseInt(UserReq.params.id);
+    if (isNaN(id)) return DBresults.status(400).json({ error: "Invalid ID" });
+
+    const { resource_name, description, url } = UserReq.body;
+    if (!resource_name) return DBresults.status(400).json({ error: 'resource_name is required' });
+
+    try {
+        const result = await getDbRequest()
+            .input('id', sql.Int, id)
+            .input('name', sql.NVarChar, resource_name)
+            .input('desc', sql.NVarChar, description || null)
+            .input('url', sql.NVarChar, url || null)
+            .query(`
+                UPDATE Resource
+                SET resource_name = @name,
+                    description = @desc,
+                    url = @url
+                WHERE resource_id = @id;
+
+                SELECT * FROM Resource WHERE resource_id = @id;
+            `);
+
+        if (result.recordset.length === 0) {
+            return DBresults.status(404).json({ error: "Resource not found" });
+        }
+        DBresults.json({ ...result.recordset[0], message: "Resource updated successfully" });
+    } catch (err) {
+        console.error("Error updating resource:", err);
+        DBresults.status(500).json({ error: 'Failed to update resource' });
+    }
+});
+
+// Protected: Delete resource (and file if exists)
+ex.delete("/resources/:id", authenticateToken, async (UserReq, DBresults) => {
+    if (!UserReq.user.admin_id && !UserReq.user.lecturer_id) {
+        return DBresults.status(403).json({ error: 'Admin or lecturer access required' });
+    }
+
+    const id = parseInt(UserReq.params.id);
+    if (isNaN(id)) return DBresults.status(400).json({ error: "Invalid ID" });
+
+    try {
+        const existing = await getDbRequest()
+            .input('id', sql.Int, id)
+            .query('SELECT url FROM Resource WHERE resource_id = @id');
+
+        if (existing.recordset.length === 0) {
+            return DBresults.status(404).json({ error: "Resource not found" });
+        }
+
+        const url = existing.recordset[0].url;
+        if (url && url.startsWith('/resources/file/')) {
+            const filename = path.basename(url);
+            const filePath = path.join(uploadDir, filename);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+        }
+
+        const result = await getDbRequest()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM Resource WHERE resource_id = @id');
+
+        DBresults.json({ message: "Resource deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting resource:", err);
+        DBresults.status(500).json({ error: 'Failed to delete resource' });
+    }
+});
+
+// Protected: Download file
+ex.get("/resources/file/:filename", authenticateToken, (UserReq, DBresults) => {
+    const filename = UserReq.params.filename;
+    if (filename.includes('..') || filename.includes('/')) {
+        return DBresults.status(400).json({ error: 'Invalid filename' });
+    }
+
+    const filePath = path.join(uploadDir, filename);
+    if (!fs.existsSync(filePath)) {
+        return DBresults.status(404).json({ error: "File not found" });
+    }
+    DBresults.download(filePath);
+});
+//===============end of resourceAPI====================================================
+
+>>>>>>> 3f222adfc1f6ce2b9d051f965fbc5d0cdf118bf9
 
 // Multer storage config (uses 'req' internally — that's OK, Multer controls it)
 const storage = multer.diskStorage({
@@ -1112,9 +1304,28 @@ ex.get("/resources/file/:filename", authenticateToken, (UserReq, DBresults) => {
 //===============end of resourceAPI====================================================
 
 
+
+
+
+ex.use((req, res) => {
+  console.log(`Unhandled route: ${req.method} ${req.url}`);
+  res.status(404).send('Big Error: Route not found');
+});
 // start server 
 const PORT = process.env.PORT || 5000;
-ex.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+testDbConnection()
+  .then(() => {
+    ex.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+
+      
+
+        
+
+    });
+  })
+  .catch(err => {
+    console.error("Server failed to start:", err.message);
+    process.exit(1);
+  });
 

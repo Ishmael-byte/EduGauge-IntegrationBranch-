@@ -162,5 +162,23 @@ CREATE TABLE dbo.Grading (
 SELECT * FROM Resource;
 
 
+UPDATE Lecturer
+SET password = '$2b$10$sdTyK9QOZTXfT5MJkiMXUOkE5gTOB3exXelNZywbLaWJdJMYneB72'
+WHERE email = 'lecturer1@edu';
+
+INSERT INTO Assessment (lecturer_id, description, created_date)
+VALUES (7, 'Digital Literacy Midterm', GETDATE());
+
+INSERT INTO grading (assessment_id, stud_id, lecturer_id, admin_id, marks, feedback)
+VALUES 
+  (1, '0120251002', 7, 2, 85.00, 'Excellent work'),
+  (1, '0120251003', 7, 2, 72.50, 'Good effort'),
+  (1, '0120250927', 7, 2, 64.00, 'Satisfactory'),
+  (1, '0520251002', 7, 2, 48.00, 'Needs improvement'),
+  (1, '0320251002', 7, 2, 91.00, 'Outstanding');
+
+
+
+
 
 
