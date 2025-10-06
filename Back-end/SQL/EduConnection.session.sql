@@ -117,6 +117,10 @@ DROP COLUMN admin_id;
 
 --------------------------------End of script-----------------------------------------------------------
 SELECT * FROM Student;
+SELECT* FROM Answer;
+SELECT * FROM Grading;
+SELECT * FROM Lecturer;
+SELECT * FROM Admin;
 
 -- 1. Drop Grading (references Student, Lecturer, Admin)
 DROP TABLE IF EXISTS dbo.Grading;
@@ -166,8 +170,8 @@ UPDATE Lecturer
 SET password = '$2b$10$sdTyK9QOZTXfT5MJkiMXUOkE5gTOB3exXelNZywbLaWJdJMYneB72'
 WHERE email = 'lecturer1@edu';
 
-INSERT INTO Assessment (lecturer_id, description, created_date)
-VALUES (7, 'Digital Literacy Midterm', GETDATE());
+/*INSERT INTO Assessment (lecturer_id, description, created_date)
+VALUES (7, 'Digital Literacy Midterm', GETDATE());*/
 
 INSERT INTO grading (assessment_id, stud_id, lecturer_id, admin_id, marks, feedback)
 VALUES 

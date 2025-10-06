@@ -9,8 +9,8 @@ const Login = () => {
   const [formData, setFormData] = useState({
     student_number: '', 
     password: '',
-    email: '',        //Added for admin login
-    userType: 'student' //Track if user is student or admin
+    email: '',        // Added for admin login
+    userType: 'student' // Track if user is student, admin, or lecture
   });
   
   const [message, setMessage] = useState('');
@@ -35,59 +35,74 @@ const Login = () => {
     setMessage('');
   };
 
-  //Handle login submission
+  // Handle login submission
   const handleSubmit = async (e) => { 
     e.preventDefault();
     
+    // Clear previous messages
+    setMessage('');
+
     try {
       if (formData.userType === 'student') {
-        //This is where the student login happens
         const response = await api.post('/login', {
           student_number: formData.student_number,
           password: formData.password
         });
         
-        // Save student data to localStorage
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('student', JSON.stringify(response.data.student));
         localStorage.setItem('userType', 'student'); 
         
         setMessage('Student login successful!');
-        navigate('/profile'); //Redirect to student profile
+        navigate('/profile');
         
-      } else if (formData.userType === 'admin'){
-        //This is where the admin login happens
+      } else if (formData.userType === 'admin') {
         const response = await api.post('/login/admin', {
           email: formData.email,
           password: formData.password
         });
         
-        // Save admin data to localStorage
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('admin', JSON.stringify(response.data.admin));
         localStorage.setItem('userType', 'admin');
         
         setMessage('Admin login successful!');
         navigate('/admin');
-      }
-      else if (formData.userType === 'lecture') {
-       //This is where the lecturer login happens
+        
+      } else if (formData.userType === 'lecture') {
         const response = await api.post('/login/lecture', {
           email: formData.email,
           password: formData.password
         });
 
-        // Save admin data to localStorage
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('lecture', JSON.stringify(response.data.lecture));
         localStorage.setItem('userType', 'lecture');
 
-        setMessage('Lecture login successful!');
+        setMessage('Lecturer login successful!');
         navigate('/AtRiskList');
-      }
+      }
       
     } catch (error) {
-      setMessage(error.response?.data?.error || 'Login failed');
+      const errorMsg = error.response?.data?.error || 'Login failed. Please check your credentials and try again.';
+      
+      let validationMessage = 'Login failed. Invalid credentials.';
+      
+      if (errorMsg.toLowerCase().includes('not found') || 
+          errorMsg.toLowerCase().includes('does not exist') || 
+          errorMsg.toLowerCase().includes('not registered')) {
+        if (formData.userType === 'student') {
+          validationMessage = 'Student number does not exist.';
+        } else {
+          validationMessage = 'Email not registered.';
+        }
+      } else if (errorMsg.toLowerCase().includes('password') || 
+                 errorMsg.toLowerCase().includes('incorrect') || 
+                 errorMsg.toLowerCase().includes('wrong')) {
+        validationMessage = 'Incorrect password.';
+      }
+
+      setMessage(validationMessage);
     }
   };
 
@@ -115,7 +130,7 @@ const Login = () => {
             <h2 className="welcome-text-styles">Welcome Text</h2>
           </div>
           
-          {/*Added user type selector */}
+          {/* User type selector */}
           <div className="user-type-selector" style={{ marginBottom: '15px' }}>
             <label style={{ marginRight: '10px' }}>
               <input
@@ -145,10 +160,9 @@ const Login = () => {
                 checked={formData.userType === 'lecture'}
                 onChange={(e) => setFormData({...formData, userType: e.target.value})}
               />
-              Lectur
+              Lecturer
             </label>
           </div>
-          
 
           <form className="form-styles" onSubmit={handleSubmit}>
             {formData.userType === 'student' ? (
@@ -166,7 +180,9 @@ const Login = () => {
               </div>
             ) : (
               <div className="input-group-styles">
-                <label htmlFor="email" className="input-label-styles">Admin Email:</label>
+                <label htmlFor="email" className="input-label-styles">
+                  {formData.userType === 'admin' ? 'Admin Email:' : 'Lecturer Email:'}
+                </label>
                 <input
                   id="email"
                   name="email"
@@ -197,22 +213,35 @@ const Login = () => {
               <button type="button" onClick={handleClear} className="clear-button-styles">Clear</button>
               <div className="link-styles">
                 {formData.userType === 'student' && (
-           <div className="link-styles">
-              <p>
-                <Link to="/forgotPassword" className="forgot-link-styles">
-                  Forgot Password?
-                </Link>
-              </p>
-              <p>
-                New to EduGauge:
-                <Link to="/SignUpPage" className="signup-link-styles">
-                  Sign Up
-                </Link>
-              </p>
-            </div>
-          )}
+                  <div className="link-styles">
+                    <p>
+                      <Link to="/forgotPassword" className="forgot-link-styles">
+                        Forgot Password?
+                      </Link>
+                    </p>
+                    <p>
+                      New to EduGauge:
+                      <Link to="/SignUpPage" className="signup-link-styles">
+                        Sign Up
+                      </Link>
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
+            
+            {/* Display message for all user types */}
+            {message && (
+              <p 
+                style={{ 
+                  color: message.includes('successful') ? 'green' : 'red',
+                  marginTop: '10px',
+                  textAlign: 'center'
+                }}
+              >
+                {message}
+              </p>
+            )}
           </form>
         </div>
       </div>
