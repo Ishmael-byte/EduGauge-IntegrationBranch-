@@ -15,9 +15,9 @@ export default function Dashboard() {
       <div className="dashboard-widgets">
         {/* Welcome Box */}
         <div className="dashboard-box">
-          <h2 className="box-heading">Welcome to Educate</h2>
+          <h2 className="box-heading">Welcome to Eduguage</h2>
           <p className="box-content">
-            This platform is here to help you get ready for university. Test your digital literacy—from creating files to navigating eFundi, our university’s platform—and see if you’re fully prepared to succeed. Educate will guide you, provide personalized resources, and help you strengthen the skills you need to start university with confidence.
+            This platform is here to help you get ready for university. Test your digital literacy from creating files to navigating eFundi, our university’s platform and see if you’re fully prepared to succeed. Edugauge  will guide you, provide personalized resources, and help you strengthen the skills you need to start university with confidence.
           </p>
         </div>
 
@@ -25,17 +25,17 @@ export default function Dashboard() {
         <div className="dashboard-box">
           <h2 className="box-heading">Your Task Messenger</h2>
           <p className="box-content">
-            Your first steps in Educate:
+            Your first steps in Eduguage:
           </p>
           <ul className="task-list">
-            <li>Navigate to your eFundi Readiness Test and the Digital Literacy Test.</li>
-            <li>Complete both tests.</li>
-            <li>Go to the Gradebook to view your results.</li>
-            <li>✅ If you pass: Well done! You’re ready for university.</li>
-            <li>❌ If you don’t pass: Educate will provide personalized resources to help you improve.</li>
-            <li>Retake the test after studying.</li>
-            <li>✅ If you pass the second time: Great job!</li>
-            <li>❌ If you still don’t pass: Your name will be shared with lecturers, who will contact you for a physical class to get you ready for university.</li>
+            <li><span>1️⃣</span> Navigate to your <strong>eFundi Readiness Test</strong> and <strong>Digital Literacy Test</strong>.</li>
+            <li><span>2️⃣</span> Complete both tests.</li>
+            <li><span>3️⃣</span> Go to the <strong>Gradebook</strong> to view your results.</li>
+            <li><span>✅</span> <strong>If you pass:</strong> Well done! You’re ready for university. 🎉</li>
+            <li><span>❌</span> <strong>If you don’t pass:</strong> Edugauge will provide personalized resources to help you improve.</li>
+            <li><span>🔁</span> Retake the test after studying.</li>
+            <li><span>🌟</span> <strong>If you pass the second time:</strong> Great job!</li>
+            <li><span>💡</span> <strong>If you still don’t pass:</strong> Your name will be shared with lecturers for a follow up physical support class.</li>
           </ul>
         </div>
       </div>
